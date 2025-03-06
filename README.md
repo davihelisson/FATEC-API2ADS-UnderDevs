@@ -1,6 +1,26 @@
 # FATEC-API2ADS-UnderDevs
 Repositório destinado ao Projeto de API do 2º Semestre de ADS (1ºsem/2025)
 
+## Objetivos do Projeto
+
+Desenvolver uma ambiente integrado de desenvolvimrnto (IDE) para auxiliar o desenvolvedor a otimizar tempo e custo de desenvolvimento.
+
+## MVP
+
+Sprint 1 - Editor de texto implementado em Java
+
+## Funcionalidade do Projeto
+
+Demonstração de funcionamento do produto.
+
+## Backlog do Produto
+
+## Técnologias Empregadas
+
+- Java
+<!-- - MySQL ?? -->
+- Ollama
+
 
 ## 👨‍💻 MEMBROS DA EQUIPE
 |      Nome      |    Função       |                            Github                             |                           Linkedin                           | Atribuição       |
