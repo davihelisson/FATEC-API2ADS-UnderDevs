@@ -1,25 +1,52 @@
 # FATEC-API2ADS-UnderDevs
 Repositório destinado ao Projeto de API do 2º Semestre de ADS (1ºsem/2025)
 
-## Objetivos do Projeto
+## 🎯 OBJETIVOS DO PROJETO
 
 Desenvolver uma ambiente integrado de desenvolvimrnto (IDE) para auxiliar o desenvolvedor a otimizar tempo e custo de desenvolvimento.
 
-## MVP
 
-Sprint 1 - Editor de texto implementado em Java
+## MVP
+Nossas metas de entregas para cada sprint:
+- [ ] Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para TESTE UNITÁRIO;
+- [ ] Sprint 2 - Gerar DOCUMENTAÇÃO DE CÓDIGO (Explicação do que o código faz);
+- [ ] Sprint 3 - Sugestão de MELHORIAS DE CÓDIGO
+
 
 ## Funcionalidade do Projeto
 
 Demonstração de funcionamento do produto.
 
+
+## 📖 TASKS E PLANEJAMENTO DE PROJETO
+<a href="https://fatecapi2.atlassian.net/jira/software/projects/AU/boards/3?atlOrigin=eyJpIjoiNmEzNGIyNTNiZjhmNGMyZGIzZGZmYzBhOWU3ZmI2MzAiLCJwIjoiaiJ9"><img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white"></a> <a href="https://well-tachometer-340.notion.site/API2-BACKLOG-1b579cdb9d89807b8761fa0c806532f0#1b579cdb9d898075b0b2db969609b469"><img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white"></a>
+
+
 ## Backlog do Produto
+### Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para TESTE UNITÁRIO  
+- [ ] Criação do Projeto principal em Java
+- [ ] Implementar funcionalidade de gerar testes
+- [ ] Implementar abertura de código fonte (ler o arquivo .py)
+- [ ] Criar prompts para refinar a saída do LLM
+
+### Sprint 2 - Gerar DOCUMENTAÇÃO DE CÓDIGO (Explicação do que o código faz);
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+
+### Sprint 3 - Sugestão de MELHORIAS DE CÓDIGO
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+
 
 ## Técnologias Empregadas
 
-- Java
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![Ollama](https://img.shields.io/badge/-Ollama-000000?style=flat&logo=ollama&logoColor=white)
 <!-- - MySQL ?? -->
-- Ollama
+
 
 
 ## 👨‍💻 MEMBROS DA EQUIPE
