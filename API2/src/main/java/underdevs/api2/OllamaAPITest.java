@@ -23,7 +23,7 @@ public class OllamaAPITest {
             // models.forEach(model -> System.out.println(model.getName()));
             OllamaResult result;
             ollamaAPI.setRequestTimeoutSeconds(120); // setando tempo de resposta
-            result = ollamaAPI.generate("qwen2.5-coder", "diga: olá", false, new OptionsBuilder().build());
+            result = ollamaAPI.generate("qwen2.5-coder", "diga: olá", false, new OptionsBuilder().build()); // envia uma pergunta simples
             System.out.println("Result: " + result.getResponse());
         }
         catch (Exception e){

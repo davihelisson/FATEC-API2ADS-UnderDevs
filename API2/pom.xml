@@ -10,8 +10,8 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>underdevs.api2.OllamaAPITest</exec.mainClass>
     </properties>
-        <dependencies>
-            <dependency>
+    <dependencies>
+        <dependency>
             <groupId>io.github.ollama4j</groupId>
             <artifactId>ollama4j</artifactId>
             <version>1.0.98</version>
