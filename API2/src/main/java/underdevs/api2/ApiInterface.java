@@ -14,6 +14,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+// Parte responsável pelo funcionamento do Ollama
+import io.github.ollama4j.OllamaAPI;
+// import io.github.ollama4j.models.response.Model;
+import io.github.ollama4j.models.response.OllamaResult;
+import io.github.ollama4j.utils.OptionsBuilder;
+
+// import java.util.List;
+
+// Parte responsável pela abertura de arquivos.
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+
 
 /**
  *
@@ -136,38 +150,38 @@ public class ApiInterface extends javax.swing.JFrame {
                     // Exibir o caminho do arquivo selecionado
                     JOptionPane.showMessageDialog(frame, "Foi selecionado o arquivo: " + file.getAbsolutePath());
                     
-            // Aqui você pode abrir e ler o arquivo, por exemplo:
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new FileReader(file));
-                String linha;
-                StringBuilder conteudo = new StringBuilder();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
-            }   
-            String linha;
-            StringBuilder conteudo = new StringBuilder();
-            try {
-                while ((linha = reader.readLine()) != null) {
-                    conteudo.append(linha).append("\n");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                reader.close();
-                TxtPrompt.setText(conteudo.toString());
-            } catch (IOException ex) {
-                Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            // Exibir o conteúdo do arquivo em um JTextArea
-            JTextArea textArea = new JTextArea(conteudo.toString());
-            textArea.setEditable(true);
-            JScrollPane scrollPane = new JScrollPane(textArea);
-            JFrame contentFrame = new JFrame("Conteúdo do Arquivo");
-            contentFrame.setSize(600, 400);
-            contentFrame.add(scrollPane);
-            contentFrame.setVisible(false);
+                    // Aqui você pode abrir e ler o arquivo, por exemplo:
+                    BufferedReader reader = null;
+                    try {
+                        reader = new BufferedReader(new FileReader(file));
+                        String linha;
+                        StringBuilder conteudo = new StringBuilder();
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }   
+                    String linha;
+                    StringBuilder conteudo = new StringBuilder();
+                    try {
+                        while ((linha = reader.readLine()) != null) {
+                            conteudo.append(linha).append("\n");
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        reader.close();
+                        TxtPrompt.setText(conteudo.toString());
+                    } catch (IOException ex) {
+                        Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    // Exibir o conteúdo do arquivo em um JTextArea
+                    JTextArea textArea = new JTextArea(conteudo.toString());
+                    textArea.setEditable(true);
+                    JScrollPane scrollPane = new JScrollPane(textArea);
+                    JFrame contentFrame = new JFrame("Conteúdo do Arquivo");
+                    contentFrame.setSize(600, 400);
+                    contentFrame.add(scrollPane);
+                    contentFrame.setVisible(false);
                 }
     }//GEN-LAST:event_btnAbrirActionPerformed
 
