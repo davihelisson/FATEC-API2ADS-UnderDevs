@@ -26,6 +26,9 @@ public class ApiInterface extends javax.swing.JFrame {
      */
     public ApiInterface() {
         initComponents();
+        setTitle("UnderDevs IDE");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/pacote/UnderDevsIDE_ICON1.png")));
+        
     }
 
     /**
@@ -54,21 +57,22 @@ public class ApiInterface extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         TxtPrompt.setBorder(null);
-        TxtPrompt.setCaretColor(new java.awt.Color(255, 255, 255));
+        TxtPrompt.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        TxtPrompt.setCaretColor(new java.awt.Color(102, 102, 102));
         TxtPrompt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(TxtPrompt);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 744;
-        gridBagConstraints.ipady = 424;
+        gridBagConstraints.ipady = 426;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 6);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         btnAbrir.setText("Abrir");
@@ -82,13 +86,14 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipady = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 0);
         getContentPane().add(btnAbrir, gridBagConstraints);
 
         btnSalvar2.setText("Run");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipady = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
@@ -96,15 +101,15 @@ public class ApiInterface extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("UNDERDEVS IDE");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("UNDERDEVS IDE                  ");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 30;
-        gridBagConstraints.ipady = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 348, 0, 0);
+        gridBagConstraints.ipadx = 292;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(13, 6, 0, 6);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         btnSalvar3.setText("Salvar");
@@ -113,7 +118,7 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipady = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(9, 8, 0, 0);
         getContentPane().add(btnSalvar3, gridBagConstraints);
 
         pack();
