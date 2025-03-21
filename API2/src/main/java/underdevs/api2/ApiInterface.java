@@ -13,19 +13,20 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-// Parte responsável pelo funcionamento do Ollama
+/*
+// CÓDIGO RESPONSÁVEL PELO FUNCIONAMENTO DO OLLAMA: PRECISA IMPLEMENTAR
 import io.github.ollama4j.OllamaAPI;
-// import io.github.ollama4j.models.response.Model;
 import io.github.ollama4j.models.response.OllamaResult;
 import io.github.ollama4j.utils.OptionsBuilder;
+*/
 
-// import java.util.List;
-
-// Parte responsável pela abertura de arquivos.
+/*
+// Parte responsável pela abertura de arquivos no modo terminal
+// Talvez isso não seja necessário
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+*/
 
 
 
@@ -148,7 +149,7 @@ public class ApiInterface extends javax.swing.JFrame {
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     // Exibir o caminho do arquivo selecionado
-                    JOptionPane.showMessageDialog(frame, "Foi selecionado o arquivo: " + file.getAbsolutePath());
+                    // JOptionPane.showMessageDialog(frame, "Foi selecionado o arquivo: " + file.getAbsolutePath());
                     
                     // Aqui você pode abrir e ler o arquivo, por exemplo:
                     BufferedReader reader = null;
