@@ -135,12 +135,12 @@ public class ApiInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-        // TODO add your handling code here:
+        // Ação de clicar no botão para abrir arquivos.
         JFileChooser fileChooser = new JFileChooser();
                 
                 // Definir o filtro para arquivos .py
                 fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Arquivos Python (*.py)", "py"));
-        Component frame = null;
+                Component frame = null;
                 
                 // Mostrar o diálogo de abertura de arquivo
                 int returnValue = fileChooser.showOpenDialog(frame);
