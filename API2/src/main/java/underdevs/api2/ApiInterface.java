@@ -12,6 +12,7 @@ import java.io.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.FileChooser;
 
 /*
 // CÓDIGO RESPONSÁVEL PELO FUNCIONAMENTO DO OLLAMA: PRECISA IMPLEMENTAR
@@ -123,6 +124,11 @@ public class ApiInterface extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         btnSalvar3.setText("Salvar");
+        btnSalvar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -185,6 +191,34 @@ public class ApiInterface extends javax.swing.JFrame {
                     contentFrame.setVisible(false);
                 }
     }//GEN-LAST:event_btnAbrirActionPerformed
+
+    private void btnSalvar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar3ActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Salvar Arquivo");
+                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Python Files", "py"));
+        Component frame = null;
+                
+                int userSelection = fileChooser.showSaveDialog(frame);
+                
+                // Verificar se o usuário clicou em "Salvar"
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    
+                    // Se o arquivo não tem a extensão .py, adicionar manualmente
+                    if (!fileToSave.getAbsolutePath().endsWith(".py")) {
+                        fileToSave = new File(fileToSave.getAbsolutePath() + ".py");
+                    }
+
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+                        // Escrever conteúdo no arquivo .py
+                        String content = TxtPrompt.getText();
+                        writer.write(content);
+                        JOptionPane.showMessageDialog(frame, "Arquivo salvo com sucesso!");
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(frame, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+    }//GEN-LAST:event_btnSalvar3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -16,5 +16,11 @@
             <artifactId>ollama4j</artifactId>
             <version>1.0.98</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>17</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>
