@@ -101,7 +101,7 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         getContentPane().add(btnAbrir, gridBagConstraints);
 
-        btnSalvar2.setText("Run");
+        btnSalvar2.setText("Execute Test");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
