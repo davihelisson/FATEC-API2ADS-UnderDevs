@@ -63,11 +63,14 @@ public class Prompts {
                         .addLine("        return 1")
                         .addLine("    else:")
                         .addLine("        return n * fat(n-1)")
-                        .add("How do I read a file in Go and print its contents to stdout?");
+                        .add("Generate Python code based on the text provided in the TextArea.");
 
         boolean raw = false;
         OllamaResult response = ollamaAPI.generate(model, promptBuilder.build(), raw, new OptionsBuilder().build());
         return response.getResponse();
     }
 }
-
+/*
+Faça a alteração do prompt para geração de testes unitários:
+https://chatgpt.com/share/67e2b1cc-e250-800a-8a2e-75dee02592e3
+*/
