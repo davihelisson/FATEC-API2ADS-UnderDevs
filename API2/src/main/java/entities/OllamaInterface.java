@@ -28,7 +28,7 @@ public class OllamaInterface {
             ollamaAPI.setRequestTimeoutSeconds(requestTimeOut);
             OllamaResult result = ollamaAPI.generate(
                 "qwen2.5-coder",
-                new StringBuilder(prompt).append(sourceCode).toString(),
+                new StringBuilder(prompt).append(" ").append(sourceCode).toString(),
                 false,
                 new OptionsBuilder().build()
             );
