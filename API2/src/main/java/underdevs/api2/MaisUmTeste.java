@@ -59,7 +59,7 @@ public class MaisUmTeste extends JFrame {
             String host = "http://localhost:11434/";
             OllamaAPI ollamaAPI = new OllamaAPI(host);
             ollamaAPI.setRequestTimeoutSeconds(120);
-            String model = OllamaModelType.PHI3;
+            String model = "qwen2.5-coder";
 
             // Criando o Prompt
             PromptBuilder promptBuilder = new PromptBuilder()
