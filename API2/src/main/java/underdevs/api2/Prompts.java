@@ -6,7 +6,7 @@ package underdevs.api2;
 
 import io.github.ollama4j.OllamaAPI;
 import io.github.ollama4j.models.response.OllamaResult;
-import io.github.ollama4j.types.OllamaModelType;
+// import io.github.ollama4j.types.OllamaModelType;
 import io.github.ollama4j.utils.OptionsBuilder;
 import io.github.ollama4j.utils.PromptBuilder;
 /**
@@ -14,12 +14,13 @@ import io.github.ollama4j.utils.PromptBuilder;
  * @author Fatec
  */
 public class Prompts {
-    private String host;
+    // private String host;
     private OllamaAPI ollamaAPI;
     
     public Prompts(String host) {
-        this.host = host;
-        this.ollamaAPI = new OllamaAPI(host);
+        // this.host = host;
+        // this.ollamaAPI = new OllamaAPI(host);
+        this.ollamaAPI = new OllamaAPI();
         this.ollamaAPI.setRequestTimeoutSeconds(120);
     }
     
