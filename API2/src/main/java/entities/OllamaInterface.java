@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class OllamaInterface {
     private String host = "http://localhost:11434/";
+    private int requestTimeOut = 240;
     OllamaAPI ollamaAPI = new OllamaAPI(host);
     
     public OllamaInterface(){
@@ -16,13 +17,18 @@ public class OllamaInterface {
     public OllamaInterface(String host){
         this.host = host;
     }
+    
+    public OllamaInterface(String host, int requestTimeOut){
+        this.host = host;
+        this.requestTimeOut = requestTimeOut;
+    }
 
     public String GenerateTest(String prompt, String sourceCode) throws Exception {
         try {
-            ollamaAPI.setRequestTimeoutSeconds(120);
+            ollamaAPI.setRequestTimeoutSeconds(requestTimeOut);
             OllamaResult result = ollamaAPI.generate(
                 "qwen2.5-coder",
-                new StringBuilder(prompt).append(sourceCode).toString(), // Usando StringBuilder
+                new StringBuilder(prompt).append(sourceCode).toString(),
                 false,
                 new OptionsBuilder().build()
             );
