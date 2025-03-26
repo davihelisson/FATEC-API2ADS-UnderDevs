@@ -24,27 +24,26 @@ Demonstração de funcionamento do produto.
 
 ## Backlog do Produto
 ### Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para TESTE UNITÁRIO  
-- [ ] Criação do Projeto principal em Java
+- [x] Criação do Projeto principal em Java
 - [ ] Implementar funcionalidade de gerar testes
-- [ ] Implementar abertura de código fonte (ler o arquivo .py)
+- [x] Implementar abertura de código fonte (ler o arquivo .py)
 - [ ] Criar prompts para refinar a saída do LLM
 
 ### Sprint 2 - Gerar DOCUMENTAÇÃO DE CÓDIGO (Explicação do que o código faz);
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ] Possibilidade de selectionar o código e solicitar documentação automática
+- [ ] Documentação parcial e/ou total do código sem alterar sua funcionalidade
+- [ ] Possobilidade de inserir a documentação no próprio código ou em arquivo separado
 
 ### Sprint 3 - Sugestão de MELHORIAS DE CÓDIGO
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ] Sugestão de melhorias para desempenho, legibilidade ou segurança
+- [ ] Explicações detalhadas das sugestões
+- [ ] Implementação de bando de dados relacional com exemplos
 
 
 ## Técnologias Empregadas
 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![Ollama](https://img.shields.io/badge/-Ollama-000000?style=flat&logo=ollama&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&color=black) ![Ollama](https://img.shields.io/badge/-Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white)  ![Static Badge](https://img.shields.io/badge/GIT-white?style=for-the-badge&logo=git&color=black)
+
 <!-- - MySQL ?? -->
 
 
