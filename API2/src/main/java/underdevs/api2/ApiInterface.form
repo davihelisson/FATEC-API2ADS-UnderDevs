@@ -80,7 +80,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSalvar2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Run"/>
+        <Property name="text" type="java.lang.String" value="Create Test"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
