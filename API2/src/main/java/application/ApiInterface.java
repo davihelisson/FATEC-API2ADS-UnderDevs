@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package underdevs.api2;
+package application;
 
 import javax.swing.JFrame;
 import javax.swing.*;
@@ -12,20 +12,22 @@ import java.io.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.FileChooser;
 
-
-// Parte responsável pelo funcionamento do Ollama
+/*
+// CÓDIGO RESPONSÁVEL PELO FUNCIONAMENTO DO OLLAMA: PRECISA IMPLEMENTAR
 import io.github.ollama4j.OllamaAPI;
-// import io.github.ollama4j.models.response.Model;
 import io.github.ollama4j.models.response.OllamaResult;
 import io.github.ollama4j.utils.OptionsBuilder;
+*/
 
-// import java.util.List;
-
-// Parte responsável pela abertura de arquivos.
+/*
+// Parte responsável pela abertura de arquivos no modo terminal
+// Talvez isso não seja necessário
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+*/
 
 
 
@@ -99,7 +101,7 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         getContentPane().add(btnAbrir, gridBagConstraints);
 
-        btnSalvar2.setText("Run");
+        btnSalvar2.setText("Create Test");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -122,6 +124,11 @@ public class ApiInterface extends javax.swing.JFrame {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         btnSalvar3.setText("Salvar");
+        btnSalvar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar3ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -134,12 +141,12 @@ public class ApiInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-        // TODO add your handling code here:
+        // Ação de clicar no botão para abrir arquivos.
         JFileChooser fileChooser = new JFileChooser();
                 
                 // Definir o filtro para arquivos .py
                 fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Arquivos Python (*.py)", "py"));
-        Component frame = null;
+                Component frame = null;
                 
                 // Mostrar o diálogo de abertura de arquivo
                 int returnValue = fileChooser.showOpenDialog(frame);
@@ -148,7 +155,7 @@ public class ApiInterface extends javax.swing.JFrame {
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     // Exibir o caminho do arquivo selecionado
-                    JOptionPane.showMessageDialog(frame, "Foi selecionado o arquivo: " + file.getAbsolutePath());
+                    // JOptionPane.showMessageDialog(frame, "Foi selecionado o arquivo: " + file.getAbsolutePath());
                     
                     // Aqui você pode abrir e ler o arquivo, por exemplo:
                     BufferedReader reader = null;
@@ -184,6 +191,34 @@ public class ApiInterface extends javax.swing.JFrame {
                     contentFrame.setVisible(false);
                 }
     }//GEN-LAST:event_btnAbrirActionPerformed
+
+    private void btnSalvar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar3ActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Salvar Arquivo");
+                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Python Files", "py"));
+        Component frame = null;
+                
+                int userSelection = fileChooser.showSaveDialog(frame);
+                
+                // Verificar se o usuário clicou em "Salvar"
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    
+                    // Se o arquivo não tem a extensão .py, adicionar manualmente
+                    if (!fileToSave.getAbsolutePath().endsWith(".py")) {
+                        fileToSave = new File(fileToSave.getAbsolutePath() + ".py");
+                    }
+
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+                        // Escrever conteúdo no arquivo .py
+                        String content = TxtPrompt.getText();
+                        writer.write(content);
+                        JOptionPane.showMessageDialog(frame, "Arquivo salvo com sucesso!");
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(frame, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+    }//GEN-LAST:event_btnSalvar3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,0 +1,81 @@
+# Partes Adicionais de Código para Aprendizado
+
+## Testes Unitários Avançados
+```python
+from unittest import TestCase
+from unittest.mock import patch
+
+def dividir(a, b):
+    return a / b
+
+class TestDivisao(TestCase):
+    def test_dividir_por_zero(self):
+        with self.assertRaises(ZeroDivisionError):
+            dividir(1, 0)
+
+    @patch('module_name.function_name')
+    def test_funcao_mock(self, funcao_mock):
+        funcao_mock.return_value = 'mocked!'
+        resultado = module_name.function_name()
+        self.assertEqual(resultado, 'mocked!')
+```
+
+## Decoradores
+```python
+def meu_decorador(func):
+    def wrapper():
+        print("Algo está acontecendo antes da função ser chamada.")
+        func()
+        print("Algo está acontecendo depois da função ser chamada.")
+    return wrapper
+
+@meu_decorador
+def dizer_ola():
+    print("Olá!")
+
+dizer_ola()
+```
+
+## Gerenciadores de Contexto
+```python
+class MeuContexto:
+    def __enter__(self):
+        print("Entrando no contexto")
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        print("Saindo do contexto")
+
+with MeuContexto() as contexto:
+    print("Dentro do contexto")
+```
+
+## Funções Lambda e Map/Filter
+```python
+numeros = [1, 2, 3, 4, 5]
+quadrados = list(map(lambda x: x**2, numeros))
+pares = list(filter(lambda x: x % 2 == 0, numeros))
+```
+
+## Compreensões de Lista com Condições
+```python
+numeros = range(10)
+quadrados_impares = [x**2 for x in numeros if x % 2 != 0]
+```
+
+## Expressões Regulares
+```python
+import re
+
+padrao = r'\d+'
+texto = "Há 12 maçãs e 24 laranjas."
+numeros = re.findall(padrao, texto)
+```
+
+## Usando Bibliotecas Externas
+```python
+import requests
+
+resposta = requests.get('https://api.example.com/data')
+dados = resposta.json()
+print(dados)
