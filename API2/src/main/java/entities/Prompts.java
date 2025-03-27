@@ -1,30 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package underdevs.api2;
+package entities;
 
-import io.github.ollama4j.OllamaAPI;
-import io.github.ollama4j.models.response.OllamaResult;
-// import io.github.ollama4j.types.OllamaModelType;
-import io.github.ollama4j.utils.OptionsBuilder;
 import io.github.ollama4j.utils.PromptBuilder;
-/**
- *
- * @author Fatec
- */
+
 public class Prompts {
-    // private String host;
-    private OllamaAPI ollamaAPI;
+    private final String userCode;
     
-    public Prompts(String host) {
-        // this.host = host;
-        // this.ollamaAPI = new OllamaAPI(host);
-        this.ollamaAPI = new OllamaAPI();
-        this.ollamaAPI.setRequestTimeoutSeconds(120);
+    public Prompts(String userCode){
+        this.userCode = userCode;
     }
     
     public String generateCode(String model) throws Exception {
+        
+        PromptBuilder promptBuilder = new PromptBuilder()
+            .addLine("You are an expert in unit test generation and software quality assurance.")
+            .addLine("Your task is to generate valid test values for a given Python function.")
+            .addLine("The function will be provided below, and you must analyze its parameters and return type.")
+            .addLine("Ensure that the test values match the expected input type of the function parameters.")
+            .addLine("For example:")
+            .addLine("- If the function expects integers, use only valid integers (no floats, strings, or special characters).")
+            .addLine("- If the function expects positive numbers, do not include negative values.")
+            .addLine("- If the function expects a list, ensure the test values are properly formatted as a list.")
+            .addLine("Make sure that the generated test values do not cause the function to fail.")
+            .addLine("Generate test cases that cover different valid scenarios while keeping them logically valid.")
+            .addLine("Format your response as follows:")
+            .addLine("\"\"\" Valores para teste: val1, val2; val3, val4; val5, val6 \"\"\"")
+            .addSeparator()
+            .addLine("Python function:")
+            .add(userCode);
+        
+        /*
+        // Lista de casos de prompt antigos
         PromptBuilder promptBuilder =
                 new PromptBuilder()
                         .addLine("You are an expert code generation assistant specializing in Python programming and also understand different programming languages.")
@@ -64,11 +69,8 @@ public class Prompts {
                         .addLine("        return 1")
                         .addLine("    else:")
                         .addLine("        return n * fat(n-1)")
-                        .add("Generate Python code based on the text provided in the TextArea.");
-
-        boolean raw = false;
-        OllamaResult response = ollamaAPI.generate(model, promptBuilder.build(), raw, new OptionsBuilder().build());
-        return response.getResponse();
+                        .add("Generate Python code based on the text provided in the TextArea."); */
+        return promptBuilder.build();
     }
 }
 /*

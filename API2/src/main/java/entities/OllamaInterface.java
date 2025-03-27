@@ -1,3 +1,11 @@
+/* UNDERDEVS ADS2 - PYTHONT IDE WITH JAVA AND OLLAMA.
+ - Entidade responsável pela conexão com OLLAMA 
+ - Essa classe é responsável por permitir a criação de um objetido OllamaInterface
+ - cujos único método é generateTest que recebe como parâmetro uma string contendo
+ - os prompts e o código definido pelo usuário e retorna o resultado produzido pelo
+ - LLM como uma string que deve ser capturada como saída para o Teste Unitário.
+ - by Wesley and Team.
+*/
 package entities;
 
 import io.github.ollama4j.OllamaAPI;
@@ -13,22 +21,22 @@ public class OllamaInterface {
     public OllamaInterface(){
         
     }
-    
+    // Construtor com host personalizado
     public OllamaInterface(String host){
         this.host = host;
     }
-    
+    // Construtor com hots e request time out personalizado.
     public OllamaInterface(String host, int requestTimeOut){
         this.host = host;
         this.requestTimeOut = requestTimeOut;
     }
 
-    public String GenerateTest(String prompt, String sourceCode) throws Exception {
+    public String GenerateTest(String promptWithCode) throws Exception {
         try {
             ollamaAPI.setRequestTimeoutSeconds(requestTimeOut);
             OllamaResult result = ollamaAPI.generate(
                 "qwen2.5-coder",
-                new StringBuilder(prompt).append(" ").append(sourceCode).toString(),
+                promptWithCode,
                 false,
                 new OptionsBuilder().build()
             );
@@ -36,7 +44,7 @@ public class OllamaInterface {
             if (result != null) {
                 return result.getResponse();
             } else {
-                return null; // ou lançar uma exceção personalizada
+                throw new Exception("Erro de comunicação: ");
             }
         } catch (IOException e) {
             throw new Exception("Erro de IO", e);
