@@ -1,0 +1,36 @@
+# Prompts para a Entidade Automatizada
+
+## Prompts de Testes Unitários
+1. Gere testes unitários para a seguinte função Python: [insira o código da função].
+2. Crie um caso de teste para os casos extremos desta função: [insira o código da função].
+3. Quais são as saídas esperadas para as seguintes entradas nesta função: [insira o código da função]?
+
+## Prompts de Documentação
+4. Escreva uma docstring para a seguinte função: [insira o código da função].
+5. Gere documentação para o módulo que inclui as seguintes funções: [insira os nomes das funções].
+6. Explique o propósito e o uso desta classe: [insira o código da classe].
+
+## Prompts de Melhoria de Código
+7. Sugira melhorias para o seguinte trecho de código: [insira o código].
+8. Identifique quaisquer bugs ou problemas potenciais neste código: [insira o código].
+9. Refatore esta função para melhorar a legibilidade e o desempenho: [insira o código da função].
+
+## Prompts de Aprendizado e Explicação
+10. Explique como este recurso do Python funciona: [insira o recurso ou conceito].
+11. Forneça exemplos de como usar esta biblioteca: [insira o nome da biblioteca].
+12. Quais são as melhores práticas para escrever código Python?
+
+## Prompts de Manipulação de Arquivos
+13. Mostre como ler de um arquivo e processar seu conteúdo em Python.
+14. Demonstre como escrever dados em um arquivo em Python.
+15. Explique como lidar com exceções ao trabalhar com operações de arquivo.
+
+## Prompts de Estruturas de Dados
+16. Forneça exemplos de como usar listas e dicionários em Python.
+17. Explique as diferenças entre tuplas e listas.
+18. Mostre como iterar sobre um conjunto em Python.
+
+## Prompts de Programação Orientada a Objetos
+19. Crie uma classe que represente um [insira o objeto] com métodos para [insira a funcionalidade].
+20. Explique o conceito de herança com um exemplo.
+21. Demonstre como usar encapsulamento em Python.

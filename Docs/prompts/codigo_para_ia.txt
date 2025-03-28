@@ -1,0 +1,69 @@
+# Código para Integração na Entidade Automatizada
+
+## Testes Unitários
+```python
+import unittest
+
+def adicionar(a, b):
+    """Adiciona dois números e retorna o resultado."""
+    return a + b
+
+class TestOperacoesMatematicas(unittest.TestCase):
+    def test_adicionar(self):
+        self.assertEqual(adicionar(1, 2), 3)
+```
+
+## Documentação
+```python
+def multiplicar(a, b):
+    """Multiplica dois números e retorna o resultado."""
+    return a * b
+```
+
+## Melhoria de Código
+```python
+# Código mal escrito
+def calc(x, y):
+    return x+y
+
+# Versão melhorada
+def calcular_soma(x, y):
+    """Calcula a soma de dois números."""
+    return x + y
+```
+
+## Aprendizado e Explicação
+```python
+# Exemplo de compreensão de lista
+def exemplo_compreensao_lista():
+    quadrados = [x**2 for x in range(10)]
+    return quadrados
+```
+
+## Manipulação de Arquivos
+```python
+def escrever_dados_em_arquivo(nome_arquivo, dados):
+    with open(nome_arquivo, 'w') as f:
+        f.write(dados)
+
+def ler_dados_de_arquivo(nome_arquivo):
+    with open(nome_arquivo, 'r') as f:
+        return f.read()
+```
+
+## Estruturas de Dados
+```python
+def exemplo_dicionario():
+    meu_dict = {'nome': 'Alice', 'idade': 25}
+    return meu_dict
+```
+
+## Programação Orientada a Objetos
+```python
+class Animal:
+    def __init__(self, nome):
+        self.nome = nome
+
+class Cachorro(Animal):
+    def latir(self):
+        return "Au Au!"
