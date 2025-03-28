@@ -4,6 +4,8 @@
  */
 package application;
 
+import entities.OllamaInterface;
+import entities.Prompts;
 import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.*;
@@ -226,8 +228,24 @@ public class ApiInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvar3ActionPerformed
 
     private void btnSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar2ActionPerformed
+            Prompts prompt = new Prompts(TxtPrompt.getText());
+            OllamaInterface ollamaInterface = new OllamaInterface();
+            String testOutput;
+
+            try {
+                // Enviando o prompt para o modelo
+                String promptWithCode = prompt.generateCode();
+                String response = ollamaInterface.GenerateTest(promptWithCode);
+
+                // Exibindo a resposta na área de saída
+                testOutput = response;
+
+            } catch (Exception ex) {
+                testOutput = "Error generating test cases: " + ex.getMessage();
+            }
         TelaSaidaTeste telaSaida = new TelaSaidaTeste();
         telaSaida.setVisible(true);
+        telaSaida.jTextPane1.setText(testOutput);
     }//GEN-LAST:event_btnSalvar2ActionPerformed
 
     /**

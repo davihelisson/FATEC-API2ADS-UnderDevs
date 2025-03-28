@@ -58,7 +58,7 @@ public class MaisUmTeste extends JFrame {
 
             try {
                 // Enviando o prompt para o modelo
-                String promptWithCode = prompt.generateCode(userCode);
+                String promptWithCode = prompt.generateCode();
                 String response = ollamaInterface.GenerateTest(promptWithCode);
 
                 // Exibindo a resposta na área de saída

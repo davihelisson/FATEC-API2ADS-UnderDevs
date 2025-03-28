@@ -56,6 +56,7 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(9, 136, 0, 0);
         getContentPane().add(btnSalvar, gridBagConstraints);
 
+        jTextPane1.setName(""); // NOI18N
         jScrollPane1.setViewportView(jTextPane1);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -116,6 +117,6 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    public javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }
