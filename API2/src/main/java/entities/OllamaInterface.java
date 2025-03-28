@@ -17,16 +17,18 @@ public class OllamaInterface {
     private String host = "http://localhost:11434/";
     private int requestTimeOut = 240;
     OllamaAPI ollamaAPI = new OllamaAPI(host);
-    
-    public OllamaInterface(){
-        
+
+    public OllamaInterface() {
+
     }
+
     // Construtor com host personalizado
-    public OllamaInterface(String host){
+    public OllamaInterface(String host) {
         this.host = host;
     }
+
     // Construtor com hots e request time out personalizado.
-    public OllamaInterface(String host, int requestTimeOut){
+    public OllamaInterface(String host, int requestTimeOut) {
         this.host = host;
         this.requestTimeOut = requestTimeOut;
     }
@@ -35,19 +37,33 @@ public class OllamaInterface {
         try {
             ollamaAPI.setRequestTimeoutSeconds(requestTimeOut);
             OllamaResult result = ollamaAPI.generate(
-                "qwen2.5-coder",
-                promptWithCode,
-                false,
-                new OptionsBuilder().build()
-            );
+                    "qwen2.5-coder",
+                    promptWithCode,
+                    false,
+                    new OptionsBuilder().build());
 
             if (result != null) {
-                return result.getResponse();
+                return removeMarkdown(result.getResponse());
             } else {
                 throw new Exception("Erro de comunicação: ");
             }
         } catch (IOException e) {
             throw new Exception("Erro de IO", e);
         }
+    }
+    
+    private String removeMarkdown (String output){
+        String[] lines = output.split("\n");
+        if (lines[0].trim().startsWith("`")){
+            lines = java.util.Arrays.copyOfRange(lines, 1, lines.length);
+        }
+        if (lines[lines.length - 1].trim().startsWith("`")){
+            lines = java.util.Arrays.copyOfRange(lines, 0, lines.length - 1);
+        }
+        StringBuilder result = new StringBuilder();
+        for (String line : lines){
+            result.append(line).append("\n");
+        }
+        return result.toString();
     }
 }
