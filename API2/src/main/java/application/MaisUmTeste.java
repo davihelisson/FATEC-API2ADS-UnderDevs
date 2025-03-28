@@ -52,7 +52,7 @@ public class MaisUmTeste extends JFrame {
                 JOptionPane.showMessageDialog(null, "Please enter a Python function!");
                 return;
             }
-            
+
             Prompts prompt = new Prompts(userCode);
             OllamaInterface ollamaInterface = new OllamaInterface();
 
@@ -74,6 +74,3 @@ public class MaisUmTeste extends JFrame {
         SwingUtilities.invokeLater(() -> new MaisUmTeste().setVisible(true));
     }
 }
-
-
-
