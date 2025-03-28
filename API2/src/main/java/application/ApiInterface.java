@@ -102,6 +102,11 @@ public class ApiInterface extends javax.swing.JFrame {
         getContentPane().add(btnAbrir, gridBagConstraints);
 
         btnSalvar2.setText("Create Test");
+        btnSalvar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -219,6 +224,11 @@ public class ApiInterface extends javax.swing.JFrame {
                     }
                 }
     }//GEN-LAST:event_btnSalvar3ActionPerformed
+
+    private void btnSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar2ActionPerformed
+        TelaSaidaTeste telaSaida = new TelaSaidaTeste();
+        telaSaida.setVisible(true);
+    }//GEN-LAST:event_btnSalvar2ActionPerformed
 
     /**
      * @param args the command line arguments
