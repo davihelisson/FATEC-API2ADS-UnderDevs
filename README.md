@@ -15,8 +15,13 @@ Nossas metas de entregas para cada sprint:
 
 ## Funcionalidade do Projeto
 
+<<<<<<< HEAD
 [![Vídeo de demonstração do funcionamento do projeto.](https://img.youtube.com/vi/eVcpcdifMBw/0.jpg)](https://www.youtube.com/watch?v=eVcpcdifMBw)  
 
+=======
+Demonstração de funcionamento do produto.
+[![Vídeo de demonstração do funcionamento do projeto.](https://img.youtube.com/vi/eVcpcdifMBw/0.jpg)](https://www.youtube.com/watch?v=eVcpcdifMBw)
+>>>>>>> b8596dd3e62c5d8924cbaae3d27641f770c3ade7
 
 ## 📖 TASKS E PLANEJAMENTO DE PROJETO
 <a href="https://fatecapi2.atlassian.net/jira/software/projects/AU/boards/3?atlOrigin=eyJpIjoiNmEzNGIyNTNiZjhmNGMyZGIzZGZmYzBhOWU3ZmI2MzAiLCJwIjoiaiJ9"><img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white"></a> <a href="https://well-tachometer-340.notion.site/API2-BACKLOG-1b579cdb9d89807b8761fa0c806532f0#1b579cdb9d898075b0b2db969609b469"><img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white"></a>
