@@ -36,7 +36,7 @@ Nossas metas de entregas para cada sprint:
 ### Sprint 3 - Sugestão de MELHORIAS DE CÓDIGO
 - [ ] Sugestão de melhorias para desempenho, legibilidade ou segurança
 - [ ] Explicações detalhadas das sugestões
-- [ ] Implementação de bando de dados relacional com exemplos
+- [ ] Implementação de banco de dados relacional com exemplos
 
 
 ## Tecnologias Empregadas
