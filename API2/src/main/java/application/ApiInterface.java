@@ -54,7 +54,7 @@ public class ApiInterface extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         TxtPrompt.setBorder(null);
-        TxtPrompt.setCaretColor(new java.awt.Color(255, 255, 255));
+        TxtPrompt.setCaretColor(new java.awt.Color(102, 102, 102));
         TxtPrompt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(TxtPrompt);
 
