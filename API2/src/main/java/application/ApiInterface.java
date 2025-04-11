@@ -41,9 +41,10 @@ public class ApiInterface extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtPrompt = new javax.swing.JTextPane();
         btnAbrir = new javax.swing.JButton();
-        btnSalvar2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnSalvar3 = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
+        btnRun = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -68,7 +69,7 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         btnAbrir.setText("Abrir");
@@ -85,31 +86,18 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         getContentPane().add(btnAbrir, gridBagConstraints);
 
-        btnSalvar2.setText("Create Test");
-        btnSalvar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvar2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
-        getContentPane().add(btnSalvar2, gridBagConstraints);
-
         jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
         jLabel1.setText("UNDERDEVS IDE");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 30;
         gridBagConstraints.ipady = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 348, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 261, 0, 3);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         btnSalvar3.setText("Salvar");
@@ -126,9 +114,37 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
         getContentPane().add(btnSalvar3, gridBagConstraints);
 
+        btnCreate.setText("Create Test");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
+        getContentPane().add(btnCreate, gridBagConstraints);
+
+        btnRun.setText("Run");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 3;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 12, 0, 0);
+        getContentPane().add(btnRun, gridBagConstraints);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAbrirActionPerformed
         // Ação de clicar no botão para abrir arquivos.
@@ -272,7 +288,8 @@ public class ApiInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane TxtPrompt;
     private javax.swing.JButton btnAbrir;
-    private javax.swing.JButton btnSalvar2;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnRun;
     private javax.swing.JButton btnSalvar3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
