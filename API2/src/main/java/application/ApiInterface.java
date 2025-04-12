@@ -144,11 +144,9 @@ public class ApiInterface extends javax.swing.JFrame {
         // Se o usuário selecionar um arquivo
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            // Exibir o caminho do arquivo selecionado
-            // JOptionPane.showMessageDialog(frame, "Foi selecionado o arquivo: " +
-            // file.getAbsolutePath());
-
-            // Aqui você pode abrir e ler o arquivo, por exemplo:
+            diretorioSelecionado = file.getParent();
+            
+            
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new FileReader(file));
@@ -180,9 +178,18 @@ public class ApiInterface extends javax.swing.JFrame {
             contentFrame.setVisible(false);
         }
     }// GEN-LAST:event_btnAbrirActionPerformed
+    
+    private String diretorioSelecionado;
+    
+    
 
     private void btnSalvar3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar3ActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        // Esse if é utilizado para detectar e preencher automaticamente onde irá seu arquivo ao clicar no botão salvar, usando o mesmo diretorio em que ele foi retirado;
+        if (diretorioSelecionado != null){
+            fileChooser.setCurrentDirectory(new File(diretorioSelecionado));
+        }
+        
         fileChooser.setDialogTitle("Salvar Arquivo");
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Python Files", "py"));
         Component frame = null;
@@ -225,11 +232,12 @@ public class ApiInterface extends javax.swing.JFrame {
         } catch (Exception ex) {
             testOutput = "Error generating test cases: " + ex.getMessage();
         }
-        TelaSaidaTeste telaSaida = new TelaSaidaTeste();
+        TelaSaidaTeste telaSaida = new TelaSaidaTeste(diretorioSelecionado);
         telaSaida.setVisible(true);
         telaSaida.jTextPane1.setText(testOutput);
     }// GEN-LAST:event_btnSalvar2ActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */

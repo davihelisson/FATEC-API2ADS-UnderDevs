@@ -85,8 +85,20 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private String diretorioRecebido;
+    
+    public TelaSaidaTeste(String diretorio){
+        initComponents();
+        this.diretorioRecebido = diretorio;
+    }
+    
+    
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvarActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        if (diretorioRecebido != null){
+             fileChooser.setCurrentDirectory(new File(diretorioRecebido));
+        }
         fileChooser.setDialogTitle("Salvar Teste");
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Python Files", "py"));
         Component frame = null;
