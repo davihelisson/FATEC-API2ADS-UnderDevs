@@ -86,10 +86,12 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private String diretorioRecebido;
+    private String nomeArquivoAberto;
     
-    public TelaSaidaTeste(String diretorio){
+    public TelaSaidaTeste(String diretorio, String nomeArquivoAberto){
         initComponents();
         this.diretorioRecebido = diretorio;
+        this.nomeArquivoAberto = nomeArquivoAberto;
     }
     
     
@@ -98,7 +100,12 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         if (diretorioRecebido != null){
              fileChooser.setCurrentDirectory(new File(diretorioRecebido));
-        }
+             
+             if(nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()){
+                 fileChooser.setSelectedFile(new File(diretorioRecebido, nomeArquivoAberto + ".py"));
+             }
+                 }
+             
         fileChooser.setDialogTitle("Salvar Teste");
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Python Files", "py"));
         Component frame = null;

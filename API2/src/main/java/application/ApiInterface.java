@@ -190,6 +190,10 @@ public class ApiInterface extends javax.swing.JFrame {
         if (diretorioSelecionado != null){
             fileChooser.setCurrentDirectory(new File(diretorioSelecionado));
         }
+        // Define o nome do arquivo com o nome do arquivo carregado 
+        if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()){
+            fileChooser.setSelectedFile(new File(diretorioSelecionado, nomeArquivoAberto + ".py"));
+        }
         
         fileChooser.setDialogTitle("Salvar Arquivo");
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Python Files", "py"));
@@ -240,7 +244,7 @@ public class ApiInterface extends javax.swing.JFrame {
         } catch (Exception ex) {
             testOutput = "Error generating test cases: " + ex.getMessage();
         }
-        TelaSaidaTeste telaSaida = new TelaSaidaTeste(diretorioSelecionado);
+        TelaSaidaTeste telaSaida = new TelaSaidaTeste(diretorioSelecionado, nomeArquivoAberto);
         telaSaida.setVisible(true);
         telaSaida.jTextPane1.setText(testOutput);
     }// GEN-LAST:event_btnSalvar2ActionPerformed
