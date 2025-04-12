@@ -19,6 +19,8 @@ import java.util.logging.Logger;
  * @author UnderDevs DevTeam
  */
 public class ApiInterface extends javax.swing.JFrame {
+    
+    private String nomeArquivoAberto;
 
     /**
      * Creates new form ApiInterface
@@ -131,20 +133,19 @@ public class ApiInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAbrirActionPerformed
-        // Ação de clicar no botão para abrir arquivos.
         JFileChooser fileChooser = new JFileChooser();
-
-        // Definir o filtro para arquivos .py
+        // Para abrir apenas arquivo de .py
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Arquivos Python (*.py)", "py"));
         Component frame = null;
 
         // Mostrar o diálogo de abertura de arquivo
         int returnValue = fileChooser.showOpenDialog(frame);
 
-        // Se o usuário selecionar um arquivo
+        //  Caso um arquivo seja selecionado : 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             diretorioSelecionado = file.getParent();
+            nomeArquivoAberto = file.getName().replace(".py", ""); //Salva o nome do arquivo sem a extensão do pythonm
             
             
             BufferedReader reader = null;
@@ -224,6 +225,13 @@ public class ApiInterface extends javax.swing.JFrame {
         try {
             // Enviando o prompt para o modelo
             String promptWithCode = prompt.generateCode();
+            
+            
+            // Troca o nome my.module
+            if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()){
+                promptWithCode = promptWithCode.replace("my_module", nomeArquivoAberto);
+            }
+            
             String response = ollamaInterface.GenerateTest(promptWithCode);
 
             // Exibindo a resposta na área de saída
