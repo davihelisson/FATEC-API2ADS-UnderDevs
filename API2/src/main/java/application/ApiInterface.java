@@ -6,11 +6,12 @@ package application;
 
 import entities.OllamaInterface;
 import entities.Prompts;
-import javax.swing.JFrame;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.*;
 import java.io.*;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,8 +20,9 @@ import java.util.logging.Logger;
  * @author UnderDevs DevTeam
  */
 public class ApiInterface extends javax.swing.JFrame {
-    
+
     private String nomeArquivoAberto;
+    private String diretorioSelecionado;
 
     /**
      * Creates new form ApiInterface
@@ -36,6 +38,8 @@ public class ApiInterface extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
 
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -43,9 +47,9 @@ public class ApiInterface extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtPrompt = new javax.swing.JTextPane();
         btnAbrir = new javax.swing.JButton();
-        btnSalvar2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btnCreateTest = new javax.swing.JButton();
         btnSalvar3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -87,10 +91,10 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
         getContentPane().add(btnAbrir, gridBagConstraints);
 
-        btnSalvar2.setText("Create Test");
-        btnSalvar2.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateTest.setText("Create Test");
+        btnCreateTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvar2ActionPerformed(evt);
+                btnCreateTestActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -99,20 +103,7 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.ipady = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
-        getContentPane().add(btnSalvar2, gridBagConstraints);
-
-        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("UNDERDEVS IDE");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 30;
-        gridBagConstraints.ipady = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 348, 0, 0);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(btnCreateTest, gridBagConstraints);
 
         btnSalvar3.setText("Salvar");
         btnSalvar3.addActionListener(new java.awt.event.ActionListener() {
@@ -128,100 +119,106 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
         getContentPane().add(btnSalvar3, gridBagConstraints);
 
+        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setText("UNDERDEVS IDE");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 30;
+        gridBagConstraints.ipady = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 348, 0, 0);
+        getContentPane().add(jLabel1, gridBagConstraints);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que realiza a abertura do arquivo python.
+     */
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAbrirActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         // Para abrir apenas arquivo de .py
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Arquivos Python (*.py)", "py"));
-        Component frame = null;
 
         // Mostrar o diálogo de abertura de arquivo
-        int returnValue = fileChooser.showOpenDialog(frame);
+        int returnValue = fileChooser.showOpenDialog(null);
 
-        //  Caso um arquivo seja selecionado : 
+        // Caso um arquivo seja selecionado :
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             diretorioSelecionado = file.getParent();
-            nomeArquivoAberto = file.getName().replace(".py", ""); //Salva o nome do arquivo sem a extensão do pythonm
-            
-            
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new FileReader(file));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            String linha;
-            StringBuilder conteudo = new StringBuilder();
-            try {
+            String completeFileName = file.getName();
+            nomeArquivoAberto = file.getName().replace(".py", ""); // Salva o nome do arquivo sem a extensão do python
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                StringBuilder conteudo = new StringBuilder();
+                String linha;
                 while ((linha = reader.readLine()) != null) {
-                    conteudo.append(linha).append("\n");
+                    conteudo.append(linha).append('\n');
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                reader.close();
                 TxtPrompt.setText(conteudo.toString());
+                JTextArea textArea = new JTextArea(conteudo.toString());
+                textArea.setEditable(true);
+                setTitle("Editor de Código - " + completeFileName);
             } catch (IOException ex) {
-                Logger.getLogger(ApiInterface.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro",
+                        JOptionPane.ERROR_MESSAGE);
             }
-            // Exibir o conteúdo do arquivo em um JTextArea
-            JTextArea textArea = new JTextArea(conteudo.toString());
-            textArea.setEditable(true);
-            JScrollPane scrollPane = new JScrollPane(textArea);
-            JFrame contentFrame = new JFrame("Conteúdo do Arquivo");
-            contentFrame.setSize(600, 400);
-            contentFrame.add(scrollPane);
-            contentFrame.setVisible(false);
         }
     }// GEN-LAST:event_btnAbrirActionPerformed
-    
-    private String diretorioSelecionado;
-    
-    
 
-    private void btnSalvar3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar3ActionPerformed
+    /**
+     * Método que salva o arquivo python aberto no editor.
+     */
+    private void btnSalvar3ActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fileChooser = new JFileChooser();
-        // Esse if é utilizado para detectar e preencher automaticamente onde irá seu arquivo ao clicar no botão salvar, usando o mesmo diretorio em que ele foi retirado;
-        if (diretorioSelecionado != null){
+
+        if (diretorioSelecionado != null) {
             fileChooser.setCurrentDirectory(new File(diretorioSelecionado));
         }
-        // Define o nome do arquivo com o nome do arquivo carregado 
-        if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()){
+
+        if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()) {
             fileChooser.setSelectedFile(new File(diretorioSelecionado, nomeArquivoAberto + ".py"));
         }
-        
+
         fileChooser.setDialogTitle("Salvar Arquivo");
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Python Files", "py"));
-        Component frame = null;
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Python Files", "py"));
 
-        int userSelection = fileChooser.showSaveDialog(frame);
+        int userSelection = fileChooser.showSaveDialog(null);
 
-        // Verificar se o usuário clicou em "Salvar"
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
 
-            // Se o arquivo não tem a extensão .py, adicionar manualmente
             if (!fileToSave.getAbsolutePath().endsWith(".py")) {
                 fileToSave = new File(fileToSave.getAbsolutePath() + ".py");
             }
 
+            if (fileToSave.exists()) {
+                int resposta = JOptionPane.showConfirmDialog(null, "O arquivo já existe. Deseja sobrescrever?",
+                        "Confirmação", JOptionPane.YES_NO_OPTION);
+                if (resposta != JOptionPane.YES_OPTION) {
+                    return;
+                }
+            }
+
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-                // Escrever conteúdo no arquivo .py
                 String content = TxtPrompt.getText();
                 writer.write(content);
-                JOptionPane.showMessageDialog(frame, "Arquivo salvo com sucesso!");
+                JOptionPane.showMessageDialog(null, "Arquivo salvo com sucesso!");
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(frame, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }// GEN-LAST:event_btnSalvar3ActionPerformed
 
-    private void btnSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar2ActionPerformed
+    /**
+     * Método que executa a funcionallidade de gerar testes unitários no arquivo Python.
+     */
+    private void btnCreateTestActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar2ActionPerformed
         Prompts prompt = new Prompts(TxtPrompt.getText());
         OllamaInterface ollamaInterface = new OllamaInterface();
         String testOutput;
@@ -229,13 +226,12 @@ public class ApiInterface extends javax.swing.JFrame {
         try {
             // Enviando o prompt para o modelo
             String promptWithCode = prompt.generateCode();
-            
-            
+
             // Troca o nome my.module
-            if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()){
+            if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()) {
                 promptWithCode = promptWithCode.replace("my_module", nomeArquivoAberto);
             }
-            
+
             String response = ollamaInterface.GenerateTest(promptWithCode);
 
             // Exibindo a resposta na área de saída
@@ -249,13 +245,11 @@ public class ApiInterface extends javax.swing.JFrame {
         telaSaida.jTextPane1.setText(testOutput);
     }// GEN-LAST:event_btnSalvar2ActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        JFrame frame = new JFrame("Abrir Arquivo");
         // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
         // (optional) ">
         /*
@@ -271,13 +265,14 @@ public class ApiInterface extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ApiInterface.class.getName()).log(java.util.logging.Level.SEVERE, null,
                     ex);
         }
         // </editor-fold>
         // </editor-fold>
-        
+
         // </editor-fold>
         // </editor-fold>
 
@@ -292,7 +287,7 @@ public class ApiInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane TxtPrompt;
     private javax.swing.JButton btnAbrir;
-    private javax.swing.JButton btnSalvar2;
+    private javax.swing.JButton btnCreateTest;
     private javax.swing.JButton btnSalvar3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
