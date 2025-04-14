@@ -15,6 +15,7 @@ public class ApiInterface extends javax.swing.JFrame {
 
     private String nomeArquivoAberto;
     private String diretorioSelecionado;
+    private CurrentFile currentFile = new CurrentFile(null, null);
 
     public ApiInterface() {
         initComponents();
@@ -184,9 +185,9 @@ public class ApiInterface extends javax.swing.JFrame {
 
     private void openFile() {
         try {
-            CurrentFile file = Util.openFile();
-            setTitle("Editor de Código - " + file.getFileName());
-            TxtPrompt.setText(file.content);
+            currentFile = Util.openFile();
+            setTitle("Editor de Código - " + currentFile.getFileName());
+            TxtPrompt.setText(currentFile.content);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro",
                     JOptionPane.ERROR_MESSAGE);
@@ -194,7 +195,7 @@ public class ApiInterface extends javax.swing.JFrame {
     }
 
     private void saveFile() {
-        Util.saveFile(diretorioSelecionado, nomeArquivoAberto, TxtPrompt.getText());
+        Util.saveFile(currentFile.getFilePath(), currentFile.getFileName(), TxtPrompt.getText());
     }
 
     private String runOllama() {
@@ -203,8 +204,8 @@ public class ApiInterface extends javax.swing.JFrame {
 
         try {
             String promptWithCode = prompt.generateCode();
-            if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()) {
-                promptWithCode = promptWithCode.replace("my_module", nomeArquivoAberto);
+            if (currentFile.getFileName() != null && !currentFile.getFileName().isEmpty()) {
+                promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName());
             }
             String response = ollamaInterface.GenerateTest(promptWithCode);
             return response;
@@ -230,9 +231,9 @@ public class ApiInterface extends javax.swing.JFrame {
         btnCreateTest.setEnabled(false);
         String testOutput = runOllama();
 
-        TelaSaidaTeste telaSaida = new TelaSaidaTeste(diretorioSelecionado, nomeArquivoAberto);
+        TelaSaidaTeste telaSaida = new TelaSaidaTeste(currentFile.getFilePath(), currentFile.getFileName());
         telaSaida.setContent(testOutput);
-        telaSaida.setTitle("Unit Test - " + nomeArquivoAberto);
+        telaSaida.setTitle("Unit Test - " + currentFile.getFileName());
         telaSaida.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent e) {
