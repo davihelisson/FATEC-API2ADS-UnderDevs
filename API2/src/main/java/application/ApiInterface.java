@@ -10,10 +10,8 @@ import entities.Prompts;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import java.awt.*;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -44,102 +42,107 @@ public class ApiInterface extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel1 = new javax.swing.JPanel();
+        btnOpen = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnRun = new javax.swing.JButton();
+        btnCreateTest = new javax.swing.JButton();
+        btnImprove = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtPrompt = new javax.swing.JTextPane();
-        btnAbrir = new javax.swing.JButton();
-        btnCreateTest = new javax.swing.JButton();
-        btnSalvar3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(153, 153, 153));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setFont(new java.awt.Font("Arial Narrow", 0, 10)); // NOI18N
-        setForeground(new java.awt.Color(102, 102, 102));
-        setIconImages(null);
+        setTitle("UnderDevs IDE");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        TxtPrompt.setBorder(null);
-        TxtPrompt.setCaretColor(new java.awt.Color(102, 102, 102));
-        TxtPrompt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane1.setViewportView(TxtPrompt);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 744;
-        gridBagConstraints.ipady = 424;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        getContentPane().add(jScrollPane1, gridBagConstraints);
-
-        btnAbrir.setText("Abrir");
-        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
+        btnOpen.setText("Abrir");
+        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOpen.setMinimumSize(new java.awt.Dimension(80, 23));
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirActionPerformed(evt);
+                btnOpenActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
-        getContentPane().add(btnAbrir, gridBagConstraints);
+        jPanel1.add(btnOpen);
 
-        btnCreateTest.setText("Create Test");
+        btnSave.setText("Salvar");
+        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSave.setMinimumSize(new java.awt.Dimension(80, 23));
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSave);
+
+        btnRun.setText("Executar");
+        btnRun.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRun.setMinimumSize(new java.awt.Dimension(80, 23));
+        btnRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRun);
+
+        btnCreateTest.setText("Criar Teste");
+        btnCreateTest.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCreateTest.setMinimumSize(new java.awt.Dimension(80, 23));
         btnCreateTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateTestActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
-        getContentPane().add(btnCreateTest, gridBagConstraints);
+        jPanel1.add(btnCreateTest);
 
-        btnSalvar3.setText("Salvar");
-        btnSalvar3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvar3ActionPerformed(evt);
-            }
-        });
+        btnImprove.setText("Melhorar");
+        btnImprove.setMinimumSize(new java.awt.Dimension(80, 23));
+        jPanel1.add(btnImprove);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 8, 0, 0);
-        getContentPane().add(btnSalvar3, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(jPanel1, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("UNDERDEVS IDE");
+        jLabel1.setToolTipText("");
+        jLabel1.setIconTextGap(1);
+        jLabel1.setName(""); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 30;
-        gridBagConstraints.ipady = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 348, 0, 0);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         getContentPane().add(jLabel1, gridBagConstraints);
+
+        TxtPrompt.setBorder(null);
+        TxtPrompt.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jScrollPane1.setViewportView(TxtPrompt);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 744;
+        gridBagConstraints.ipady = 424;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRunActionPerformed
+
     /**
      * Método que realiza a abertura do arquivo python.
      */
-    private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAbrirActionPerformed
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAbrirActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         // Para abrir apenas arquivo de .py
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Arquivos Python (*.py)", "py"));
@@ -174,7 +177,7 @@ public class ApiInterface extends javax.swing.JFrame {
     /**
      * Método que salva o arquivo python aberto no editor.
      */
-    private void btnSalvar3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fileChooser = new JFileChooser();
 
         if (diretorioSelecionado != null) {
@@ -277,19 +280,20 @@ public class ApiInterface extends javax.swing.JFrame {
         // </editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ApiInterface().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ApiInterface().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane TxtPrompt;
-    private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnCreateTest;
-    private javax.swing.JButton btnSalvar3;
+    private javax.swing.JButton btnImprove;
+    private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnRun;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
