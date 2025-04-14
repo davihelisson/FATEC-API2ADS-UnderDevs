@@ -2,6 +2,7 @@ package application;
 
 import entities.OllamaInterface;
 import entities.Prompts;
+import java.awt.event.WindowAdapter;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
@@ -181,6 +182,7 @@ public class ApiInterface extends javax.swing.JFrame {
      * Python.
      */
     private void btnCreateTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar2ActionPerformed
+        btnCreateTest.setEnabled(false);
         Prompts prompt = new Prompts(TxtPrompt.getText());
         OllamaInterface ollamaInterface = new OllamaInterface();
         String testOutput;
@@ -197,8 +199,21 @@ public class ApiInterface extends javax.swing.JFrame {
             testOutput = "Error generating test cases: " + ex.getMessage();
         }
         TelaSaidaTeste telaSaida = new TelaSaidaTeste(diretorioSelecionado, nomeArquivoAberto);
-        telaSaida.setVisible(true);
         telaSaida.setContent(testOutput);
+        telaSaida.addWindowListener(new WindowAdapter(){
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e){
+            btnCreateTest.setEnabled(true);
+        }
+        
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent e){
+            telaSaida.dispose();
+        }
+        
+        
+        });
+        telaSaida.setVisible(true);
     }//GEN-LAST:event_btnSalvar2ActionPerformed
 
     /**
