@@ -4,13 +4,7 @@
  */
 package application;
 
-import java.awt.Component;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import utilities.Util;
 
 /**
  *
@@ -24,15 +18,15 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     public TelaSaidaTeste() {
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
-        this.setTitle("Output" + diretorioRecebido + " - " + nomeArquivoAberto);
     }
 
-    public void setContent (String content){
+    public void setContent(String content) {
         this.jTextPane1.setText(content);
     }
 
     @SuppressWarnings("unchecked")
 
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -46,6 +40,7 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         jTextPane1 = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Teste");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -98,48 +93,16 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
 
     private String diretorioRecebido;
     private String nomeArquivoAberto;
-    
-    public TelaSaidaTeste(String diretorio, String nomeArquivoAberto){
+
+    public TelaSaidaTeste(String diretorio, String nomeArquivoAberto) {
         initComponents();
         this.diretorioRecebido = diretorio;
         this.nomeArquivoAberto = nomeArquivoAberto;
     }
-    
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvarActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        if (diretorioRecebido != null){
-             fileChooser.setCurrentDirectory(new File(diretorioRecebido));
-             
-             if(nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()){
-                 fileChooser.setSelectedFile(new File(diretorioRecebido, nomeArquivoAberto + ".py"));
-             }
-                 }
-             
-        fileChooser.setDialogTitle("Salvar Teste");
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Python Files", "py"));
-        Component frame = null;
-
-        int userSelection = fileChooser.showSaveDialog(frame);
-
-        // Verificar se o usuário clicou em "Salvar"
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-
-            // Se o arquivo não tem a extensão .py, adicionar manualmente
-            if (!fileToSave.getAbsolutePath().endsWith(".py")) {
-                fileToSave = new File(fileToSave.getAbsolutePath() + ".py");
-            }
-
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-                // Escrever conteúdo no arquivo .py
-                String content = jTextPane1.getText();
-                writer.write(content);
-                JOptionPane.showMessageDialog(frame, "Arquivo salvo com sucesso!");
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(frame, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
+        Util.saveFile(diretorioRecebido, nomeArquivoAberto, jTextPane1.getText());
+        this.setTitle(nomeArquivoAberto);
     }// GEN-LAST:event_btnSalvarActionPerformed
 
     public static void main(String args[]) {
@@ -166,7 +129,8 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ApiInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApiInterface.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         }
 
         /* Create and display the form */

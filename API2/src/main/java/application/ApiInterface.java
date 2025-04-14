@@ -1,11 +1,12 @@
 package application;
 
+import entities.CurrentFile;
 import entities.OllamaInterface;
 import entities.Prompts;
+import utilities.Util;
 import java.awt.event.WindowAdapter;
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.*;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  * @author UnderDevs DevTeam
@@ -160,28 +161,14 @@ public class ApiInterface extends javax.swing.JFrame {
      * Método que realiza a abertura do arquivo python.
      */
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos Python (*.py)", "py"));
-        int returnValue = fileChooser.showOpenDialog(null);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            diretorioSelecionado = file.getParent();
-            String completeFileName = file.getName();
-            nomeArquivoAberto = file.getName().replace(".py", "");
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                StringBuilder conteudo = new StringBuilder();
-                String linha;
-                while ((linha = reader.readLine()) != null) {
-                    conteudo.append(linha).append('\n');
-                }
-                TxtPrompt.setText(conteudo.toString());
-                setTitle("Editor de Código - " + completeFileName);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro",
+        try{
+            CurrentFile file = Util.openFile();
+            setTitle("Editor de Código - " + file.getFileName());
+            TxtPrompt.setText(file.content);
+        }
+        catch (IOException ex){
+            JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro",
                         JOptionPane.ERROR_MESSAGE);
-            }
         }
     }//GEN-LAST:event_btnAbrirActionPerformed
 
@@ -189,43 +176,7 @@ public class ApiInterface extends javax.swing.JFrame {
      * Método que salva o arquivo python aberto no editor.
      */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
-        JFileChooser fileChooser = new JFileChooser();
-
-        if (diretorioSelecionado != null) {
-            fileChooser.setCurrentDirectory(new File(diretorioSelecionado));
-        }
-
-        if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()) {
-            fileChooser.setSelectedFile(new File(diretorioSelecionado, nomeArquivoAberto + ".py"));
-        }
-
-        fileChooser.setDialogTitle("Salvar Arquivo");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Python Files", "py"));
-
-        int userSelection = fileChooser.showSaveDialog(null);
-
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-
-            if (!fileToSave.getAbsolutePath().endsWith(".py")) {
-                fileToSave = new File(fileToSave.getAbsolutePath() + ".py");
-            }
-
-            if (fileToSave.exists()) {
-                int resposta = JOptionPane.showConfirmDialog(null, "O arquivo já existe. Deseja sobrescrever?",
-                        "Confirmação", JOptionPane.YES_NO_OPTION);
-                if (resposta != JOptionPane.YES_OPTION) {
-                    return;
-                }
-            }
-
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-                writer.write(TxtPrompt.getText());
-                JOptionPane.showMessageDialog(null, "Arquivo salvo com sucesso!");
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        Util.saveFile(diretorioSelecionado, nomeArquivoAberto, TxtPrompt.getText());
     }                                          
 
     /**
