@@ -21,7 +21,9 @@ public class ApiInterface extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -36,10 +38,11 @@ public class ApiInterface extends javax.swing.JFrame {
         TxtPrompt = new javax.swing.JTextPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuOpen = new javax.swing.JMenuItem();
+        jMenuSave = new javax.swing.JMenuItem();
+        jMenuExit = new javax.swing.JMenuItem();
+        jMenuHelp = new javax.swing.JMenu();
+        jMenuAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UnderDevs IDE");
@@ -128,24 +131,50 @@ public class ApiInterface extends javax.swing.JFrame {
 
         jMenu1.setText("Arquivo");
 
-        jMenuItem1.setText("Abrir");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("Salvar");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Sair");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O,
+                java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuOpen.setText("Abrir");
+        jMenuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuOpenActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jMenuOpen);
+
+        jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S,
+                java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuSave.setText("Salvar");
+        jMenuSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSaveActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuSave);
+
+        jMenuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q,
+                java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuExit.setText("Sair");
+        jMenuExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuExit);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Editar");
-        jMenuBar1.add(jMenu2);
+        jMenuHelp.setText("Ajuda");
+
+        jMenuAbout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuAbout.setText("Sobre");
+        jMenuAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAboutActionPerformed(evt);
+            }
+        });
+        jMenuHelp.add(jMenuAbout);
+
+        jMenuBar1.add(jMenuHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -153,41 +182,24 @@ public class ApiInterface extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRunActionPerformed
-
-    /**
-     * Método que realiza a abertura do arquivo python.
-     */
-    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-        try{
+    private void openFile() {
+        try {
             CurrentFile file = Util.openFile();
             setTitle("Editor de Código - " + file.getFileName());
             TxtPrompt.setText(file.content);
-        }
-        catch (IOException ex){
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnAbrirActionPerformed
+    }
 
-    /**
-     * Método que salva o arquivo python aberto no editor.
-     */
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
+    private void saveFile() {
         Util.saveFile(diretorioSelecionado, nomeArquivoAberto, TxtPrompt.getText());
-    }                                          
+    }
 
-    /**
-     * Método que executa a funcionalidade de gerar testes unitários no arquivo
-     * Python.
-     */
-    private void btnCreateTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar2ActionPerformed
-        btnCreateTest.setEnabled(false);
+    private String runOllama() {
         Prompts prompt = new Prompts(TxtPrompt.getText());
         OllamaInterface ollamaInterface = new OllamaInterface();
-        String testOutput;
 
         try {
             String promptWithCode = prompt.generateCode();
@@ -195,37 +207,70 @@ public class ApiInterface extends javax.swing.JFrame {
                 promptWithCode = promptWithCode.replace("my_module", nomeArquivoAberto);
             }
             String response = ollamaInterface.GenerateTest(promptWithCode);
-            testOutput = response;
+            return response;
 
         } catch (Exception ex) {
-            testOutput = "Error generating test cases: " + ex.getMessage();
+            return "Error generating test cases: " + ex.getMessage();
         }
+    }
+
+    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_btnRunActionPerformed
+
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAbrirActionPerformed
+        openFile();
+    }// GEN-LAST:event_btnAbrirActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
+        saveFile();
+    }
+
+    private void btnCreateTestActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar2ActionPerformed
+        btnCreateTest.setEnabled(false);
+        String testOutput = runOllama();
+
         TelaSaidaTeste telaSaida = new TelaSaidaTeste(diretorioSelecionado, nomeArquivoAberto);
         telaSaida.setContent(testOutput);
-        telaSaida.addWindowListener(new WindowAdapter(){
-        @Override
-        public void windowClosed(java.awt.event.WindowEvent e){
-            btnCreateTest.setEnabled(true);
-        }
-        
-        @Override
-        public void windowClosing(java.awt.event.WindowEvent e){
-            telaSaida.dispose();
-        }
-        
-        
+        telaSaida.setTitle("Unit Test - " + nomeArquivoAberto);
+        telaSaida.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                btnCreateTest.setEnabled(true);
+            }
+
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                telaSaida.dispose();
+            }
+
         });
         telaSaida.setVisible(true);
-    }//GEN-LAST:event_btnSalvar2ActionPerformed
+    }// GEN-LAST:event_btnSalvar2ActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    // Main menu options
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel1MouseClicked
         About about = new About();
         about.setVisible(true);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }// GEN-LAST:event_jLabel1MouseClicked
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuOpenActionPerformed
+        openFile();
+    }// GEN-LAST:event_jMenuOpenActionPerformed
+
+    private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuSaveActionPerformed
+        saveFile();
+    }// GEN-LAST:event_jMenuSaveActionPerformed
+
+    private void jMenuExitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuExitActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }// GEN-LAST:event_jMenuExitActionPerformed
+
+    private void jMenuAboutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuAboutActionPerformed
+        About about = new About();
+        about.setVisible(true);
+    }// GEN-LAST:event_jMenuAboutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,7 +290,8 @@ public class ApiInterface extends javax.swing.JFrame {
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ApiInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApiInterface.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         }
 
         /* Create and display the form */
@@ -263,11 +309,12 @@ public class ApiInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuExit;
+    private javax.swing.JMenu jMenuHelp;
+    private javax.swing.JMenuItem jMenuOpen;
+    private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

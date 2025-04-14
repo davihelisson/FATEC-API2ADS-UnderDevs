@@ -20,6 +20,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author XvierDev
  */
 public class Util {
+    /**
+     * Esse método faz o salvamento do arquivo de texto no disco.
+     * @param diretorioSelecionado
+     * @param nomeArquivoAberto
+     * @param content 
+     */
     public static void saveFile (String diretorioSelecionado, String nomeArquivoAberto, String content){
         JFileChooser fileChooser = new JFileChooser();
 
@@ -59,7 +65,11 @@ public class Util {
             }
         }
     }
-    
+    /**
+     * Método que executa a abertura do arquivo de texto do disco.
+     * @return CurrentFile currentFile
+     * @throws IOException 
+     */
     public static CurrentFile openFile() throws IOException {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos Python (*.py)", "py"));
