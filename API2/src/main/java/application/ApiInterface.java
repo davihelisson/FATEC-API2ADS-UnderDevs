@@ -33,6 +33,12 @@ public class ApiInterface extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtPrompt = new javax.swing.JTextPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UnderDevs IDE");
@@ -118,6 +124,29 @@ public class ApiInterface extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        jMenu1.setText("Arquivo");
+
+        jMenuItem1.setText("Abrir");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Salvar");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Sair");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Editar");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
         setLocationRelativeTo(null);
@@ -243,6 +272,10 @@ public class ApiInterface extends javax.swing.JFrame {
         about.setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -278,6 +311,12 @@ public class ApiInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnRun;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
