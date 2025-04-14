@@ -24,6 +24,11 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     public TelaSaidaTeste() {
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        this.setTitle("Output" + diretorioRecebido + " - " + nomeArquivoAberto);
+    }
+
+    public void setContent (String content){
+        this.jTextPane1.setText(content);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,37 +38,43 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnRun = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Saída do Teste");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 15, 0, 0);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        jLabel1.setText("Teste Unitário");
+        jPanel1.add(jLabel1);
+
+        btnRun.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnRun.setText("Executar");
+        btnRun.setToolTipText("");
+        btnRun.setMargin(new java.awt.Insets(3, 14, 3, 14));
+        btnRun.setMaximumSize(new java.awt.Dimension(77, 32));
+        btnRun.setMinimumSize(new java.awt.Dimension(77, 32));
+        jPanel1.add(btnRun);
 
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.setMargin(new java.awt.Insets(3, 14, 3, 14));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnSalvar);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 136, 0, 0);
-        getContentPane().add(btnSalvar, gridBagConstraints);
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(jPanel1, gridBagConstraints);
 
         jTextPane1.setName(""); // NOI18N
         jScrollPane1.setViewportView(jTextPane1);
@@ -93,8 +104,6 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         this.diretorioRecebido = diretorio;
         this.nomeArquivoAberto = nomeArquivoAberto;
     }
-    
-    
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvarActionPerformed
         JFileChooser fileChooser = new JFileChooser();
@@ -144,15 +153,20 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
+            boolean windowsFound = false;
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    windowsFound = true;
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaSaidaTeste.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            if (!windowsFound) {
+                javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ApiInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         /* Create and display the form */
@@ -162,8 +176,10 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRun;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables

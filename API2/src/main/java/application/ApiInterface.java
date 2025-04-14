@@ -174,7 +174,7 @@ public class ApiInterface extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnSalvar3ActionPerformed
+    }                                          
 
     /**
      * Método que executa a funcionalidade de gerar testes unitários no arquivo
@@ -198,7 +198,7 @@ public class ApiInterface extends javax.swing.JFrame {
         }
         TelaSaidaTeste telaSaida = new TelaSaidaTeste(diretorioSelecionado, nomeArquivoAberto);
         telaSaida.setVisible(true);
-        telaSaida.jTextPane1.setText(testOutput);
+        telaSaida.setContent(testOutput);
     }//GEN-LAST:event_btnSalvar2ActionPerformed
 
     /**
