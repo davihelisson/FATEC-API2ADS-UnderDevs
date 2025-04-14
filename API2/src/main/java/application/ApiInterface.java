@@ -40,25 +40,41 @@ public class ApiInterface extends javax.swing.JFrame {
         btnOpen.setText("Abrir");
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnOpen.addActionListener(evt -> btnOpenActionPerformed(evt));
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnOpen);
 
         btnSave.setText("Salvar");
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnSave.addActionListener(evt -> btnSaveActionPerformed(evt));
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSave);
 
         btnRun.setText("Executar");
         btnRun.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRun.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnRun.addActionListener(evt -> btnRunActionPerformed(evt));
+        btnRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnRun);
 
         btnCreateTest.setText("Criar Teste");
         btnCreateTest.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCreateTest.setMinimumSize(new java.awt.Dimension(80, 23));
-        btnCreateTest.addActionListener(evt -> btnCreateTestActionPerformed(evt));
+        btnCreateTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateTestActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCreateTest);
 
         btnImprove.setText("Melhorar");
@@ -73,9 +89,15 @@ public class ApiInterface extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("UNDERDEVS IDE");
-        jLabel1.setToolTipText("");
+        jLabel1.setToolTipText("About UnderDevs IDE.");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.setIconTextGap(1);
         jLabel1.setName(""); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
@@ -200,6 +222,11 @@ public class ApiInterface extends javax.swing.JFrame {
         telaSaida.setVisible(true);
         telaSaida.setContent(testOutput);
     }//GEN-LAST:event_btnSalvar2ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        About about = new About();
+        about.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
