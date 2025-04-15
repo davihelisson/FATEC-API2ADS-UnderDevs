@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -22,11 +23,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Util {
     /**
      * Esse método faz o salvamento do arquivo de texto no disco.
+     * 
      * @param diretorioSelecionado
      * @param nomeArquivoAberto
-     * @param content 
+     * @param content
      */
-    public static void saveFile (String diretorioSelecionado, String nomeArquivoAberto, String content){
+    public static void saveFile(String diretorioSelecionado, String nomeArquivoAberto, String content) {
         JFileChooser fileChooser = new JFileChooser();
 
         if (diretorioSelecionado != null) {
@@ -65,10 +67,12 @@ public class Util {
             }
         }
     }
+
     /**
      * Método que executa a abertura do arquivo de texto do disco.
+     * 
      * @return CurrentFile currentFile
-     * @throws IOException 
+     * @throws IOException
      */
     public static CurrentFile openFile() throws IOException {
         JFileChooser fileChooser = new JFileChooser();
@@ -90,5 +94,25 @@ public class Util {
         }
         return null;
     }
-    
+
+    public static boolean isPythonInstalado() throws IOException {
+        Process processo = Runtime.getRuntime().exec("python --version");
+        BufferedReader leitor = new BufferedReader(new InputStreamReader(processo.getInputStream()));
+        String output = leitor.readLine();
+
+        // Se o output contiver "Python", está instalado
+        if (output != null && output.toLowerCase().contains("python")) {
+            return true;
+        } else {
+            // Às vezes, a versão vai para o stderr, então checamos lá também
+            BufferedReader erroLeitor = new BufferedReader(new InputStreamReader(processo.getErrorStream()));
+            String erro = erroLeitor.readLine();
+            if (erro != null && erro.toLowerCase().contains("python")) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

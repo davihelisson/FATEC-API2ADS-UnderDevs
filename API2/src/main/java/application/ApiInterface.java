@@ -217,6 +217,16 @@ public class ApiInterface extends javax.swing.JFrame {
 
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
         // TODO add your handling code here:
+        try {
+            boolean python = Util.isPythonInstalado();
+            if (python == true) {
+                JOptionPane.showInputDialog("Python esta instalado");
+            } else {
+                JOptionPane.showInputDialog("Python esta não esta instalado");
+            }
+        } catch (IOException ex) {
+            JOptionPane.showInputDialog(ex);
+        }
     }// GEN-LAST:event_btnRunActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAbrirActionPerformed
