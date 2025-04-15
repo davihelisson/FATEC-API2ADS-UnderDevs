@@ -1,6 +1,5 @@
-# Equipe *UnderDevs*
-## ```UnderDevs IDE for Python with AI```
-### UnderDevs Java IDE - FATEC - ADS 2° Semestre.
+# ```UnderDevs IDE in Java for Python with AI.```
+### Team UnderDevs   - FATEC - São José dos Campos - ADS 2° Semestre.
  _To infinity and beyond._ 🚀
 
 
