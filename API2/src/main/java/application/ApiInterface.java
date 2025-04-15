@@ -221,10 +221,13 @@ public class ApiInterface extends javax.swing.JFrame {
             boolean python = Util.isPythonInstalado();
             if (python == true) {
                 JOptionPane.showInputDialog("Python esta instalado");
+                TelaSaidaTeste tst = new TelaSaidaTeste();
+                tst.setVisible(true);
+                tst.jTextPane1.setText(Util.executarPythonDoEditor(TxtPrompt.getText()).toString());
             } else {
                 JOptionPane.showInputDialog("Python esta não esta instalado");
             }
-        } catch (IOException ex) {
+        } catch (IOException | InterruptedException ex) {
             JOptionPane.showInputDialog(ex);
         }
     }// GEN-LAST:event_btnRunActionPerformed

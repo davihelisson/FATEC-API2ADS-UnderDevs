@@ -115,4 +115,32 @@ public class Util {
         return false;
     }
 
+    public static StringBuilder executarPythonDoEditor(String codigoPython) throws IOException, InterruptedException {
+
+        // 1. Salvar o código Python num arquivo temporário
+        File arquivo = new File("codigo_temp.py");
+        try (FileWriter escritor = new FileWriter(arquivo)) {
+            escritor.write(codigoPython);
+        }
+
+        // 2. Executar o arquivo Python
+        // Obs: pode ser "python3" dependendo do sistema
+        ProcessBuilder pb = new ProcessBuilder("python", arquivo.getAbsolutePath());
+        pb.redirectErrorStream(true); // junta stdout e stderr
+        Process processo = pb.start();
+
+        // 3. Ler a saída do Python
+        BufferedReader leitor = new BufferedReader(new InputStreamReader(processo.getInputStream()));
+  StringBuilder sb=new StringBuilder();
+  String linha;
+        while ((linha = leitor.readLine()) != null) {  
+            sb.append(linha);
+        }
+
+        // 4. Esperar o processo terminar
+        processo.waitFor();
+        return sb;
+
+    }
+
 }
