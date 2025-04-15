@@ -1,5 +1,6 @@
-# UnderDevs
-### UnderDevs IDE - FATEC - ADS 2° Semestre.
+# Equipe *UnderDevs*
+## ```UnderDevs IDE for Python with AI```
+### UnderDevs Java IDE - FATEC - ADS 2° Semestre.
  _To infinity and beyond._ 🚀
 
 
