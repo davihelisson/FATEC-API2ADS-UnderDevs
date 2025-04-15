@@ -7,6 +7,7 @@
 * [Objetivo do Projeto](#objetivos-do-projeto)
 * [Demonstração do Projeto](#demonstração-do-projeto)
 * [Sprints](#metas)
+* [Cronograma](#cronograma)
 * [Backlog do Produto](#product-backlog)
 * [Tecnologias Utilizadas](#tecnologias-empregadas)
 * [Dependências](#dependências)
@@ -28,6 +29,16 @@ Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para 
 -   [x] Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para geração de Testes Unitários.
 -   [ ] Sprint 2 - Sugestão de melhorias do código (eficiência, segurança, legibilidade).
 -   [ ] Sprint 2 - Gerar documentação do código (docstrings, explicações do que o código faz).
+
+### Cronograma
+
+Sprint | Previsão | Status
+|---|---|---|
+| Kick Off | 24/02 - 28/02 | Concluído |
+| Sprint 1 | 10/03 - 30/03 | Concluído |
+| Sprint 2 | 07/04 - 27/04 | Em andamento |
+| Sprint 3 | 05/05 - 25/05 | Não iniciada |
+| Feira de Soluções | 29/05 | Não iniciada |
 
 ### Product Backlog
 #### IDE Java para Python com Assistência IA (Ollama/Qwen)
