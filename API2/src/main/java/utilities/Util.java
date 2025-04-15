@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -95,24 +96,29 @@ public class Util {
         return null;
     }
 
-    public static boolean isPythonInstalado() throws IOException {
-        Process processo = Runtime.getRuntime().exec("python --version");
-        BufferedReader leitor = new BufferedReader(new InputStreamReader(processo.getInputStream()));
-        String output = leitor.readLine();
+    public static boolean isPython3Installed() throws IOException, InterruptedException {
+        Process process = null;
 
-        // Se o output contiver "Python", está instalado
-        if (output != null && output.toLowerCase().contains("python")) {
-            return true;
-        } else {
-            // Às vezes, a versão vai para o stderr, então checamos lá também
-            BufferedReader erroLeitor = new BufferedReader(new InputStreamReader(processo.getErrorStream()));
-            String erro = erroLeitor.readLine();
-            if (erro != null && erro.toLowerCase().contains("python")) {
-                return true;
+        try {
+            // Tenta executar python3 --version
+            process = new ProcessBuilder("python3", "--version").start();
+
+            // Espera o processo terminar com timeout
+            boolean exited = process.waitFor(2, TimeUnit.SECONDS);
+            if (!exited) {
+                process.destroyForcibly();
+                return false;
+            }
+
+            // Retorna true apenas se o processo terminou com sucesso (exit code 0)
+            return process.exitValue() == 0;
+
+        } finally {
+            // Garante que o processo seja destruído
+            if (process != null && process.isAlive()) {
+                process.destroyForcibly();
             }
         }
-
-        return false;
     }
 
     public static StringBuilder executarPythonDoEditor(String codigoPython) throws IOException, InterruptedException {
@@ -131,9 +137,9 @@ public class Util {
 
         // 3. Ler a saída do Python
         BufferedReader leitor = new BufferedReader(new InputStreamReader(processo.getInputStream()));
-  StringBuilder sb=new StringBuilder();
-  String linha;
-        while ((linha = leitor.readLine()) != null) {  
+        StringBuilder sb = new StringBuilder();
+        String linha;
+        while ((linha = leitor.readLine()) != null) {
             sb.append(linha);
         }
 

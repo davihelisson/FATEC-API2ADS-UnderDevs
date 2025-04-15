@@ -3,10 +3,10 @@ package application;
 import entities.CurrentFile;
 import entities.OllamaInterface;
 import entities.Prompts;
-import utilities.Util;
 import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import utilities.Util;
 
 /**
  * @author UnderDevs DevTeam
@@ -215,21 +215,54 @@ public class ApiInterface extends javax.swing.JFrame {
         }
     }
 
-    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
-        // TODO add your handling code here:
+    private void runCode() {
         try {
-            boolean python = Util.isPythonInstalado();
-            if (python == true) {
-                JOptionPane.showInputDialog("Python esta instalado");
+            boolean isPythonInstalled = Util.isPython3Installed();
+
+            if (isPythonInstalled) {
+                // Executa o código Python e exibe na tela
+                String pythonOutput = Util.executarPythonDoEditor(TxtPrompt.getText()).toString();
+
                 TelaSaidaTeste tst = new TelaSaidaTeste();
                 tst.setVisible(true);
-                tst.jTextPane1.setText(Util.executarPythonDoEditor(TxtPrompt.getText()).toString());
+                tst.jTextPane1.setText(pythonOutput);
             } else {
-                JOptionPane.showInputDialog("Python esta não esta instalado");
+                JOptionPane.showMessageDialog(null,
+                        "Python não foi encontrado no sistema.\nPor favor, instale Python 3 e tente novamente.",
+                        "Python Não Instalado",
+                        JOptionPane.ERROR_MESSAGE);
             }
-        } catch (IOException | InterruptedException ex) {
-            JOptionPane.showInputDialog(ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao verificar o Python: " + ex.getMessage(),
+                    "Erro de I/O",
+                    JOptionPane.ERROR_MESSAGE);
+
+        } catch (InterruptedException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Operação interrompida ao verificar o Python",
+                    "Operação Interrompida",
+                    JOptionPane.WARNING_MESSAGE);
+            Thread.currentThread().interrupt(); // Restaura o flag de interrupção
         }
+    }
+
+    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
+        // TODO add your handling code here:
+//        try {
+//            boolean python = Util.isPython3Installed();
+//            if (python == true) {
+//                JOptionPane.showInputDialog("Python esta instalado");
+//                TelaSaidaTeste tst = new TelaSaidaTeste();
+//                tst.setVisible(true);
+//                tst.jTextPane1.setText(Util.executarPythonDoEditor(TxtPrompt.getText()).toString());
+//            } else {
+//                JOptionPane.showInputDialog("Python esta não esta instalado");
+//            }
+//        } catch (IOException | InterruptedException ex) {
+//            JOptionPane.showInputDialog(ex);
+//        }
+        runCode();
     }// GEN-LAST:event_btnRunActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAbrirActionPerformed
@@ -263,7 +296,6 @@ public class ApiInterface extends javax.swing.JFrame {
     }// GEN-LAST:event_btnSalvar2ActionPerformed
 
     // Main menu options
-
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel1MouseClicked
         About about = new About();
         about.setVisible(true);

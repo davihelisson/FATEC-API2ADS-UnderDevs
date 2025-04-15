@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>underdevs</groupId>
     <artifactId>API2</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <name>UnderDevs IDE</name>
+    <description>This Java-based IDE is designed to simplify the understanding of Python code. By integrating Ollama and a specific language model, it provides an immersive Python development experience aligned with programmer skills and project needs.</description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>application.ApiInterface</exec.mainClass> </properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <exec.mainClass>application.ApiInterface</exec.mainClass>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -17,12 +25,6 @@
             <artifactId>ollama4j</artifactId>
             <version>1.0.98</version>
         </dependency>
-        <!-- <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>17</version>
-            <type>jar</type>
-        </dependency> -->
     </dependencies>
 
     <build>
@@ -34,7 +36,8 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>application.ApiInterface</mainClass> </manifest>
+                            <mainClass>application.ApiInterface</mainClass>
+                        </manifest>
                     </archive>
                 </configuration>
             </plugin>
@@ -52,18 +55,31 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>application.ApiInterface</mainClass> </manifest>
+                                    <mainClass>application.ApiInterface</mainClass>
+                                </manifest>
                             </archive>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
-                            <finalName>${project.artifactId}-${project.version}-fat</finalName> <appendAssemblyId>false</appendAssemblyId> </configuration>
+                            <finalName>${project.artifactId}-${project.version}-fat</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <argLine>
+                        --enable-native-access=ALL-UNNAMED
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/sun.misc=ALL-UNNAMED
+                    </argLine>
+                </configuration>
+            </plugin>
         </plugins>
-    </build>
 
-    <name>UnderDevs IDE</name>
-    <description>his Java-based IDE is designed to simplify the understanding of Python code. By integrating Ollama and a specific language model, it provides an immersive Python development experience aligned with programmer skills and project needs.</description>
+    </build>
 </project>
