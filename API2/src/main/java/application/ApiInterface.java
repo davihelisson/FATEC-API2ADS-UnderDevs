@@ -13,8 +13,7 @@ import utilities.Util;
  */
 public class ApiInterface extends javax.swing.JFrame {
 
-    private String nomeArquivoAberto;
-    private String diretorioSelecionado;
+    private String pythonInstalled = null;
     private CurrentFile currentFile = new CurrentFile(null, null);
 
     public ApiInterface() {
@@ -217,11 +216,11 @@ public class ApiInterface extends javax.swing.JFrame {
 
     private void runCode() {
         try {
-            boolean isPythonInstalled = Util.isPython3Installed();
+            if (pythonInstalled == null) pythonInstalled = Util.isPython3Installed();
 
-            if (isPythonInstalled) {
+            if (pythonInstalled != null) {
                 // Executa o código Python e exibe na tela
-                String pythonOutput = Util.executarPythonDoEditor(TxtPrompt.getText()).toString();
+                String pythonOutput = Util.runPython(pythonInstalled, TxtPrompt.getText()).toString();
 
                 TelaSaidaTeste tst = new TelaSaidaTeste();
                 tst.setVisible(true);

@@ -96,32 +96,41 @@ public class Util {
         return null;
     }
 
-    public static boolean isPython3Installed() throws IOException, InterruptedException {
-        Process process = null;
-
+    public static String isPython3Installed() throws IOException, InterruptedException {
+        Process process1 = null;
+        Process process2 = null;
+        Process process3 = null;
         try {
             // Tenta executar python3 --version
-            process = new ProcessBuilder("python3", "--version").start();
+            process1 = new ProcessBuilder("python3", "--version").start();
+            process2 = new ProcessBuilder("py", "--version").start();
+            process3 = new ProcessBuilder("python", "--version").start();
+            
 
             // Espera o processo terminar com timeout
-            boolean exited = process.waitFor(2, TimeUnit.SECONDS);
-            if (!exited) {
-                process.destroyForcibly();
-                return false;
-            }
+            boolean test1 = process1.waitFor(2, TimeUnit.SECONDS);
+            if (!test1) process1.destroyForcibly();
+            boolean test2 = process2.waitFor(2, TimeUnit.SECONDS);
+            if (!test2) process2.destroyForcibly();
+            boolean test3 = process3.waitFor(2, TimeUnit.SECONDS);
+            if (!test3) process3.destroyForcibly();
 
             // Retorna true apenas se o processo terminou com sucesso (exit code 0)
-            return process.exitValue() == 0;
+            if(process1.exitValue() == 0) return "python3";
+            else if(process2.exitValue() == 0) return "py";
+            else if(process3.exitValue() == 0) return "python";
+            
+            else return null;
 
         } finally {
             // Garante que o processo seja destruído
-            if (process != null && process.isAlive()) {
-                process.destroyForcibly();
-            }
+            if (process1 != null && process1.isAlive()) process1.destroyForcibly();
+            if (process2 != null && process2.isAlive()) process2.destroyForcibly();
+            if (process3 != null && process3.isAlive()) process3.destroyForcibly();
         }
     }
 
-    public static StringBuilder executarPythonDoEditor(String codigoPython) throws IOException, InterruptedException {
+    public static StringBuilder runPython(String pythonName, String codigoPython) throws IOException, InterruptedException {
 
         // 1. Salvar o código Python num arquivo temporário
         File arquivo = new File("codigo_temp.py");
@@ -131,7 +140,7 @@ public class Util {
 
         // 2. Executar o arquivo Python
         // Obs: pode ser "python3" dependendo do sistema
-        ProcessBuilder pb = new ProcessBuilder("python", arquivo.getAbsolutePath());
+        ProcessBuilder pb = new ProcessBuilder(pythonName, arquivo.getAbsolutePath());
         pb.redirectErrorStream(true); // junta stdout e stderr
         Process processo = pb.start();
 
