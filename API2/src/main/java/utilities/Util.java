@@ -25,17 +25,18 @@ public class Util {
 
     /**
      * Encapsulamento do método writeFile que escreve o arquivo no disco.
+     *
      * @param newFileToSave
      * @param fileToSave
-     * @return 
+     * @return
      */
     private static boolean writeFile(File newFileToSave, CurrentFile fileToSave) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(newFileToSave))) {
-            writer.write(fileToSave.content);
             fileToSave.setFileName(newFileToSave.getName());
             fileToSave.setFilePath(newFileToSave.getParent());
             fileToSave.setSaved(true);
-            JOptionPane.showMessageDialog(null, "Arquivo salvo com sucesso!");
+            writer.write(fileToSave.content);
+            JOptionPane.showMessageDialog(null, "Arquivo " + fileToSave.getFileName() + " salvo com sucesso!");
             return true;
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -49,27 +50,31 @@ public class Util {
      * @param fileToSave
      * @return
      */
-    public static boolean saveFile(CurrentFile fileToSave) {
+    public static boolean saveFile(CurrentFile fileToSave, int type) {
         if (fileToSave.getFullPath() == null || fileToSave.getFileName() == null || !fileToSave.isSaved()) {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Salvar Arquivo");
-            fileChooser.setFileFilter(new FileNameExtensionFilter("Python Files", "py"));
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Text and Python Files", "txt", "py"));
 
             // Setar o diretório do arquivo atual no JFileChooser
             if (fileToSave.getFilePath() != null) {
                 fileChooser.setCurrentDirectory(new File(fileToSave.getFilePath()));
             }
 
-            // Setar o nome do arquivo no JFileChooser
-            if (fileToSave.getFileName() != null && !fileToSave.getFileName().isEmpty()) {
-                fileChooser.setSelectedFile(new File(fileToSave.getFilePath(), fileToSave.getFileName()));
-            }
-
             int userSelection = fileChooser.showSaveDialog(null);
-            
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                File newFileToSave = fileChooser.getSelectedFile();
 
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                if (type == 0) {
+                    if (!fileChooser.getSelectedFile().getName().endsWith(".py")) {
+                        fileChooser.setSelectedFile(new File(fileChooser.getSelectedFile().getAbsolutePath() + ".py"));
+                    }
+                }
+                else if(type == 1){
+                    if (!fileChooser.getSelectedFile().getName().endsWith(".txt")) {
+                        fileChooser.setSelectedFile(new File(fileChooser.getSelectedFile().getAbsolutePath() + ".txt"));
+                    }
+                }
+                File newFileToSave = fileChooser.getSelectedFile();
                 if (newFileToSave.exists()) {
                     int resposta = JOptionPane.showConfirmDialog(null, "O arquivo já existe. Deseja sobrescrever?",
                             "Confirmação", JOptionPane.YES_NO_OPTION);
@@ -79,9 +84,8 @@ public class Util {
                 }
                 // Encapsulamento do método writeFile()
                 return writeFile(newFileToSave, fileToSave);
-            }            
-        }
-        else{
+            }
+        } else {
             File oldFileToSave = new File(fileToSave.getFullPath());
             return writeFile(oldFileToSave, fileToSave);
         }
@@ -171,7 +175,7 @@ public class Util {
     public static StringBuilder runPython(String absolutePath) throws IOException, InterruptedException {
 
         String pythonName = isPythonInstalled();
-        
+
         if (pythonName != null) {
             File file = new File(absolutePath);
 

@@ -187,7 +187,7 @@ public class ApiInterface extends javax.swing.JFrame {
     private void openFile() {
         try {
             currentFile = Util.openFile();
-            setTitle("Editor de Código - " + currentFile.getFileName());
+            setTitle(currentFile.getFileName() == null ? currentFile.getFileName() : "Untitled.py");
             TxtPrompt.setText(currentFile.content);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro",
@@ -200,7 +200,7 @@ public class ApiInterface extends javax.swing.JFrame {
      */
     private void saveFile() {
         currentFile.content = TxtPrompt.getText();
-        Util.saveFile(currentFile);
+        Util.saveFile(currentFile, currentFile.getFileName().endsWith(".py") ? 0 : 1);
     }
 
     /**
@@ -232,7 +232,7 @@ public class ApiInterface extends javax.swing.JFrame {
         try {
             if (!currentFile.hasModifications(TxtPrompt.getText()) || currentFile.isSaved()) {
                 String pythonOutput = Util.runPython(currentFile.getFullPath()).toString();
-                TelaSaidaTeste tst = new TelaSaidaTeste(new CurrentFile(null, currentFile.getFilePath(), false));
+                TelaSaidaTeste tst = new TelaSaidaTeste(new CurrentFile(null, currentFile.getFilePath(), false), 1);
                 tst.setContent(pythonOutput);
             } else {
                 int aswer = JOptionPane.showConfirmDialog(
@@ -278,7 +278,7 @@ public class ApiInterface extends javax.swing.JFrame {
         btnCreateTest.setEnabled(false);
         String testOutput = runOllama();
 
-        TelaSaidaTeste telaSaida = new TelaSaidaTeste(new CurrentFile(null, null, false));
+        TelaSaidaTeste telaSaida = new TelaSaidaTeste(new CurrentFile(null, null, false), 0);
         telaSaida.setContent(testOutput);
         telaSaida.setTitle("Unit Test - " + currentFile.getFileName());
         telaSaida.addWindowListener(new WindowAdapter() {

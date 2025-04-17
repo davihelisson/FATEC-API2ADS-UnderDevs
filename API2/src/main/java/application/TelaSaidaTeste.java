@@ -15,16 +15,18 @@ import utilities.Util;
  */
 public class TelaSaidaTeste extends javax.swing.JFrame {
 
-    private CurrentFile currentFile;
+    private final CurrentFile currentFile;
+    private final int type;
 
     /**
      * Creates new form TelaSaidaTeste
      *
      * @param currentFile
      */
-    public TelaSaidaTeste(CurrentFile currentFile) {
+    public TelaSaidaTeste(CurrentFile currentFile, int type) {
         initComponents();
         this.currentFile = currentFile;
+        this.type = type;
         this.setVisible(true);
     }
 
@@ -117,11 +119,11 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
         try {
             if (currentFile.hasModifications(jTextPane1.getText()) || !currentFile.isSaved()) {
-                if (Util.saveFile(currentFile)) {
+                if (Util.saveFile(currentFile, type)) {
                     Util.runPython(currentFile.getFileName());
                 }
             } else {
-                Util.runPython(jTextPane1.getText());
+                Util.runPython(currentFile.getFullPath());
             }
 
         } catch (IOException ex) {
@@ -141,7 +143,7 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvarActionPerformed
         currentFile.content = jTextPane1.getText();
-        if (Util.saveFile(currentFile)) {
+        if (Util.saveFile(currentFile, type)) {
             this.setTitle("Saved " + currentFile.getFileName().replace(".py", ""));
         }
     }// GEN-LAST:event_btnSalvarActionPerformed
