@@ -114,12 +114,10 @@ public class Util {
     private static String isPythonInstalled() throws IOException, InterruptedException {
         Process process1 = null;
         Process process2 = null;
-        Process process3 = null;
         try {
             // Tenta executar python3 --version
             process1 = new ProcessBuilder("python3", "--version").start();
-            process2 = new ProcessBuilder("py", "--version").start();
-            process3 = new ProcessBuilder("python", "--version").start();
+            process2 = new ProcessBuilder("python", "--version").start();
 
             // Espera o processo terminar com timeout
             boolean test1 = process1.waitFor(2, TimeUnit.SECONDS);
@@ -130,18 +128,12 @@ public class Util {
             if (!test2) {
                 process2.destroyForcibly();
             }
-            boolean test3 = process3.waitFor(2, TimeUnit.SECONDS);
-            if (!test3) {
-                process3.destroyForcibly();
-            }
-
+            
             // Retorna true apenas se o processo terminou com sucesso (exit code 0)
             if (process1.exitValue() == 0) {
                 return "python3";
             } else if (process2.exitValue() == 0) {
-                return "py";
-            } else if (process3.exitValue() == 0) {
-                return "python";
+                return "python";            
             } else {
                 return null;
             }
@@ -153,9 +145,6 @@ public class Util {
             }
             if (process2 != null && process2.isAlive()) {
                 process2.destroyForcibly();
-            }
-            if (process3 != null && process3.isAlive()) {
-                process3.destroyForcibly();
             }
         }
     }
@@ -172,10 +161,12 @@ public class Util {
     public static StringBuilder runPython(String absolutePath) throws IOException, InterruptedException {
 
         String pythonName = isPythonInstalled();
+        System.out.println(pythonName);
 
         if (pythonName != null) {
             // 1. Salvar o código Python num arquivo temporário
             File file = new File(absolutePath);
+            System.out.println(absolutePath);
 
             // 2. Executar o arquivo Python
             ProcessBuilder pb = new ProcessBuilder(pythonName, file.getAbsolutePath());

@@ -34,7 +34,8 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     }
     public void setFileName (String fileName){
         this.currentFile.setFileName(fileName);
-    }
+        this.setTitle(this.getTitle() + " " + fileName);
+   }
     public void setFilePath (String filePath){
         this.currentFile.setFilePath(filePath);
     }

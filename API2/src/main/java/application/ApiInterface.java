@@ -231,7 +231,8 @@ public class ApiInterface extends javax.swing.JFrame {
     private void runCode() {
         try {
             if (currentFile.isSaved()) {
-                String pythonOutput = Util.runPython(currentFile.getFileName()).toString();
+                // System.out.println(currentFile.getFilePath()+"\\"+currentFile.getFileName());
+                String pythonOutput = Util.runPython(currentFile.getFilePath()+"\\"+currentFile.getFileName()).toString();
                 TelaSaidaTeste tst = new TelaSaidaTeste(new CurrentFile(null, null, false));
                 tst.setContent(pythonOutput);
                 tst.setTitle("Result" + currentFile.getFileName());
