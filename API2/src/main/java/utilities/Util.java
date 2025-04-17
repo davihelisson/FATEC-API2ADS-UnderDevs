@@ -22,22 +22,23 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author XvierDev
  */
 public class Util {
+
     /**
+     * SaveFile
      * Esse método faz o salvamento do arquivo de texto no disco.
-     * 
-     * @param diretorioSelecionado
-     * @param nomeArquivoAberto
-     * @param content
+     *
+     * @param fileToSave
+     * @return 
      */
-    public static void saveFile(String diretorioSelecionado, String nomeArquivoAberto, String content) {
+    public static boolean saveFile(CurrentFile fileToSave) {
         JFileChooser fileChooser = new JFileChooser();
 
-        if (diretorioSelecionado != null) {
-            fileChooser.setCurrentDirectory(new File(diretorioSelecionado));
+        if (fileToSave.getFilePath() != null) {
+            fileChooser.setCurrentDirectory(new File(fileToSave.getFilePath()));
         }
 
-        if (nomeArquivoAberto != null && !nomeArquivoAberto.isEmpty()) {
-            fileChooser.setSelectedFile(new File(diretorioSelecionado, nomeArquivoAberto + ".py"));
+        if (fileToSave.getFileName() != null && !fileToSave.getFileName().isEmpty()) {
+            fileChooser.setSelectedFile(new File(fileToSave.getFilePath(), fileToSave.getFileName()));
         }
 
         fileChooser.setDialogTitle("Salvar Arquivo");
@@ -46,32 +47,38 @@ public class Util {
         int userSelection = fileChooser.showSaveDialog(null);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
+            File newFileToSave = fileChooser.getSelectedFile();
 
-            if (!fileToSave.getAbsolutePath().endsWith(".py")) {
-                fileToSave = new File(fileToSave.getAbsolutePath() + ".py");
+            if (!newFileToSave.getAbsolutePath().endsWith(".py")) {
+                newFileToSave = new File(newFileToSave.getAbsolutePath() + ".py");
             }
 
-            if (fileToSave.exists()) {
+            if (newFileToSave.exists()) {
                 int resposta = JOptionPane.showConfirmDialog(null, "O arquivo já existe. Deseja sobrescrever?",
                         "Confirmação", JOptionPane.YES_NO_OPTION);
                 if (resposta != JOptionPane.YES_OPTION) {
-                    return;
+                    return false;
                 }
             }
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-                writer.write(content);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(newFileToSave))) {
+                writer.write(fileToSave.content);
+                fileToSave.setFileName(fileChooser.getSelectedFile().toString());
+                fileToSave.setFilePath(fileChooser.getSelectedFile().getAbsolutePath());
+                fileToSave.setSaved(true);
                 JOptionPane.showMessageDialog(null, "Arquivo salvo com sucesso!");
+                return true;
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao salvar o arquivo.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
+        return false;
     }
 
     /**
+     * OpenFile
      * Método que executa a abertura do arquivo de texto do disco.
-     * 
+     *
      * @return CurrentFile currentFile
      * @throws IOException
      */
@@ -82,7 +89,7 @@ public class Util {
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            CurrentFile currentFile = new CurrentFile(file.getName().replace(".py", ""), file.getParent());
+            CurrentFile currentFile = new CurrentFile(file.getName(), file.getParent(), true);
 
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder conteudo = new StringBuilder();
@@ -96,7 +103,15 @@ public class Util {
         return null;
     }
 
-    public static String isPython3Installed() throws IOException, InterruptedException {
+    /**
+     * Python Installed?
+     * Verifica se o Python está instalado na máquina
+     *
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    private static String isPythonInstalled() throws IOException, InterruptedException {
         Process process1 = null;
         Process process2 = null;
         Process process3 = null;
@@ -105,57 +120,86 @@ public class Util {
             process1 = new ProcessBuilder("python3", "--version").start();
             process2 = new ProcessBuilder("py", "--version").start();
             process3 = new ProcessBuilder("python", "--version").start();
-            
 
             // Espera o processo terminar com timeout
             boolean test1 = process1.waitFor(2, TimeUnit.SECONDS);
-            if (!test1) process1.destroyForcibly();
+            if (!test1) {
+                process1.destroyForcibly();
+            }
             boolean test2 = process2.waitFor(2, TimeUnit.SECONDS);
-            if (!test2) process2.destroyForcibly();
+            if (!test2) {
+                process2.destroyForcibly();
+            }
             boolean test3 = process3.waitFor(2, TimeUnit.SECONDS);
-            if (!test3) process3.destroyForcibly();
+            if (!test3) {
+                process3.destroyForcibly();
+            }
 
             // Retorna true apenas se o processo terminou com sucesso (exit code 0)
-            if(process1.exitValue() == 0) return "python3";
-            else if(process2.exitValue() == 0) return "py";
-            else if(process3.exitValue() == 0) return "python";
-            
-            else return null;
+            if (process1.exitValue() == 0) {
+                return "python3";
+            } else if (process2.exitValue() == 0) {
+                return "py";
+            } else if (process3.exitValue() == 0) {
+                return "python";
+            } else {
+                return null;
+            }
 
         } finally {
             // Garante que o processo seja destruído
-            if (process1 != null && process1.isAlive()) process1.destroyForcibly();
-            if (process2 != null && process2.isAlive()) process2.destroyForcibly();
-            if (process3 != null && process3.isAlive()) process3.destroyForcibly();
+            if (process1 != null && process1.isAlive()) {
+                process1.destroyForcibly();
+            }
+            if (process2 != null && process2.isAlive()) {
+                process2.destroyForcibly();
+            }
+            if (process3 != null && process3.isAlive()) {
+                process3.destroyForcibly();
+            }
         }
     }
 
-    public static StringBuilder runPython(String pythonName, String codigoPython) throws IOException, InterruptedException {
+    /**
+     * Run Code!
+     * Executa o código Python enviado como parâmetro
+     *
+     * @param absolutePath
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static StringBuilder runPython(String absolutePath) throws IOException, InterruptedException {
 
-        // 1. Salvar o código Python num arquivo temporário
-        File arquivo = new File("codigo_temp.py");
-        try (FileWriter escritor = new FileWriter(arquivo)) {
-            escritor.write(codigoPython);
+        String pythonName = isPythonInstalled();
+
+        if (pythonName != null) {
+            // 1. Salvar o código Python num arquivo temporário
+            File file = new File(absolutePath);
+
+            // 2. Executar o arquivo Python
+            ProcessBuilder pb = new ProcessBuilder(pythonName, file.getAbsolutePath());
+            pb.redirectErrorStream(true); // junta stdout e stderr
+            Process process = pb.start();
+
+            // 3. Ler a saída do Python
+            BufferedReader leitor = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String linha;
+            while ((linha = leitor.readLine()) != null) {
+                sb.append(linha);
+            }
+
+            // 4. Esperar o processo terminar
+            process.waitFor();
+            return sb;
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Python não foi encontrado no sistema.\nPor favor, instale Python 3 e tente novamente.",
+                    "Python Não Instalado",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
         }
-
-        // 2. Executar o arquivo Python
-        // Obs: pode ser "python3" dependendo do sistema
-        ProcessBuilder pb = new ProcessBuilder(pythonName, arquivo.getAbsolutePath());
-        pb.redirectErrorStream(true); // junta stdout e stderr
-        Process processo = pb.start();
-
-        // 3. Ler a saída do Python
-        BufferedReader leitor = new BufferedReader(new InputStreamReader(processo.getInputStream()));
-        StringBuilder sb = new StringBuilder();
-        String linha;
-        while ((linha = leitor.readLine()) != null) {
-            sb.append(linha);
-        }
-
-        // 4. Esperar o processo terminar
-        processo.waitFor();
-        return sb;
-
     }
 
 }

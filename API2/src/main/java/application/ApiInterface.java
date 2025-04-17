@@ -13,8 +13,7 @@ import utilities.Util;
  */
 public class ApiInterface extends javax.swing.JFrame {
 
-    private String pythonInstalled = null;
-    private CurrentFile currentFile = new CurrentFile(null, null);
+    private CurrentFile currentFile = new CurrentFile(null, null, false);
 
     public ApiInterface() {
         initComponents();
@@ -182,6 +181,9 @@ public class ApiInterface extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método privado para abertura de arquivos Python
+     */
     private void openFile() {
         try {
             currentFile = Util.openFile();
@@ -193,10 +195,19 @@ public class ApiInterface extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método privado para salvamento dos arquivos Python
+     */
     private void saveFile() {
-        Util.saveFile(currentFile.getFilePath(), currentFile.getFileName(), TxtPrompt.getText());
+        currentFile.content = TxtPrompt.getText();
+        Util.saveFile(currentFile);
     }
 
+    /**
+     * Método privado para enviar os dados para Ollama
+     *
+     * @return reponse
+     */
     private String runOllama() {
         Prompts prompt = new Prompts(TxtPrompt.getText());
         OllamaInterface ollamaInterface = new OllamaInterface();
@@ -214,29 +225,22 @@ public class ApiInterface extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método privado para executar o código escrito em Python
+     */
     private void runCode() {
         try {
-            if (pythonInstalled == null) pythonInstalled = Util.isPython3Installed();
-
-            if (pythonInstalled != null) {
-                // Executa o código Python e exibe na tela
-                String pythonOutput = Util.runPython(pythonInstalled, TxtPrompt.getText()).toString();
-
-                TelaSaidaTeste tst = new TelaSaidaTeste();
-                tst.setVisible(true);
-                tst.jTextPane1.setText(pythonOutput);
-            } else {
-                JOptionPane.showMessageDialog(null,
-                        "Python não foi encontrado no sistema.\nPor favor, instale Python 3 e tente novamente.",
-                        "Python Não Instalado",
-                        JOptionPane.ERROR_MESSAGE);
+            if (currentFile.isSaved()) {
+                String pythonOutput = Util.runPython(currentFile.getFileName()).toString();
+                TelaSaidaTeste tst = new TelaSaidaTeste(new CurrentFile(null, null, false));
+                tst.setContent(pythonOutput);
+                tst.setTitle("Result" + currentFile.getFileName());
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null,
                     "Erro ao verificar o Python: " + ex.getMessage(),
                     "Erro de I/O",
                     JOptionPane.ERROR_MESSAGE);
-
         } catch (InterruptedException ex) {
             JOptionPane.showMessageDialog(null,
                     "Operação interrompida ao verificar o Python",
@@ -246,21 +250,8 @@ public class ApiInterface extends javax.swing.JFrame {
         }
     }
 
+    // Eventos dos botões da interface do usuário.    
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
-        // TODO add your handling code here:
-//        try {
-//            boolean python = Util.isPython3Installed();
-//            if (python == true) {
-//                JOptionPane.showInputDialog("Python esta instalado");
-//                TelaSaidaTeste tst = new TelaSaidaTeste();
-//                tst.setVisible(true);
-//                tst.jTextPane1.setText(Util.executarPythonDoEditor(TxtPrompt.getText()).toString());
-//            } else {
-//                JOptionPane.showInputDialog("Python esta não esta instalado");
-//            }
-//        } catch (IOException | InterruptedException ex) {
-//            JOptionPane.showInputDialog(ex);
-//        }
         runCode();
     }// GEN-LAST:event_btnRunActionPerformed
 
@@ -276,7 +267,7 @@ public class ApiInterface extends javax.swing.JFrame {
         btnCreateTest.setEnabled(false);
         String testOutput = runOllama();
 
-        TelaSaidaTeste telaSaida = new TelaSaidaTeste(currentFile.getFilePath(), currentFile.getFileName());
+        TelaSaidaTeste telaSaida = new TelaSaidaTeste(new CurrentFile(null, null, false));
         telaSaida.setContent(testOutput);
         telaSaida.setTitle("Unit Test - " + currentFile.getFileName());
         telaSaida.addWindowListener(new WindowAdapter() {

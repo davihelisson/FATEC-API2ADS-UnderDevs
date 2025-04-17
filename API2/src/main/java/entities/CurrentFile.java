@@ -5,17 +5,29 @@
 package entities;
 
 /**
- *
+ * Classe que representa o arquivo aberto/criado.
  * @author XvierDev
  */
 public class CurrentFile {
-    public CurrentFile(String fileName, String filePath){
+    private String fileName;
+    private String filePath;
+    private boolean saved;
+    public String content;
+    
+    public CurrentFile(String fileName, String filePath, boolean isSaved){
         this.fileName = fileName;
-        this.filePath = filePath;        
+        this.filePath = filePath;
+        this.saved = isSaved;
     }
     
-    private String fileName;
+    public boolean isSaved() {
+        return saved;
+    }
 
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
+        
     public String getFileName() {
         return fileName;
     }
@@ -30,8 +42,5 @@ public class CurrentFile {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
-    }
-    private String filePath;
-    public String content;
-    
+    }   
 }

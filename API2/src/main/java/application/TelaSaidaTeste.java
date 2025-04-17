@@ -4,6 +4,9 @@
  */
 package application;
 
+import entities.CurrentFile;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 import utilities.Util;
 
 /**
@@ -12,16 +15,28 @@ import utilities.Util;
  */
 public class TelaSaidaTeste extends javax.swing.JFrame {
 
+    private CurrentFile currentFile;
+
     /**
      * Creates new form TelaSaidaTeste
+     * @param currentFile
      */
-    public TelaSaidaTeste() {
+    public TelaSaidaTeste(CurrentFile currentFile) {
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        this.currentFile = currentFile;
+        this.setVisible(true);
     }
 
     public void setContent(String content) {
+        this.currentFile.content = content;
         this.jTextPane1.setText(content);
+    }
+    public void setFileName (String fileName){
+        this.currentFile.setFileName(fileName);
+    }
+    public void setFilePath (String filePath){
+        this.currentFile.setFilePath(filePath);
     }
 
     @SuppressWarnings("unchecked")
@@ -53,6 +68,11 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         btnRun.setMargin(new java.awt.Insets(3, 14, 3, 14));
         btnRun.setMaximumSize(new java.awt.Dimension(77, 32));
         btnRun.setMinimumSize(new java.awt.Dimension(77, 32));
+        btnRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnRun);
 
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -91,18 +111,46 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private String diretorioRecebido;
-    private String nomeArquivoAberto;
+    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
+        try {
+            if (currentFile.isSaved()) {
+                if (!currentFile.content.equals(jTextPane1.getText())){
+                    currentFile.setSaved(false);
+                    if (Util.saveFile(currentFile)){
+                        Util.runPython(currentFile.getFileName());
+                    }
+                }
+                else{
+                    Util.runPython(jTextPane1.getText());
+                }
+            } else {
+                if(Util.saveFile(currentFile)){
+                    Util.runPython(jTextPane1.getText());
+                }
+                
+            }
 
-    public TelaSaidaTeste(String diretorio, String nomeArquivoAberto) {
-        initComponents();
-        this.diretorioRecebido = diretorio;
-        this.nomeArquivoAberto = nomeArquivoAberto;
-    }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao verificar o Python: " + ex.getMessage(),
+                    "Erro de I/O",
+                    JOptionPane.ERROR_MESSAGE);
+
+        } catch (InterruptedException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Operação interrompida ao verificar o Python",
+                    "Operação Interrompida",
+                    JOptionPane.WARNING_MESSAGE);
+            Thread.currentThread().interrupt(); // Restaura o flag de interrupção
+        }
+    }//GEN-LAST:event_btnRunActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvarActionPerformed
-        Util.saveFile(diretorioRecebido, nomeArquivoAberto, jTextPane1.getText());
-        this.setTitle(nomeArquivoAberto);
+        currentFile = new CurrentFile(null, null, false);
+        currentFile.content = jTextPane1.getText();
+        if (Util.saveFile(currentFile)){
+            this.setTitle(currentFile.getFileName());
+        }
     }// GEN-LAST:event_btnSalvarActionPerformed
 
     public static void main(String args[]) {
@@ -132,11 +180,6 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ApiInterface.class.getName()).log(java.util.logging.Level.SEVERE, null,
                     ex);
         }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new TelaSaidaTeste().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
