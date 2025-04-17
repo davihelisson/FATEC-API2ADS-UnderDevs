@@ -230,12 +230,22 @@ public class ApiInterface extends javax.swing.JFrame {
      */
     private void runCode() {
         try {
-            if (currentFile.isSaved()) {
-                // System.out.println(currentFile.getFilePath()+"\\"+currentFile.getFileName());
-                String pythonOutput = Util.runPython(currentFile.getFilePath()+"\\"+currentFile.getFileName()).toString();
-                TelaSaidaTeste tst = new TelaSaidaTeste(new CurrentFile(null, null, false));
+            if (!currentFile.hasModifications(TxtPrompt.getText()) || currentFile.isSaved()) {
+                String pythonOutput = Util.runPython(currentFile.getFullPath()).toString();
+                TelaSaidaTeste tst = new TelaSaidaTeste(new CurrentFile(null, currentFile.getFilePath(), false));
                 tst.setContent(pythonOutput);
-                tst.setTitle("Result" + currentFile.getFileName());
+            } else {
+                int aswer = JOptionPane.showConfirmDialog(
+                        null,
+                        "Salvar mudanças no arquivo?",
+                        "Salvar mudanças?",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if (aswer == JOptionPane.YES_OPTION) {
+                    saveFile();
+                    runCode();
+                }
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null,
