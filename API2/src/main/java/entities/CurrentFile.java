@@ -53,12 +53,12 @@ public class CurrentFile {
         try {
             File file;
             if (filePath != null) {
-                if (fileName != null){
+                if (fileName != null) {
                     file = new File(filePath, fileName);
+                } else {
+                    file = new File(filePath);
                 }
-                else file = new File(filePath);
-            }
-            else{
+            } else {
                 file = new File(System.getProperty("user.home"));
             }
             return file.getAbsolutePath();
@@ -69,11 +69,15 @@ public class CurrentFile {
     }
 
     public boolean hasModifications(String content) {
-        if (!this.content.equals(content)) {
+        if (content == null) {
             return true;
         } else {
-            this.saved = false;
-            return false;
+            if (!this.content.equals(content)) {
+                return true;
+            } else {
+                this.saved = false;
+                return false;
+            }
         }
     }
 }

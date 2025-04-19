@@ -187,7 +187,11 @@ public class ApiInterface extends javax.swing.JFrame {
     private void openFile() {
         try {
             currentFile = Util.openFile();
-            setTitle(currentFile.getFileName() == null ? currentFile.getFileName() : "Untitled.py");
+            String title = "Untitled";
+            if (currentFile.getFileName() != null){
+                title = currentFile.getFileName();
+            }
+            setTitle("UnderDevs IDE - " + title);
             TxtPrompt.setText(currentFile.content);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro",

@@ -23,6 +23,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Util {
 
+    private static final FileNameExtensionFilter filter1 = new FileNameExtensionFilter("Python files (*.py)", "py");
+    private static final FileNameExtensionFilter filter2 = new FileNameExtensionFilter("Text files (*.txt)", "txt");
+
     /**
      * Encapsulamento do método writeFile que escreve o arquivo no disco.
      *
@@ -48,13 +51,17 @@ public class Util {
      * SaveFile Esse método faz o salvamento do arquivo de texto no disco.
      *
      * @param fileToSave
+     * @param type
      * @return
      */
     public static boolean saveFile(CurrentFile fileToSave, int type) {
+        // Verifica se o arquivo é novo para instanciar a janela Save.
         if (fileToSave.getFullPath() == null || fileToSave.getFileName() == null || !fileToSave.isSaved()) {
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.addChoosableFileFilter(filter1);
+            fileChooser.addChoosableFileFilter(filter2);
+            fileChooser.setFileFilter(type == 0 ? filter1 : filter2);
             fileChooser.setDialogTitle("Salvar Arquivo");
-            fileChooser.setFileFilter(new FileNameExtensionFilter("Text and Python Files", "txt", "py"));
 
             // Setar o diretório do arquivo atual no JFileChooser
             if (fileToSave.getFilePath() != null) {
@@ -68,8 +75,7 @@ public class Util {
                     if (!fileChooser.getSelectedFile().getName().endsWith(".py")) {
                         fileChooser.setSelectedFile(new File(fileChooser.getSelectedFile().getAbsolutePath() + ".py"));
                     }
-                }
-                else if(type == 1){
+                } else if (type == 1) {
                     if (!fileChooser.getSelectedFile().getName().endsWith(".txt")) {
                         fileChooser.setSelectedFile(new File(fileChooser.getSelectedFile().getAbsolutePath() + ".txt"));
                     }
@@ -100,7 +106,9 @@ public class Util {
      */
     public static CurrentFile openFile() throws IOException {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos Python (*.py)", "py"));
+        fileChooser.addChoosableFileFilter(filter1);
+        fileChooser.addChoosableFileFilter(filter2);
+        fileChooser.setFileFilter(filter1);
         int returnValue = fileChooser.showOpenDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
