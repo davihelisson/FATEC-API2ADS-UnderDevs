@@ -14,7 +14,8 @@ import io.github.ollama4j.utils.OptionsBuilder;
 import java.io.IOException;
 
 public class OllamaInterface {
-    private String host = "http://localhost:11434/";
+//    private String host = "http://localhost:11434/";
+    private String host = "http://192.168.15.13:11434";
     private int requestTimeOut = 240;
     OllamaAPI ollamaAPI = new OllamaAPI(host);
 

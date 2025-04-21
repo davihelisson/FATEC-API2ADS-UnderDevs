@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package application;
 
 import entities.CurrentFile;
+import java.io.File;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-import utilities.Util;
+import enums.FileOptions;
+import utilities.FileUtils;
 
 /**
  *
@@ -16,32 +14,23 @@ import utilities.Util;
 public class TelaSaidaTeste extends javax.swing.JFrame {
 
     private final CurrentFile currentFile;
-    private final int type;
+    private final FileOptions options;
 
     /**
      * Creates new form TelaSaidaTeste
      *
      * @param currentFile
+     * @param options
      */
-    public TelaSaidaTeste(CurrentFile currentFile, int type) {
+    public TelaSaidaTeste(CurrentFile currentFile, FileOptions options) {
         initComponents();
         this.currentFile = currentFile;
-        this.type = type;
+        this.options = options;
         this.setVisible(true);
     }
 
     public void setContent(String content) {
-        this.currentFile.content = content;
         this.jTextPane1.setText(content);
-    }
-
-    public void setFileName(String fileName) {
-        this.currentFile.setFileName(fileName);
-        this.setTitle(this.getTitle() + " " + fileName);
-    }
-
-    public void setFilePath(String filePath) {
-        this.currentFile.setFilePath(filePath);
     }
 
     @SuppressWarnings("unchecked")
@@ -118,12 +107,15 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
 
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
         try {
-            if (currentFile.hasModifications(jTextPane1.getText()) || !currentFile.isSaved()) {
-                if (Util.saveFile(currentFile, type)) {
-                    Util.runPython(currentFile.getFileName());
+            if (currentFile.hasModifications(jTextPane1.getText())) {
+                if (FileUtils.saveFile(currentFile, jTextPane1.getText(), options)) {
+                    File fileToRun = new File(currentFile.getFilePath(), currentFile.getFileName());
+                    String runOut = FileUtils.runPython(fileToRun.getAbsolutePath()).toString();
+                    OutputUI out = new OutputUI(runOut);
+                    out.setVisible(true);
                 }
             } else {
-                Util.runPython(currentFile.getFullPath());
+                FileUtils.runPython(new File(currentFile.getFilePath(), currentFile.getFileName()).getAbsolutePath());
             }
 
         } catch (IOException ex) {
@@ -142,40 +134,10 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRunActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvarActionPerformed
-        currentFile.content = jTextPane1.getText();
-        if (Util.saveFile(currentFile, type)) {
+        if (FileUtils.saveFile(currentFile, jTextPane1.getText(), options)) {
             this.setTitle("Saved " + currentFile.getFileName().replace(".py", ""));
         }
     }// GEN-LAST:event_btnSalvarActionPerformed
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            boolean windowsFound = false;
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    windowsFound = true;
-                    break;
-                }
-            }
-            if (!windowsFound) {
-                javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ApiInterface.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRun;
