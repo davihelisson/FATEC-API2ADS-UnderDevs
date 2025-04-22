@@ -4,9 +4,9 @@
 
 
 ### Índice
-* [Objetivo do Projeto](#objetivos-do-projeto)
+* [Objetivo do Projeto](#objetivo)
 * [Demonstração do Projeto](#demonstração-do-projeto)
-* [Sprints](#metas)
+* [Sprints](#sprints)
 * [Cronograma](#cronograma)
 * [Backlog do Produto](#product-backlog)
 * [Tecnologias Utilizadas](#tecnologias-empregadas)
@@ -23,6 +23,10 @@ Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para 
 
 >Vídeo demonstrando as principais funcionalidades da IDE.
 [![Vídeo de demonstração do funcionamento do projeto.](https://img.youtube.com/vi/eVcpcdifMBw/0.jpg)](https://www.youtube.com/watch?v=eVcpcdifMBw)
+
+### MVP
+>Definição do MVP para cada sprint
+![Image](https://github.com/davihelisson/FATEC-API2ADS-UnderDevs/blob/main/Docs/IDE%20UNDERDEVS.png)
 
 ### Sprints
 
@@ -70,7 +74,8 @@ Sprint | Previsão | Status
  ![Jira Software](https://img.shields.io/badge/Jira-fdfefe?style=for-the-badge&logo=Jira&logoColor=0064c8)
  ![Discord](https://img.shields.io/badge/Discord-fdfefe?style=for-the-badge&logo=discord)
  ![Markdown](https://img.shields.io/badge/Markdown-fdfefe?style=for-the-badge&logo=markdown&logoColor=2e4053)
- ![Figma](https://img.shields.io/badge/Figma-fdfefe?style=for-the-badge&logo=figma&logoColor=2e4053)
+ [![Figma](https://img.shields.io/badge/Figma-fdfefe?style=for-the-badge&logo=figma&logoColor=2e4053)](https://www.canva.com/design/DAGlWk-qv1A/e3ca2b7b6-43cr3DDphQ9g/view?utm_content=DAGlWk-qv1A&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he9434095c3)
+
 
 ### Dependências
 
