@@ -16,7 +16,7 @@
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>application.ApiInterface</exec.mainClass>
+        <exec.mainClass>application.MainInterface</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -36,7 +36,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>application.ApiInterface</mainClass>
+                            <mainClass>application.MainInterface</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -55,7 +55,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>application.ApiInterface</mainClass>
+                                    <mainClass>application.MainInterface</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

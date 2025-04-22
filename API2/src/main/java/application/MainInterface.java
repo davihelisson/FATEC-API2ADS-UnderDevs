@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import enums.FileOptions;
 import enums.PromptType;
+import java.awt.event.WindowEvent;
 import java.util.Objects;
 import utilities.FileUtils;
 
@@ -21,6 +22,42 @@ public class MainInterface extends javax.swing.JFrame {
 
     public MainInterface() {
         initComponents();
+        // Adicionando o WindowListener para lidar com o fechamento da janela principal
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (currentFile.hasModifications(TxtPrompt.getText())) {
+                    int resposta = JOptionPane.showConfirmDialog(
+                            MainInterface.this,
+                            "Deseja salvar as alterações antes de sair?",
+                            "Salvar",
+                            JOptionPane.YES_NO_CANCEL_OPTION
+                    );
+                    switch (resposta) {
+                        case JOptionPane.YES_OPTION -> {
+                            saveFile();
+                            if (!currentFile.hasModifications(TxtPrompt.getText())) {
+                                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                                dispose();
+                            }
+                        }
+                        case JOptionPane.NO_OPTION -> {
+                            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                            dispose();
+                        }
+                        default -> // Se CANCEL_OPTION, não fazer nada (a janela permanece aberta)
+                            setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+                    }
+                } else {
+                    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                    dispose();
+                }
+            }
+        });
+
+        // Definir o comportamento padrão de fechamento para DO_NOTHING_ON_CLOSE
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -327,6 +364,7 @@ public class MainInterface extends javax.swing.JFrame {
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
     // Eventos dos botões da interface do usuário.    
 
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
