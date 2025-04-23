@@ -14,8 +14,7 @@ import io.github.ollama4j.utils.OptionsBuilder;
 import java.io.IOException;
 
 public class OllamaInterface {
-//    private String host = "http://localhost:11434/";
-    private String host = "http://192.168.15.13:11434";
+    private String host = "http://localhost:11434/";
     private int requestTimeOut = 240;
     OllamaAPI ollamaAPI = new OllamaAPI(host);
 
@@ -44,7 +43,8 @@ public class OllamaInterface {
                     new OptionsBuilder().build());
 
             if (result != null) {
-                return removeMarkdown(result.getResponse());
+                return result.getResponse();
+            //  return removeMarkdown(result.getResponse());
             } else {
                 throw new Exception("Erro de comunicação: ");
             }
