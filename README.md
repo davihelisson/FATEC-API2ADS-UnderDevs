@@ -3,7 +3,7 @@
  _To infinity and beyond._ 🚀
 
 
-### Índice
+## Índice
 * [Objetivo do Projeto](#objetivo)
 * [Demonstração do Projeto](#demonstração-do-projeto)
 * [Sprints](#sprints)
@@ -15,26 +15,26 @@
 * [Licença](#licença)
 
 
-### Objetivo
+## Objetivo
 
 Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para auxiliar o desenvolvedor a otimizar tempo e custo de desenvolvimento.
 
-### Demonstração do Projeto
+## Demonstração do Projeto
 
 >Vídeo demonstrando as principais funcionalidades da IDE.
 [![Vídeo de demonstração do funcionamento do projeto.](https://img.youtube.com/vi/eVcpcdifMBw/0.jpg)](https://www.youtube.com/watch?v=eVcpcdifMBw)
 
-### MVP
+#### MVP
 >Definição do MVP para cada sprint
 ![Image](https://github.com/davihelisson/FATEC-API2ADS-UnderDevs/blob/main/Docs/IDE%20UNDERDEVS.png)
 
-### Sprints
+#### Sprints
 
 -   [x] Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para geração de Testes Unitários.
 -   [ ] Sprint 2 - Sugestão de melhorias do código (eficiência, segurança, legibilidade).
 -   [ ] Sprint 2 - Gerar documentação do código (docstrings, explicações do que o código faz).
 
-### Cronograma
+## Cronograma
 
 Sprint | Previsão | Status
 |---|---|---|
@@ -64,6 +64,25 @@ Sprint | Previsão | Status
 | US10 | Média/Alta  | Como desenvolvedor, quero que a IA (Ollama) analise meu código em Python e documente o código automaticamente (gerando docstrings/comentários).  | 8      | 3      |
 | US11 | Média/Baixa  | Como desenvolvedor, quero que a IA explique em linguagem natural o que um trecho selecionado de código em Python faz.                                | 5      | 3      |
 | US12 | Alta       | Como desenvolvedor (Tarefa Técnica), quero que os Prompts enviados à IA e exemplos de código associados sejam armazenados em banco de dados simples. | 13     | 3      |
+
+
+### Sprint Backlog
+##### Sprint 1
+| id   | Tasks                                                                                                     | points |
+| :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
+| USxx | Implementar funcionalidade de gerar testes                                                                | 8      |
+| USxx | Criação do Projeto Principal em Java                                                                      | 5      |
+| USxx | Integrar a Classe OllamaInterface com tela principal e capturar retorno para a janela de output de testes | 5      |
+| USxx | Implementar abertura de código fonte (ler arquivo ".py")                                                  | 3      |
+| USxx | Criar classe OllamaInterface para comunicação com Ollama                                                  | 2      |
+| USxx | Criar prompts para refinar a saída do LLM                                                                 | 3      |
+| USxx | Criação da Tela Secundária para saída dos testes                                                          | 3      |
+
+
+##### Sprint 2
+| id   | Tasks                                                                                                     | points |
+| :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
+
 
 ### Tecnologias Empregadas
 
