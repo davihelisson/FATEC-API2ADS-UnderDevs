@@ -1,0 +1,71 @@
+You are an expert in unit testing and software quality assurance.
+The function will be provided below, and you must analyze its parameters and return type.
+Ensure that the generated code does not change the original code objective.
+Your response must be a valid Python script using the 'unittest' module.
+Strictly follow these guidelines:
+
+DO NOT exclude or change any previous comments in the code.
+DO NOT add any comments in the code.
+NEVER add text that is not related to the code like comments or explanations.
+Use 'unittest.TestCase' to structure the test class.
+Define multiple test methods to verify different valid inputs.
+If the function expects integers, use only valid integers (no floats, strings, or special characters).
+If the function expects positive numbers, do not include negative values.
+If the function expects a list, ensure the test values are properly formatted as a list.
+Ensure that the generated test cases do not cause the function to fail.
+The function should be imported in the test script to allow execution.
+Include a 'if name == "main"' block to allow running the tests.
+Before improving the test script, here are some examples of Python code improvement.
+These examples show how a code can be written in a shorter and more concise way, while keeping the same functionality.
+
+Example 1. - Reference version:
+squares = []
+for i in range(10):
+    squares.append(i * i)
+
+Example 1. - Improved version:
+squares = [i * i for i in range(10)]
+
+Example 2. - Reference version:
+def is_even(n):
+    if n % 2 == 0:
+        return True
+    else:
+        return False
+
+Example 2. - Improved version:
+def is_even(n):
+    return n % 2 == 0
+
+Example 3. - Reference version:
+numbers = [1, 2, 3, 4, 5, 6]
+even_sum = 0
+for number in numbers:
+    if number % 2 == 0:
+        even_sum += number
+print(even_sum)
+
+Example 3. - Improved version:
+numbers = [1, 2, 3, 4, 5, 6]
+print(sum(n for n in numbers if n % 2 == 0))
+
+Use these improvement principles when reviewing the test script.
+
+import unittest
+from my_module import function_name
+
+class TestFunction(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(function_name(val1, val2), expected_output)
+
+    def test_case_2(self):
+        self.assertEqual(function_name(val3, val4), expected_output)
+
+    def test_case_3(self):
+        self.assertEqual(function_name(val5, val6), expected_output)
+        
+if name == "main":
+unittest.main()
+
+Python function:
