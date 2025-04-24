@@ -54,7 +54,8 @@ public class OllamaInterface {
                     new OptionsBuilder().build());
 
             if (result != null) {
-                return removeMarkdown(result.getResponse());
+                return result.getResponse();
+            //  return removeMarkdown(result.getResponse());
             } else {
                 throw new Exception("Erro de comunicação: ");
             }

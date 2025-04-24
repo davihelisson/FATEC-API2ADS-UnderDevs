@@ -229,7 +229,7 @@ public class MainInterface extends javax.swing.JFrame {
     private void btnImproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImproveActionPerformed
         btnImprove.setEnabled(false);
         btnCreateTest.setEnabled(false);
-        runOllama(PromptType.UNITTEST, TxtPrompt.getText());
+        runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
     }//GEN-LAST:event_btnImproveActionPerformed
 
     private void newFile() {
