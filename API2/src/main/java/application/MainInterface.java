@@ -287,7 +287,7 @@ public class MainInterface extends javax.swing.JFrame {
 
             TelaSaidaTeste telaSaida = new TelaSaidaTeste(new CurrentFile(), FileOptions.SOURCE);
             telaSaida.setContent(result);
-            telaSaida.setTitle("Unit Test - " + currentFile.getFileName());
+            telaSaida.setTitle("Output " + currentFile.getFileName());
             telaSaida.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {

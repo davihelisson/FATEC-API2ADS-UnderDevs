@@ -25,6 +25,11 @@
             <artifactId>ollama4j</artifactId>
             <version>1.0.98</version>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.11</version> <!-- ou versão mais recente -->
+        </dependency>
     </dependencies>
 
     <build>
