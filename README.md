@@ -12,7 +12,6 @@
 * [Tecnologias Utilizadas](#tecnologias-empregadas)
 * [Dependências](#dependências)
 * [Integrantes](#integrantes-da-equipe)
-* [Licença](#licença)
 
 
 ## Objetivo
@@ -119,8 +118,8 @@ Sprint | Previsão | Status
 
 |      Nome      |    Função       |                            Github                             |                           Linkedin                           | Atribuição       |
 | :--------------: | :-----------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------: |
-| Wesley Xavier | Scrum Master | <a href="https://github.com/Mateus-Frnds"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://www.linkedin.com/in/xvierbr/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Planejamento, backend, integração de interfaces.      |
-| Davi Helisson  | Product Owner  | <a href="https://github.com/Matiyyah"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://www.linkedin.com/in/davihelisson/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Planejamento, backend, desenvolvimento de prompts |
+| Wesley Xavier | Scrum Master | <a href="https://github.com/xvierdev"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://www.linkedin.com/in/xvierbr/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Planejamento, backend, integração de interfaces.      |
+| Davi Helisson  | Product Owner  | <a href="https://github.com/davihelisson"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://www.linkedin.com/in/davihelisson/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Planejamento, backend, desenvolvimento de prompts |
 | Gabriel Nunes   | Desenvolvedor  | <a href="https://github.com/gabrielnunes926"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://www.linkedin.com/in/gabriel-de-barcelos-nunes-a7a69832a/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Frontend, tela principal da aplicação        |
 | Gustavo Toneli  | Desenvolvedor  | <a href="https://github.com/G59-Toneli"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://www.linkedin.com/in/gustavo-toneli-de-oliveira-b46756228/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Frontend, tela principal da aplicação          |
 | Igor Andrade    | Desenvolvedor  | <a href="https://github.com/IgorAndrade2024"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://www.linkedin.com/in/igor-andrade-b3b434327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Backend, funcionalidade de salvamento          |
