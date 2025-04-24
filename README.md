@@ -17,11 +17,11 @@
 
 ## Objetivo
 
-Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para auxiliar o desenvolvedor a otimizar tempo e custo de desenvolvimento.
+Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para auxiliar o desenvolvedor a otimizar tempo e custo de desenvolvimento.  
 
 ## Demonstração do Projeto
 
->Vídeo demonstrando as principais funcionalidades da IDE.
+>Vídeo demonstrando as principais funcionalidades da IDE.  
 [![Vídeo de demonstração do funcionamento do projeto.](https://img.youtube.com/vi/eVcpcdifMBw/0.jpg)](https://www.youtube.com/watch?v=eVcpcdifMBw)
 
 #### MVP
@@ -32,7 +32,7 @@ Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para 
 
 -   [x] Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para geração de Testes Unitários.
 -   [ ] Sprint 2 - Sugestão de melhorias do código (eficiência, segurança, legibilidade).
--   [ ] Sprint 2 - Gerar documentação do código (docstrings, explicações do que o código faz).
+-   [ ] Sprint 2 - Gerar documentação do código (docstrings, explicações do que o código faz).  
 
 ## Cronograma
 
@@ -42,9 +42,10 @@ Sprint | Previsão | Status
 | Sprint 1 | 10/03 - 30/03 | Concluído |
 | Sprint 2 | 07/04 - 27/04 | Em andamento |
 | Sprint 3 | 05/05 - 25/05 | Não iniciada |
-| Feira de Soluções | 29/05 | Não iniciada |
+| Feira de Soluções | 29/05 | Não iniciada |  
 
-### Product Backlog
+## Product Backlog
+
 #### IDE Java para Python com Assistência IA (Ollama/Qwen)
 
 **Tecnologias Base:** Java (Swing), API Ollama (Modelo: Qwen/Code Llama/Similar), Python (para execução/teste), Banco de Dados MySql (para Sprint 3 - para armazenamento de prompts, histórico de interações da IA e outros dados relevantes)
@@ -63,28 +64,40 @@ Sprint | Previsão | Status
 | US09 | Alta       | Como desenvolvedor, quero ver a saída (stdout/stderr) da execução do script Python em um painel ou console dentro da IDE.                         | 8      | 2      |
 | US10 | Média/Alta  | Como desenvolvedor, quero que a IA (Ollama) analise meu código em Python e documente o código automaticamente (gerando docstrings/comentários).  | 8      | 3      |
 | US11 | Média/Baixa  | Como desenvolvedor, quero que a IA explique em linguagem natural o que um trecho selecionado de código em Python faz.                                | 5      | 3      |
-| US12 | Alta       | Como desenvolvedor (Tarefa Técnica), quero que os Prompts enviados à IA e exemplos de código associados sejam armazenados em banco de dados simples. | 13     | 3      |
+| US12 | Alta       | Como desenvolvedor (Tarefa Técnica), quero que os Prompts enviados à IA e exemplos de código associados sejam armazenados em banco de dados simples. | 13     | 3      |  
 
 
-### Sprint Backlog
+## Sprint Backlog
+
 ##### Sprint 1
 | id   | Tasks                                                                                                     | points |
 | :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
-| USxx | Implementar funcionalidade de gerar testes                                                                | 8      |
-| USxx | Criação do Projeto Principal em Java                                                                      | 5      |
-| USxx | Integrar a Classe OllamaInterface com tela principal e capturar retorno para a janela de output de testes | 5      |
-| USxx | Implementar abertura de código fonte (ler arquivo ".py")                                                  | 3      |
-| USxx | Criar classe OllamaInterface para comunicação com Ollama                                                  | 2      |
-| USxx | Criar prompts para refinar a saída do LLM                                                                 | 3      |
-| USxx | Criação da Tela Secundária para saída dos testes                                                          | 3      |
+| US04 | Implementar funcionalidade de gerar testes                                                                | 8      |
+| US01 | Criação do Projeto Principal em Java                                                                      | 5      |
+| US05 | Integrar a Classe OllamaInterface com tela principal e capturar retorno para a janela de output de testes | 5      |
+| US02 | Implementar abertura de código fonte (ler arquivo ".py")                                                  | 3      |
+| US05 | Criar classe OllamaInterface para comunicação com Ollama                                                  | 2      |
+| US04 | Criar prompts para refinar a saída do LLM                                                                 | 3      |
+| US05 | Criação da Tela Secundária para saída dos testes                                                          | 3      |
 
 
-##### Sprint 2
+##### Sprint 2 (EM ANDAMENTO)
 | id   | Tasks                                                                                                     | points |
 | :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
+| US01 | Melhoria de documentação                                                                                  | 2      |
+| US07 | Melhorias Gerais (Abertura de arquivo, Salvamento da saída, alteração do nome do arquivo)                 | 5      |
+| US06 | Desenvolver Prompts (Melhorar a eficiência, segurança e legibilidade do Código)                           | 5      |
+| US01 | Prototipação no FIGMA (protótipo funcional)                                                               | 2      |
+| US08 | Execução do Código (Permitir que o código seja executado na própira IDE)                                  | 3      |
+| US09 | Cirar método para envio do código para o Ollama                                                           | 3      |
 
 
-### Tecnologias Empregadas
+##### Sprint 3 (Ainda não iniciada)
+| id   | Tasks                                                                                                     | points |  
+
+
+
+## Tecnologias Empregadas
 
  ![Java](https://img.shields.io/badge/Java-fdfefe?style=for-the-badge&logo=openjdk&logoColor=000000)
  ![Ollama](https://img.shields.io/badge/Ollama-fdfefe?style=for-the-badge&logo=Ollama&logoColor=000000)
@@ -96,13 +109,13 @@ Sprint | Previsão | Status
  [![Figma](https://img.shields.io/badge/Figma-fdfefe?style=for-the-badge&logo=figma&logoColor=2e4053)](https://www.canva.com/design/DAGlWk-qv1A/e3ca2b7b6-43cr3DDphQ9g/view?utm_content=DAGlWk-qv1A&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he9434095c3)
 
 
-### Dependências
+## Dependências
 
 - É necessário ter instalado o Ollama para executar o modelo de linguagem [Baixar Ollama](https://ollama.com/)
 - Além disso, é necessário ter o Java Development Kit (JDK) instalado e configurado para executar a aplicação Java.
 - Esse projeto foi desenvolvido para funcionar no LLM qwen2.5-coder [qwen2.5-coder](https://ollama.com/library/qwen2.5-coder)
 
-### Integrantes da Equipe
+## Integrantes da Equipe
 
 |      Nome      |    Função       |                            Github                             |                           Linkedin                           | Atribuição       |
 | :--------------: | :-----------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------: |
@@ -114,7 +127,3 @@ Sprint | Previsão | Status
 | Igor Andrade    | Desenvolvedor  | <a href="https://github.com/IgorAndrade2024"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://www.linkedin.com/in/igor-andrade-b3b434327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Backend, funcionalidade de salvamento          |
 | Leo Naito    | Desenvolvedor  | <a href="https://github.com/LNaito"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="[LINK_DO_LINKEDIN_DO_LEO_NAITO]"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Frontend, tela de saída dos testes          |
 | Tiago Bortolini   | Desenvolvedor  | <a href="https://github.com/deusimortal"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a> | <a href="https://br.linkedin.com/in/tiago-bortolini-772b162b6/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> | Backend, pesquisa e desenvolvimento de prompts          |
-
-## ⚖️ Licença
-
-[Exemplo: MIT License](https://opensource.org/licenses/MIT)
