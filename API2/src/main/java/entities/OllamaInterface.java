@@ -5,7 +5,7 @@
  - os prompts e o código definido pelo usuário e retorna o resultado produzido pelo
  - LLM como uma string que deve ser capturada como saída para o Teste Unitário.
  - by Wesley and Team.
-*/
+ */
 package entities;
 
 import io.github.ollama4j.OllamaAPI;
@@ -14,6 +14,7 @@ import io.github.ollama4j.utils.OptionsBuilder;
 import java.io.IOException;
 
 public class OllamaInterface {
+
     private String host = "http://localhost:11434/";
     private int requestTimeOut = 240;
     OllamaAPI ollamaAPI = new OllamaAPI(host);
@@ -43,8 +44,8 @@ public class OllamaInterface {
                     new OptionsBuilder().build());
 
             if (result != null) {
-                return result.getResponse();
-            //  return removeMarkdown(result.getResponse());
+//                return result.getResponse();
+                return removeMarkdown(result.getResponse());
             } else {
                 throw new Exception("Erro de comunicação: ");
             }
@@ -52,17 +53,17 @@ public class OllamaInterface {
             throw new Exception("Erro de IO", e);
         }
     }
-    
-    private String removeMarkdown (String output){
+
+    private String removeMarkdown(String output) {
         String[] lines = output.split("\n");
-        if (lines[0].trim().startsWith("`")){
+        if (lines[0].trim().startsWith("`")) {
             lines = java.util.Arrays.copyOfRange(lines, 1, lines.length);
         }
-        if (lines[lines.length - 1].trim().startsWith("`")){
+        if (lines[lines.length - 1].trim().startsWith("`")) {
             lines = java.util.Arrays.copyOfRange(lines, 0, lines.length - 1);
         }
         StringBuilder result = new StringBuilder();
-        for (String line : lines){
+        for (String line : lines) {
             result.append(line).append("\n");
         }
         return result.toString();
