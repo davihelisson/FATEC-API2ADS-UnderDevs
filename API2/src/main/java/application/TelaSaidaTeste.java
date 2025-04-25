@@ -21,12 +21,14 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
      *
      * @param currentFile
      * @param options
+     * @param title
      */
-    public TelaSaidaTeste(CurrentFile currentFile, FileOptions options) {
+    public TelaSaidaTeste(CurrentFile currentFile, FileOptions options, String title) {
         initComponents();
         this.currentFile = currentFile;
         this.options = options;
         this.setVisible(true);
+        this.lblWindowTitle.setText(title);
     }
 
     public void setContent(String content) {
@@ -42,7 +44,7 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblWindowTitle = new javax.swing.JLabel();
         btnRun = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -52,9 +54,9 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
         setTitle("Teste");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Teste Unitário");
-        jPanel1.add(jLabel1);
+        lblWindowTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblWindowTitle.setText("Teste Unitário");
+        jPanel1.add(lblWindowTitle);
 
         btnRun.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRun.setText("Executar");
@@ -142,9 +144,9 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRun;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextPane jTextPane1;
+    private javax.swing.JLabel lblWindowTitle;
     // End of variables declaration//GEN-END:variables
 }

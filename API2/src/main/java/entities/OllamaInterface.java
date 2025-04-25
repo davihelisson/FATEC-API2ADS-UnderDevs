@@ -50,7 +50,9 @@ public class OllamaInterface {
                 throw new Exception("Erro de comunicação: ");
             }
         } catch (IOException e) {
-            throw new Exception("Erro de IO", e);
+            throw new IOException("Erro ao tentar realizar a operação de I/O", e);
+        } catch (Exception e) {
+            throw new Exception("Erro inesperado ao gerar o teste", e);
         }
     }
 
