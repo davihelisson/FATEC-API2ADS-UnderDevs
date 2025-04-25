@@ -12,6 +12,7 @@ import enums.PromptType;
 import java.awt.event.WindowEvent;
 import java.util.Objects;
 import utilities.FileUtils;
+import utilities.VerifyOllama;
 
 /**
  * @author UnderDevs DevTeam
@@ -227,9 +228,15 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuNewActionPerformed
 
     private void btnImproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImproveActionPerformed
-        btnImprove.setEnabled(false);
-        btnCreateTest.setEnabled(false);
-        runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
+        try {
+            if (VerifyOllama.isOllamaInstalled("qwen2.5-coder")) {
+                btnImprove.setEnabled(false);
+                btnCreateTest.setEnabled(false);
+                runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Erro ao verificar Ollama: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnImproveActionPerformed
 
     private void newFile() {
@@ -274,18 +281,21 @@ public class MainInterface extends javax.swing.JFrame {
 
         try {
             String promptWithCode = null;
+            String title = "";
             if (promptType == PromptType.UNITTEST) {
                 promptWithCode = prompt.generateCode();
                 if (!"".equals(currentFile.getFileName())) {
                     promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName());
+                    title = "Teste Unitário";
                 }
             } else if (promptType == PromptType.IMPROVEMENT) {
                 promptWithCode = prompt.improveCode();
+                title = "Sugestão de melhoria";
             }
             Objects.requireNonNull(promptWithCode, "O código fonte não pode ser nulo");
             String result = ollamaInterface.GenerateTest(promptWithCode);
 
-            TelaSaidaTeste telaSaida = new TelaSaidaTeste(new CurrentFile(), FileOptions.SOURCE);
+            TelaSaidaTeste telaSaida = new TelaSaidaTeste(new CurrentFile(), FileOptions.SOURCE, title);
             telaSaida.setContent(result);
             telaSaida.setTitle("Output " + currentFile.getFileName());
             telaSaida.addWindowListener(new WindowAdapter() {
@@ -294,7 +304,7 @@ public class MainInterface extends javax.swing.JFrame {
                     btnCreateTest.setEnabled(true);
                     btnImprove.setEnabled(true);
                 }
-                
+
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
                     telaSaida.dispose();
@@ -313,8 +323,7 @@ public class MainInterface extends javax.swing.JFrame {
                     "Erro: " + ex.getMessage(),
                     "Erro",
                     JOptionPane.ERROR_MESSAGE);
-        }
-        finally{
+        } finally {
             btnImprove.setEnabled(true);
             btnCreateTest.setEnabled(true);
         }
@@ -365,8 +374,8 @@ public class MainInterface extends javax.swing.JFrame {
         }
     }
     
-    // Eventos dos botões da interface do usuário.    
 
+    // Eventos dos botões da interface do usuário.    
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
         runCode();
     }// GEN-LAST:event_btnRunActionPerformed
@@ -380,9 +389,15 @@ public class MainInterface extends javax.swing.JFrame {
     }
 
     private void btnCreateTestActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar2ActionPerformed
-        btnImprove.setEnabled(false);
-        btnCreateTest.setEnabled(false);
-        runOllama(PromptType.UNITTEST, TxtPrompt.getText());
+        try {
+            if (VerifyOllama.isOllamaInstalled("qwen2.5-coder")) {
+                btnImprove.setEnabled(false);
+                btnCreateTest.setEnabled(false);
+                runOllama(PromptType.UNITTEST, TxtPrompt.getText());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Erro ao verificar Ollama: " + e.getMessage());
+        }
 
     }// GEN-LAST:event_btnSalvar2ActionPerformed
 
