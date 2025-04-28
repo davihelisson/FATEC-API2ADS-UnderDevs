@@ -30,7 +30,7 @@ Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para 
 #### Sprints
 
 -   [x] Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para geração de Testes Unitários.
--   [ ] Sprint 2 - Fazer recomendações personalizadas de código (melhorias do código: eficiência, segurança, legibilidade).
+-   [x] Sprint 2 - Fazer recomendações personalizadas de código (melhorias do código: eficiência, segurança, legibilidade).
 -   [ ] Sprint 2 - Gerar documentação do código (docstrings, explicações do que o código faz).  
 
 ## Cronograma
@@ -39,9 +39,9 @@ Sprint | Previsão | Status
 |---|---|---|
 | Kick Off | 24/02 - 28/02 | Concluído |
 | Sprint 1 | 10/03 - 30/03 | Concluído |
-| Sprint 2 | 07/04 - 27/04 | Em andamento |
-| Sprint 3 | 05/05 - 25/05 | Não iniciada |
-| Feira de Soluções | 29/05 | Não iniciada |  
+| Sprint 2 | 07/04 - 27/04 | Concluído |
+| Sprint 3 | 05/05 - 25/05 | Em andamento |
+| Feira de Soluções | 17/06 | Não iniciada |  
 
 ## Product Backlog
 
@@ -80,7 +80,7 @@ Sprint | Previsão | Status
 | US05 | Criação da Tela Secundária para saída dos testes                                                          | 3      |
 
 
-##### Sprint 2 (EM ANDAMENTO)
+##### Sprint 2 
 | id   | Tasks                                                                                                     | points |
 | :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
 | US01 | Melhoria de documentação                                                                                  | 2      |
@@ -91,9 +91,12 @@ Sprint | Previsão | Status
 | US09 | Cirar método para envio do código para o Ollama                                                           | 3      |
 
 
-##### Sprint 3 (Ainda não iniciada)
+##### Sprint 3 (EM ANDAMENTO)
 | id   | Tasks                                                                                                     | points |  
-
+| USxx | Criar explicação do que o código faz                                                                      | xx     |
+| USxx | Criar DocStrings (Documentação do Código)                                                                 | xx     |
+| USxx | Fazer integração do GitHub                                                                                | xx     |
+| USxx | Armazenar códigos gerados pelo Ollama em novos prompts para melhoria                                      | xx     |
 
 
 ## Tecnologias Empregadas
