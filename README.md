@@ -64,7 +64,7 @@ Sprint | Previsão | Status
 | US10 | Média/Alta  | Como desenvolvedor, quero que a IA (Ollama) analise meu código em Python e documente o código automaticamente (gerando docstrings/comentários).  | 8      | 3      |
 | US11 | Média/Baixa  | Como desenvolvedor, quero que a IA explique em linguagem natural o que um trecho selecionado de código em Python faz.                                | 5      | 3      |
 | US12 | Alta       | Como desenvolvedor (Tarefa Técnica), quero que os Prompts enviados à IA e exemplos de código associados sejam armazenados em banco de dados simples. | 13     | 3      |  
-
+| US13 | Alta       | Como desenvolvedor quero que os códigos gerados sejam armazenados e comitados no GitHub, de maneira fácil e prática                                  | 8      | 3       | 
 
 ## Sprint Backlog
 
@@ -93,6 +93,7 @@ Sprint | Previsão | Status
 
 ##### Sprint 3 (EM ANDAMENTO)
 | id   | Tasks                                                                                                     | points |  
+| :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
 | USxx | Criar explicação do que o código faz                                                                      | xx     |
 | USxx | Criar DocStrings (Documentação do Código)                                                                 | xx     |
 | USxx | Fazer integração do GitHub                                                                                | xx     |
@@ -103,6 +104,7 @@ Sprint | Previsão | Status
 
  ![Java](https://img.shields.io/badge/Java-fdfefe?style=for-the-badge&logo=openjdk&logoColor=000000)
  ![Ollama](https://img.shields.io/badge/Ollama-fdfefe?style=for-the-badge&logo=Ollama&logoColor=000000)
+ ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=000000)
  ![Git](https://img.shields.io/badge/Git-fdfefe?style=for-the-badge&logo=git&logoColor=000000)
  ![Github](https://img.shields.io/badge/Github-fdfefe?style=for-the-badge&logo=github&logoColor=000000)
  ![Jira Software](https://img.shields.io/badge/Jira-fdfefe?style=for-the-badge&logo=Jira&logoColor=0064c8)
@@ -116,6 +118,7 @@ Sprint | Previsão | Status
 - É necessário ter instalado o Ollama para executar o modelo de linguagem [Baixar Ollama](https://ollama.com/)
 - Além disso, é necessário ter o Java Development Kit (JDK) instalado e configurado para executar a aplicação Java.
 - Esse projeto foi desenvolvido para funcionar no LLM qwen2.5-coder [qwen2.5-coder](https://ollama.com/library/qwen2.5-coder)
+- Para armazenar os códigos com prompts é preciso ter o MySQL instalado e configurado localmente.
 
 ## Integrantes da Equipe
 
