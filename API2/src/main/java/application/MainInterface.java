@@ -234,8 +234,18 @@ public class MainInterface extends javax.swing.JFrame {
                 btnCreateTest.setEnabled(false);
                 runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
             }
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Erro ao verificar Ollama: " + e.getMessage());
+        }  catch (IOException e) {
+            System.out.println("Erro ao verificar Ollama: " + e.getMessage());;
+            JOptionPane.showMessageDialog(null,
+                    "Ollama não está instalado ou contém um erro.",
+                    "Erro ao verificar Ollama",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (InterruptedException e){
+            System.out.println("Outro erro: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao verificar Ollama",
+                    "Operação Interrompida: " + e.getMessage(),
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnImproveActionPerformed
 
@@ -395,9 +405,20 @@ public class MainInterface extends javax.swing.JFrame {
                 btnCreateTest.setEnabled(false);
                 runOllama(PromptType.UNITTEST, TxtPrompt.getText());
             }
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Erro ao verificar Ollama: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Erro ao verificar Ollama: " + e.getMessage());;
+            JOptionPane.showMessageDialog(null,
+                    "Ollama não está instalado ou contém um erro.",
+                    "Erro ao verificar Ollama",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (InterruptedException e){
+            System.out.println("Outro erro: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao verificar Ollama",
+                    "Operação Interrompida: " + e.getMessage(),
+                    JOptionPane.WARNING_MESSAGE);
         }
+            
 
     }// GEN-LAST:event_btnSalvar2ActionPerformed
 

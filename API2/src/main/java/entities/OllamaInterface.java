@@ -9,12 +9,12 @@
 package entities;
 
 import io.github.ollama4j.OllamaAPI;
+import io.github.ollama4j.models.response.OllamaAsyncResultStreamer;
 import io.github.ollama4j.models.response.OllamaResult;
 import io.github.ollama4j.utils.OptionsBuilder;
 import java.io.IOException;
 
 public class OllamaInterface {
-
 
     private String host = "http://localhost:11434/";
 //  private String host = "http://192.168.15.13:11434";
@@ -56,15 +56,31 @@ public class OllamaInterface {
     public String GenerateTest(String promptWithCode) throws Exception {
         try {
             ollamaAPI.setRequestTimeoutSeconds(requestTimeOut);
-            OllamaResult result = ollamaAPI.generate(
-                    "qwen2.5-coder",
-                    promptWithCode,
-                    false,
-                    new OptionsBuilder().build());
+//            OllamaResult result = ollamaAPI.generate(
+//                    "qwen2.5-coder",
+//                    promptWithCode,
+//                    false,
+//                    new OptionsBuilder().build());
+//            String prompt = "List all cricket world cup teams of 2019.";
+            OllamaAsyncResultStreamer streamer = ollamaAPI.generateAsync("qwen2.5-coder", promptWithCode, false);
 
+            // Set the poll interval according to your need.
+            // Smaller the poll interval, more frequently you receive the tokens.
+            int pollIntervalMilliseconds = 1000;
+            StringBuilder sb = new StringBuilder();
+            String result;
+            while (true) {
+                String tokens = streamer.getStream().poll();
+                sb.append(tokens);
+                if (!streamer.isAlive()) {
+                    break;
+                }
+                Thread.sleep(pollIntervalMilliseconds);
+            }
+            result = sb.toString();
             if (result != null) {
 //                return result.getResponse();
-                return removeMarkdown(result.getResponse());
+                return removeMarkdown(result);
             } else {
                 throw new Exception("Erro de comunicação: ");
             }
