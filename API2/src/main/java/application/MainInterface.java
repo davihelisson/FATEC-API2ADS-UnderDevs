@@ -406,7 +406,7 @@ public class MainInterface extends javax.swing.JFrame {
                 runOllama(PromptType.UNITTEST, TxtPrompt.getText());
             }
         } catch (IOException e) {
-            System.out.println("Erro ao verificar Ollama: " + e.getMessage());;
+            System.out.println("Erro ao verificar Ollama: " + e.getMessage());
             JOptionPane.showMessageDialog(null,
                     "Ollama não está instalado ou contém um erro.",
                     "Erro ao verificar Ollama",

@@ -71,6 +71,7 @@ public class OllamaInterface {
             String result;
             while (true) {
                 String tokens = streamer.getStream().poll();
+                System.out.print(tokens);
                 sb.append(tokens);
                 if (!streamer.isAlive()) {
                     break;
