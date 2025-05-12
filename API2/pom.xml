@@ -30,6 +30,12 @@
             <artifactId>logback-classic</artifactId>
             <version>1.4.11</version> <!-- ou versão mais recente -->
         </dependency>
+        <dependency>
+            <groupId>org.finos.symphony.wdk</groupId>
+            <artifactId>workflow-language</artifactId>
+            <version>1.6.4</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>
