@@ -228,15 +228,13 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuNewActionPerformed
 
     private void btnImproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImproveActionPerformed
-        try {
-            if (VerifyOllama.isOllamaInstalled("qwen2.5-coder")) {
-                btnImprove.setEnabled(false);
-                btnCreateTest.setEnabled(false);
-                runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
-            }
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Erro ao verificar Ollama: " + e.getMessage());
+
+        if (VerifyOllama.isOllamaRunning()) {
+            btnImprove.setEnabled(false);
+            btnCreateTest.setEnabled(false);
+            runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
         }
+
     }//GEN-LAST:event_btnImproveActionPerformed
 
     private void newFile() {
@@ -285,7 +283,7 @@ public class MainInterface extends javax.swing.JFrame {
             if (promptType == PromptType.UNITTEST) {
                 promptWithCode = prompt.generateCode();
                 if (!"".equals(currentFile.getFileName())) {
-                    promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName());
+                    promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName().replace(".py", ""));
                     title = "Teste Unitário";
                 }
             } else if (promptType == PromptType.IMPROVEMENT) {
@@ -373,7 +371,6 @@ public class MainInterface extends javax.swing.JFrame {
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
 
     // Eventos dos botões da interface do usuário.    
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
@@ -389,16 +386,11 @@ public class MainInterface extends javax.swing.JFrame {
     }
 
     private void btnCreateTestActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar2ActionPerformed
-        try {
-            if (VerifyOllama.isOllamaInstalled("qwen2.5-coder")) {
-                btnImprove.setEnabled(false);
-                btnCreateTest.setEnabled(false);
-                runOllama(PromptType.UNITTEST, TxtPrompt.getText());
-            }
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Erro ao verificar Ollama: " + e.getMessage());
+        if (VerifyOllama.isOllamaRunning()) {
+            btnImprove.setEnabled(false);
+            btnCreateTest.setEnabled(false);
+            runOllama(PromptType.UNITTEST, TxtPrompt.getText());
         }
-
     }// GEN-LAST:event_btnSalvar2ActionPerformed
 
     // Main menu options
