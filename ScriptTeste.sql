@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS idle;
+
+USE idle;
+
 CREATE TABLE melhorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo_original TEXT NOT NULL,
