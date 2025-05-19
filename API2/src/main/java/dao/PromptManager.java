@@ -51,9 +51,7 @@ public class PromptManager {
     }
     
     public String construirPromptFinal(String promptBase) {
-    // Gera o texto com as melhorias
-    String melhorias = gerarTextoComSugestoes();
-    // Junta o prompt base com as melhorias sugeridas
-    return promptBase + "\n\n" + "Sugestões anteriores:\n" + melhorias;
-}
+        String melhorias = gerarTextoComSugestoes();
+        return promptBase + "\n\n" + "Sugestões anteriores:\n" + melhorias;
+    }
 }

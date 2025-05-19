@@ -23,6 +23,10 @@ public class Sugestao {
         this.melhoriaSugerida = melhoriaSugerida;
         this.dataSugestao = dataSugestao;
     }
+
+    Sugestao(int id, String codigoOriginal, String melhoriaSugerida, Timestamp dataSugestao) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     // Getters
     public int getId() { return id; }
