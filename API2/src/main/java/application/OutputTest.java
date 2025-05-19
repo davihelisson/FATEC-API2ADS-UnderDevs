@@ -2,8 +2,6 @@ package application;
 
 import entities.CurrentFile;
 import java.io.File;
-import java.io.IOException;
-import javax.swing.JOptionPane;
 import enums.FileOptions;
 import utilities.FileUtils;
 
@@ -11,7 +9,7 @@ import utilities.FileUtils;
  *
  * @author UnderDevs Team
  */
-public class TelaSaidaTeste extends javax.swing.JFrame {
+public class OutputTest extends javax.swing.JFrame {
 
     private final CurrentFile currentFile;
     private final FileOptions options;
@@ -23,7 +21,7 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
      * @param options
      * @param title
      */
-    public TelaSaidaTeste(CurrentFile currentFile, FileOptions options, String title) {
+    public OutputTest(CurrentFile currentFile, FileOptions options, String title) {
         initComponents();
         this.currentFile = currentFile;
         this.options = options;
@@ -108,30 +106,15 @@ public class TelaSaidaTeste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
-        try {
-            if (currentFile.hasModifications(jTextPane1.getText())) {
-                if (FileUtils.saveFile(currentFile, jTextPane1.getText(), options)) {
-                    File fileToRun = new File(currentFile.getFilePath(), currentFile.getFileName());
-                    String runOut = FileUtils.runPython(fileToRun.getAbsolutePath()).toString();
-                    OutputUI out = new OutputUI(runOut);
-                    out.setVisible(true);
-                }
-            } else {
-                FileUtils.runPython(new File(currentFile.getFilePath(), currentFile.getFileName()).getAbsolutePath());
+        if (currentFile.hasModifications(jTextPane1.getText())) {
+            if (FileUtils.saveFile(currentFile, jTextPane1.getText(), options)) {
+                File fileToRun = new File(currentFile.getFilePath(), currentFile.getFileName());
+                String runOut = FileUtils.runPython(fileToRun.getAbsolutePath()).toString();
+                OutputUI out = new OutputUI("Resultados", runOut);
+                out.setVisible(true);
             }
-
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Erro ao verificar o Python: " + ex.getMessage(),
-                    "Erro de I/O",
-                    JOptionPane.ERROR_MESSAGE);
-
-        } catch (InterruptedException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Operação interrompida ao verificar o Python",
-                    "Operação Interrompida",
-                    JOptionPane.WARNING_MESSAGE);
-            Thread.currentThread().interrupt(); // Restaura o flag de interrupção
+        } else {
+            FileUtils.runPython(new File(currentFile.getFilePath(), currentFile.getFileName()).getAbsolutePath());
         }
     }//GEN-LAST:event_btnRunActionPerformed
 

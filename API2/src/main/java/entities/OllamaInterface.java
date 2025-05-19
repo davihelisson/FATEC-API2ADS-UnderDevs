@@ -1,88 +1,85 @@
-/* UNDERDEVS ADS2 - PYTHONT IDE WITH JAVA AND OLLAMA.
- - Entidade responsável pela conexão com OLLAMA 
- - Essa classe é responsável por permitir a criação de um objetido OllamaInterface
- - cujos único método é generateTest que recebe como parâmetro uma string contendo
- - os prompts e o código definido pelo usuário e retorna o resultado produzido pelo
- - LLM como uma string que deve ser capturada como saída para o Teste Unitário.
- - by Wesley and Team.
- */
 package entities;
 
 import io.github.ollama4j.OllamaAPI;
 import io.github.ollama4j.models.response.OllamaResult;
 import io.github.ollama4j.utils.OptionsBuilder;
 import java.io.IOException;
+import javax.swing.JOptionPane;
+import utilities.VerifyOllama;
 
+/**
+ * Responsável pela conexão com Ollama.
+ */
 public class OllamaInterface {
 
-
     private String host = "http://localhost:11434/";
-//  private String host = "http://192.168.15.13:11434";
     private int requestTimeOut = 240;
-    OllamaAPI ollamaAPI = new OllamaAPI(host);
+    private final OllamaAPI ollamaAPI = new OllamaAPI(host);
 
     public OllamaInterface() {
-
     }
 
-    // Construtor com host personalizado
+    /**
+     * Construtor com host personalizado.
+     *
+     * @param host
+     */
     public OllamaInterface(String host) {
         this.host = host;
     }
 
-    // Construtor com hots e request time out personalizado.
+    /**
+     * Construtor com host e timeout de requisição personalizados.
+     *
+     * @param host
+     * @param requestTimeOut
+     */
     public OllamaInterface(String host, int requestTimeOut) {
         this.host = host;
         this.requestTimeOut = requestTimeOut;
     }
 
     /**
-     * Gera um caso de teste utilizando um modelo de linguagem através da API
-     * Ollama.
+     * Gera um caso de teste usando a API Ollama.Envia um prompt com código para
+     * o modelo "qwen2.5-coder" e retorna a resposta gerada, removendo a
+     * formatação de bloco de código Markdown.
      *
-     * Envia um prompt contendo código para o modelo "qwen2.5-coder" hospedado
-     * pela API Ollama e retorna a resposta gerada, após remover quaisquer
-     * formatações de bloco de código Markdown.
      *
-     * @param promptWithCode O prompt contendo o código para o qual o caso de
-     * teste deve ser gerado.
-     * @return O caso de teste gerado pelo modelo, sem as linhas delimitadoras
-     * de bloco de código Markdown.
-     * @throws Exception Se ocorrer um erro de comunicação com a API Ollama ou
-     * um erro de entrada/saída durante a requisição.
-     *
-     * @see #removeMarkdown(String)
+     * @param completePrompt
+     * @return O caso de teste gerado, sem a formatação Markdown.
      */
-    public String GenerateTest(String promptWithCode) throws Exception {
+    public String GenerateTest(String completePrompt) {
         try {
-            ollamaAPI.setRequestTimeoutSeconds(requestTimeOut);
-            OllamaResult result = ollamaAPI.generate(
-                    "qwen2.5-coder",
-                    promptWithCode,
-                    false,
-                    new OptionsBuilder().build());
-
-            if (result != null) {
-//                return result.getResponse();
-                return removeMarkdown(result.getResponse());
+            String model = "qwen2.5-coder";
+            if (VerifyOllama.isOllamaRunning(model)) {
+                ollamaAPI.setRequestTimeoutSeconds(requestTimeOut);
+                OllamaResult result = ollamaAPI.generate(
+                        model,
+                        completePrompt,
+                        false,
+                        new OptionsBuilder().build());
+                if (result != null) {
+                    return removeMarkdown(result.getResponse());
+                } else {
+                    throw new Exception("Erro de comunicação com Ollama");
+                }
             } else {
-                throw new Exception("Erro de comunicação: ");
+                return null;
             }
         } catch (IOException e) {
-            throw new IOException("Erro ao tentar realizar a operação de I/O", e);
+            JOptionPane.showMessageDialog(null, "Erro de E/S: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            return "";
         } catch (Exception e) {
-            throw new Exception("Erro inesperado ao gerar o teste", e);
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            return "";
         }
     }
 
     /**
-     * Remove as linhas delimitadoras de blocos de código Markdown (` ``` `) do
-     * início e do fim de uma String.
+     * Remove a formatação de bloco de código Markdown (` ```) de uma string.
      *
-     * @param output A String contendo o texto potencialmente formatado com
-     * Markdown.
-     * @return Uma nova String com as linhas delimitadoras de bloco de código
-     * removidas, se existirem.
+     * @param output A string com formatação Markdown.
+     * @return A string sem a formatação Markdown.
      */
     private String removeMarkdown(String output) {
         String[] lines = output.split("\n");
