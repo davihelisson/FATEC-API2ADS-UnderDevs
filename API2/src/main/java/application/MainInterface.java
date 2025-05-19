@@ -3,16 +3,14 @@ package application;
 import entities.CurrentFile;
 import entities.OllamaInterface;
 import entities.Prompts;
-import java.awt.event.WindowAdapter;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.JOptionPane;
 import enums.FileOptions;
 import enums.PromptType;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.Objects;
+import javax.swing.JOptionPane;
 import utilities.FileUtils;
-import utilities.VerifyOllama;
 
 /**
  * @author UnderDevs DevTeam
@@ -228,25 +226,9 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuNewActionPerformed
 
     private void btnImproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImproveActionPerformed
-        try {
-            if (VerifyOllama.isOllamaInstalled("qwen2.5-coder")) {
-                btnImprove.setEnabled(false);
-                btnCreateTest.setEnabled(false);
-                runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
-            }
-        }  catch (IOException e) {
-            System.out.println("Erro ao verificar Ollama: " + e.getMessage());;
-            JOptionPane.showMessageDialog(null,
-                    "Ollama não está instalado ou contém um erro.",
-                    "Erro ao verificar Ollama",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (InterruptedException e){
-            System.out.println("Outro erro: " + e.getMessage());
-            JOptionPane.showMessageDialog(null,
-                    "Erro ao verificar Ollama",
-                    "Operação Interrompida: " + e.getMessage(),
-                    JOptionPane.WARNING_MESSAGE);
-        }
+        btnImprove.setEnabled(false);
+        btnCreateTest.setEnabled(false);
+        runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
     }//GEN-LAST:event_btnImproveActionPerformed
 
     private void newFile() {
@@ -295,7 +277,7 @@ public class MainInterface extends javax.swing.JFrame {
             if (promptType == PromptType.UNITTEST) {
                 promptWithCode = prompt.generateCode();
                 if (!"".equals(currentFile.getFileName())) {
-                    promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName());
+                    promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName().replace(".py", ""));
                     title = "Teste Unitário";
                 }
             } else if (promptType == PromptType.IMPROVEMENT) {
@@ -305,23 +287,25 @@ public class MainInterface extends javax.swing.JFrame {
             Objects.requireNonNull(promptWithCode, "O código fonte não pode ser nulo");
             String result = ollamaInterface.GenerateTest(promptWithCode);
 
-            TelaSaidaTeste telaSaida = new TelaSaidaTeste(new CurrentFile(), FileOptions.SOURCE, title);
-            telaSaida.setContent(result);
-            telaSaida.setTitle("Output " + currentFile.getFileName());
-            telaSaida.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(java.awt.event.WindowEvent e) {
-                    btnCreateTest.setEnabled(true);
-                    btnImprove.setEnabled(true);
-                }
+            if (!result.isEmpty()) {
+                OutputTest telaSaida = new OutputTest(new CurrentFile(), FileOptions.SOURCE, title);
+                telaSaida.setContent(result);
+                telaSaida.setTitle("Output " + currentFile.getFileName());
+                telaSaida.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent e) {
+                        btnCreateTest.setEnabled(true);
+                        btnImprove.setEnabled(true);
+                    }
 
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    telaSaida.dispose();
-                }
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        telaSaida.dispose();
+                    }
 
-            });
-            telaSaida.setVisible(true);
+                });
+                telaSaida.setVisible(true);
+            }
 
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null,
@@ -343,47 +327,29 @@ public class MainInterface extends javax.swing.JFrame {
      * Método privado para executar o código escrito em Python
      */
     private void runCode() {
-        try {
-            if (!currentFile.hasModifications(TxtPrompt.getText())
-                    && !"".equals(currentFile.getFileName())
-                    && !"".equals(currentFile.getFilePath())) {
-                String pythonOutput = FileUtils.runPython(new File(currentFile.getFilePath(), currentFile.getFileName()).toString()).toString();
-                OutputUI outUI = new OutputUI(pythonOutput);
-                outUI.setVisible(true);
-            } else if (!TxtPrompt.getText().equals("")) {
-                int aswer = JOptionPane.showConfirmDialog(
-                        null,
-                        "Salvar mudanças no arquivo?",
-                        "Salvar mudanças?",
-                        JOptionPane.YES_NO_OPTION
-                );
+        if (!currentFile.hasModifications(TxtPrompt.getText())
+                && !"".equals(currentFile.getFileName())
+                && !"".equals(currentFile.getFilePath())) {
+            String pythonOutput = FileUtils.runPython(new File(currentFile.getFilePath(), currentFile.getFileName()).toString()).toString();
+            OutputUI outUI = new OutputUI("Resultados", pythonOutput);
+            outUI.setVisible(true);
+        } else if (!TxtPrompt.getText().equals("")) {
+            int aswer = JOptionPane.showConfirmDialog(
+                    null,
+                    "Salvar mudanças no arquivo?",
+                    "Salvar mudanças?",
+                    JOptionPane.YES_NO_OPTION
+            );
 
-                if (aswer == JOptionPane.YES_OPTION) {
-                    saveFile();
-                    if (!currentFile.hasModifications(TxtPrompt.getText())) {
-                        runCode();
-                    }
+            if (aswer == JOptionPane.YES_OPTION) {
+                saveFile();
+                if (!currentFile.hasModifications(TxtPrompt.getText())) {
+                    runCode();
                 }
             }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Erro ao verificar o Python: " + ex.getMessage(),
-                    "Erro de I/O",
-                    JOptionPane.ERROR_MESSAGE);
-        } catch (InterruptedException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Operação interrompida ao verificar o Python",
-                    "Operação Interrompida",
-                    JOptionPane.WARNING_MESSAGE);
-            Thread.currentThread().interrupt(); // Restaura o flag de interrupção
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Nenhum arquivo a ser executado.",
-                    "Arquivo inexistente",
-                    JOptionPane.INFORMATION_MESSAGE);
         }
+
     }
-    
 
     // Eventos dos botões da interface do usuário.    
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
@@ -399,27 +365,9 @@ public class MainInterface extends javax.swing.JFrame {
     }
 
     private void btnCreateTestActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar2ActionPerformed
-        try {
-            if (VerifyOllama.isOllamaInstalled("qwen2.5-coder")) {
-                btnImprove.setEnabled(false);
-                btnCreateTest.setEnabled(false);
-                runOllama(PromptType.UNITTEST, TxtPrompt.getText());
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao verificar Ollama: " + e.getMessage());
-            JOptionPane.showMessageDialog(null,
-                    "Ollama não está instalado ou contém um erro.",
-                    "Erro ao verificar Ollama",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } catch (InterruptedException e){
-            System.out.println("Outro erro: " + e.getMessage());
-            JOptionPane.showMessageDialog(null,
-                    "Erro ao verificar Ollama",
-                    "Operação Interrompida: " + e.getMessage(),
-                    JOptionPane.WARNING_MESSAGE);
-        }
-            
-
+        btnImprove.setEnabled(false);
+        btnCreateTest.setEnabled(false);
+        runOllama(PromptType.UNITTEST, TxtPrompt.getText());
     }// GEN-LAST:event_btnSalvar2ActionPerformed
 
     // Main menu options

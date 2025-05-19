@@ -1,51 +1,56 @@
 package utilities;
 
-import java.io.BufferedReader;
+import io.github.ollama4j.OllamaAPI;
+import io.github.ollama4j.exceptions.OllamaBaseException;
+import io.github.ollama4j.models.response.Model;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
+import java.net.URISyntaxException;
+import javax.swing.JOptionPane;
 
+/**
+ * Classe para verificar se o Ollama está em execução.
+ */
 public class VerifyOllama {
 
-    public static boolean isOllamaInstalled(String nomeModelo) throws IOException, InterruptedException {
-        Process process = null;
+    /**
+     * Verifica se o Ollama está rodando na porta padrão
+     * (http://localhost:11434/).
+     *
+     * @param model
+     * @return {@code true} se o Ollama estiver rodando e acessível,
+     * {@code false} caso contrário.
+     */
+    public static boolean isOllamaRunning(String model) {
         try {
-            // Verifica se o modelo já está instalado
-            process = new ProcessBuilder("ollama", "list").start();
-            boolean finished = process.waitFor(2, TimeUnit.SECONDS);
-            if (!finished) {
-                process.destroyForcibly();
+            String host = "http://localhost:11434/";
+            OllamaAPI ollamaAPI = new OllamaAPI(host);
+            if (!ollamaAPI.ping()) {
                 return false;
-            }
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                if (linha.toLowerCase().startsWith(nomeModelo.toLowerCase() + " ")) {
-                    return true;
+            } else {
+                for (Model m : ollamaAPI.listModels()) {
+                    if (m.getModelName().equals(model)) {
+                        return true;
+                    }
                 }
+                int result = JOptionPane.showConfirmDialog(
+                        null,
+                        "Modelo não encontrado, deseja tentar o Download?",
+                        "Confirmação",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if(result == JOptionPane.YES_OPTION){
+                    ollamaAPI.pullModel("codestral:latest");
+                }
+                else{
+                    return false;
+                }
+
             }
-
-            // Se chegou aqui, o modelo não está instalado — tenta baixar
-            System.out.println("Modelo '" + nomeModelo + "' não encontrado. Tentando baixar...");
-
-            Process pullProcess = new ProcessBuilder("ollama", "pull", nomeModelo)
-                    .inheritIO() // mostra o progresso no console
-                    .start();
-
-            boolean pullFinished = pullProcess.waitFor(5, TimeUnit.MINUTES); // tempo maior pra baixar o modelo
-            if (!pullFinished) {
-                pullProcess.destroyForcibly();
-                System.out.println("Timeout ao tentar baixar o modelo.");
-                return false;
-            }
-
-            return pullProcess.exitValue() == 0;
-
-        } finally {
-            if (process != null && process.isAlive()) {
-                process.destroyForcibly();
-            }
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "Erro de comunicação com Ollama: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (OllamaBaseException | InterruptedException | URISyntaxException | IOException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        return false;
     }
 }

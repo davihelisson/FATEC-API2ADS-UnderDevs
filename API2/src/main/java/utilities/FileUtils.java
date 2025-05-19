@@ -1,14 +1,8 @@
 package utilities;
 
-import enums.FileOptions;
 import entities.CurrentFile;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import enums.FileOptions;
+import java.io.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFileChooser;
@@ -16,32 +10,22 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
- * @author XvierDev
+ * Utilitários para manipulação de arquivos.
  */
 public class FileUtils {
 
-    private static final FileNameExtensionFilter filter1 = new FileNameExtensionFilter("Python files (*.py)", "py");
-    private static final FileNameExtensionFilter filter2 = new FileNameExtensionFilter("Text files (*.txt)", "txt");
+    private static final FileNameExtensionFilter filter1 = new FileNameExtensionFilter("Arquivos Python (*.py)", "py");
+    private static final FileNameExtensionFilter filter2 = new FileNameExtensionFilter("Arquivos de Texto (*.txt)", "txt");
 
     /**
-     * Escreve o conteúdo fornecido no arquivo representado pelo objeto
-     * {@code CurrentFile}.
+     * Escreve o conteúdo fornecido em um arquivo.
      *
-     * Este método encapsula a lógica de escrita do conteúdo em disco. Ele
-     * utiliza as informações de caminho e nome de arquivo presentes no objeto
-     * {@code fileToSave} para localizar o arquivo e, em seguida, escreve o
-     * conteúdo especificado.
-     *
-     * @param fileToSave O objeto {@code CurrentFile} que contém as informações
-     * do arquivo (caminho e nome) a ser escrito. Não pode ser {@code null}.
-     * @param newContent O conteúdo a ser escrito no arquivo. Se for
-     * {@code null}, nada será escrito.
-     * @throws NullPointerException Se o parâmetro {@code fileToSave} for
-     * {@code null}.
-     * @throws IOException Se ocorrer um erro durante a operação de escrita no
-     * arquivo (por exemplo, problemas de permissão, disco cheio, arquivo não
-     * encontrado, etc.).
+     * @param fileToSave  O objeto CurrentFile contendo informações sobre o arquivo.
+     * @param newContent  O conteúdo a ser escrito no arquivo.
+     * @param fileName    O nome do arquivo.
+     * @param filePath    O caminho do diretório onde o arquivo será salvo.
+     * @return {@code true} se a escrita for bem-sucedida, {@code false} em caso de erro.
+     * @throws NullPointerException Se algum dos argumentos for nulo.
      */
     private static boolean writeFile(CurrentFile fileToSave, String newContent, String fileName, String filePath) {
         Objects.requireNonNull(fileToSave, "O objeto CurrentFile não pode ser nulo.");
@@ -55,47 +39,20 @@ public class FileUtils {
             fileToSave.setContent(newContent);
             return true;
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Erro de I/O " + ex.getMessage(),
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro de I/O: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
 
     /**
-     * Salva o conteúdo atual no arquivo associado ao objeto
-     * {@code CurrentFile}.
+     * Salva o conteúdo em um arquivo. Se o conteúdo foi alterado, exibe um diálogo
+     * para selecionar o arquivo se o arquivo original não tiver nome/caminho,
+     * ou sobrescreve o arquivo existente.
      *
-     * Este método verifica se o conteúdo atual do {@code fileToSave} difere do
-     * {@code newContent} fornecido. Se houver alterações, ele procede com a
-     * operação de salvar.
-     *
-     * Se o arquivo ainda não tiver um caminho e nome definidos, um diálogo
-     * {@code JFileChooser} será apresentado ao usuário para escolher o local e
-     * o nome do arquivo. A extensão do arquivo será forçada para ".py" se
-     * {@code op} for {@code FileOptions.SOURCE} e para ".txt" se for
-     * {@code FileOptions.TEXT}.
-     *
-     * Se o arquivo selecionado já existir, uma caixa de diálogo de confirmação
-     * será exibida perguntando ao usuário se deseja sobrescrevê-lo.
-     *
-     * Se o arquivo já tiver um caminho e nome definidos, o conteúdo será
-     * diretamente gravado nesse local, sem exibir o diálogo de seleção de
-     * arquivo.
-     *
-     * @param fileToSave O objeto {@code CurrentFile} representando o arquivo a
-     * ser salvo. Não pode ser {@code null}.
-     * @param newContent O novo conteúdo a ser gravado no arquivo.
-     * @param op Uma enumeração {@code FileOptions} indicando o tipo do arquivo
-     * (SOURCE ou TEXT), usada para definir o filtro e a extensão padrão no
-     * diálogo de seleção de arquivo. Não pode ser {@code null}.
-     * @return {@code true} se o arquivo foi salvo com sucesso (ou se não houve
-     * alterações); {@code false} se a operação de salvar foi cancelada pelo
-     * usuário, ocorreu um erro durante o processo de salvamento ou se o usuário
-     * optou por não sobrescrever um arquivo existente.
-     * @throws NullPointerException Se {@code fileToSave} ou {@code op} forem
-     * {@code null}.
+     * @param fileToSave O arquivo a ser salvo.
+     * @param newContent O novo conteúdo a ser salvo.
+     * @param op         O tipo de arquivo (SOURCE ou TEXT).
+     * @return {@code true} se o arquivo foi salvo com sucesso, {@code false} caso contrário.
      */
     public static boolean saveFile(CurrentFile fileToSave, String newContent, FileOptions op) {
         if (!fileToSave.getContent().equals(newContent)) {
@@ -113,26 +70,17 @@ public class FileUtils {
                 }
                 int userSelection = fileChooser.showSaveDialog(null);
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    if (op.equals(FileOptions.SOURCE)) {
-                        if (!fileChooser.getSelectedFile().getName().endsWith(".py")) {
-                            fileChooser.setSelectedFile(new File(fileChooser.getSelectedFile().getAbsolutePath() + ".py"));
-                        }
-                    } else if (op.equals(FileOptions.TEXT)) {
-                        if (!fileChooser.getSelectedFile().getName().endsWith(".txt")) {
-                            fileChooser.setSelectedFile(new File(fileChooser.getSelectedFile().getAbsolutePath() + ".txt"));
-                        }
-                    }
                     File newFile = fileChooser.getSelectedFile();
-                    if (newFile.exists()) {
-                        int resposta = JOptionPane.showConfirmDialog(null, "O arquivo já existe. Deseja sobrescrever?",
-                                "Confirmação", JOptionPane.YES_NO_OPTION);
-                        if (resposta != JOptionPane.YES_OPTION) {
-                            return false;
-                        }
+                    if (op.equals(FileOptions.SOURCE) && !newFile.getName().endsWith(".py")) {
+                        newFile = new File(newFile.getAbsolutePath() + ".py");
+                    } else if (op.equals(FileOptions.TEXT) && !newFile.getName().endsWith(".txt")) {
+                        newFile = new File(newFile.getAbsolutePath() + ".txt");
+                    }
+                    if (newFile.exists() && JOptionPane.showConfirmDialog(null, "O arquivo já existe. Deseja sobrescrever?", "Confirmação", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
+                        return false;
                     }
                     return writeFile(fileToSave, newContent, newFile.getName(), newFile.getParent());
                 }
-
             } else {
                 return writeFile(fileToSave, newContent, fileToSave.getFileName(), fileToSave.getFilePath());
             }
@@ -144,31 +92,18 @@ public class FileUtils {
     }
 
     /**
-     * Abre um arquivo usando um diálogo de seleção de arquivo e retorna um
-     * objeto {@code CurrentFile} contendo as informações do arquivo (nome,
-     * caminho e conteúdo).
+     * Abre um arquivo via diálogo, retornando suas informações (nome, caminho e
+     * conteúdo) em um {@code CurrentFile}.
      *
-     * Este método apresenta um diálogo {@code JFileChooser} ao usuário,
-     * permitindo que ele navegue pelo sistema de arquivos e selecione um
-     * arquivo para abrir. Dois filtros de arquivo ({@code filter1} e
-     * {@code filter2}) são adicionados ao diálogo, com {@code filter1} sendo o
-     * filtro inicial selecionado.
+     * Apresenta um {@code JFileChooser} com filtros {@code filter1} (inicial) e
+     * {@code filter2}. Se um arquivo for selecionado e aprovado, seu conteúdo é
+     * lido. Em caso de erro na leitura ou cancelamento, retorna {@code null}.
      *
-     * Se o usuário aprovar a seleção de um arquivo, o método tenta ler o
-     * conteúdo desse arquivo linha por linha e armazena-o no atributo
-     * {@code content} de um novo objeto {@code CurrentFile}. O nome e o caminho
-     * do arquivo selecionado também são armazenados nesse objeto.
-     *
-     * Em caso de erro durante a leitura do arquivo (por exemplo, arquivo não
-     * encontrado, permissão negada), uma mensagem de erro é exibida ao usuário
-     * através de um {@code JOptionPane}, e o método retorna {@code null}.
-     *
-     * Se o usuário cancelar o diálogo de seleção de arquivo, o método também
-     * retorna {@code null}.
-     *
-     * @return Um novo objeto {@code CurrentFile} contendo o nome, caminho e
-     * conteúdo do arquivo aberto, ou {@code null} se o usuário cancelar a
-     * seleção ou ocorrer um erro durante a leitura do arquivo.
+     * @return Um {@code CurrentFile} com nome, caminho e conteúdo do arquivo
+     * aberto, ou {@code null} em caso de cancelamento ou erro de leitura.
+     * @see CurrentFile
+     * @see javax.swing.JFileChooser
+     * @see javax.swing.filechooser.FileFilter
      */
     public static CurrentFile openFile() {
         JFileChooser fileChooser = new JFileChooser();
@@ -181,18 +116,17 @@ public class FileUtils {
             try {
                 File file = fileChooser.getSelectedFile();
                 CurrentFile currentFile = new CurrentFile(file.getName(), file.getParent());
-
-                BufferedReader reader = new BufferedReader(new FileReader(file));
                 StringBuilder conteudo = new StringBuilder();
-                String linha;
-                while ((linha = reader.readLine()) != null) {
-                    conteudo.append(linha).append('\n');
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                    String linha;
+                    while ((linha = reader.readLine()) != null) {
+                        conteudo.append(linha).append('\n');
+                    }
                 }
                 currentFile.setContent(conteudo.toString());
                 return currentFile;
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
         }
@@ -200,43 +134,22 @@ public class FileUtils {
     }
 
     /**
-     * Verifica se o interpretador Python (versão 3 ou padrão) está instalado no
-     * sistema.
+     * Verifica se o Python (versão 3 ou padrão) está instalado no sistema,
+     * executando os comandos "python3 --version" e "python --version".
+     * A execução de cada comando tem um timeout de 2 segundos.
      *
-     * Este método tenta executar os comandos "python3 --version" e "python
-     * --version" para verificar a presença dos interpretadores Python. Cada
-     * tentativa tem um tempo limite de 2 segundos.
-     *
-     * O método retorna a string "python3" se o comando "python3 --version" for
-     * executado com sucesso (código de saída 0). Se essa tentativa falhar, ele
-     * tenta o comando "python --version". Se este último for bem-sucedido, o
-     * método retorna a string "python".
-     *
-     * Se nenhuma das tentativas de executar os comandos for bem-sucedida dentro
-     * do tempo limite, o método retorna {@code null}, indicando que nenhum
-     * interpretador Python foi detectado.
-     *
-     * Em caso de falha ao iniciar os processos ou interrupção durante a espera,
-     * as exceções {@code IOException} ou {@code InterruptedException} são
-     * lançadas. O bloco {@code finally} garante que quaisquer processos ainda
-     * em execução sejam destruídos forçosamente.
-     *
-     * @return "python3" se o Python 3 for detectado, "python" se o Python
-     * padrão (geralmente 2.x ou um link para 3.x) for detectado, ou
-     * {@code null} se nenhum interpretador Python for encontrado.
-     * @throws IOException Se ocorrer um erro de E/S ao iniciar os processos.
-     * @throws InterruptedException Se o thread atual for interrompido enquanto
-     * espera pelos processos terminarem.
+     * @return Uma string indicando a versão do Python instalada ("python3" ou
+     * "python"), ou {@code null} se nenhuma versão for detectada ou ocorrer um
+     * erro durante a verificação. Em caso de erro de I/O ou interrupção, uma
+     * caixa de diálogo de erro é exibida ao usuário.
      */
-    private static String isPythonInstalled() throws IOException, InterruptedException {
+    private static String isPythonInstalled() {
         Process process1 = null;
         Process process2 = null;
         try {
-            // Tenta executar python3 --version
             process1 = new ProcessBuilder("python3", "--version").start();
             process2 = new ProcessBuilder("python", "--version").start();
 
-            // Espera o processo terminar com timeout
             boolean test1 = process1.waitFor(2, TimeUnit.SECONDS);
             if (!test1) {
                 process1.destroyForcibly();
@@ -246,7 +159,6 @@ public class FileUtils {
                 process2.destroyForcibly();
             }
 
-            // Retorna true apenas se o processo terminou com sucesso (exit code 0)
             if (process1.exitValue() == 0) {
                 return "python3";
             } else if (process2.exitValue() == 0) {
@@ -254,9 +166,10 @@ public class FileUtils {
             } else {
                 return null;
             }
-
+        } catch (IOException | InterruptedException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao verificar o Python: " + e.getMessage(), "Erro de I/O", JOptionPane.ERROR_MESSAGE);
+            return null;
         } finally {
-            // Garante que o processo seja destruído
             if (process1 != null && process1.isAlive()) {
                 process1.destroyForcibly();
             }
@@ -267,68 +180,45 @@ public class FileUtils {
     }
 
     /**
-     * Executa um script Python especificado pelo caminho absoluto e retorna a
-     * saída do script.
+     * Executa um script Python localizado no caminho absoluto especificado.
+     * Primeiro, verifica se o Python está instalado no sistema utilizando o
+     * método {@link #isPythonInstalled()}. Se o Python for encontrado, o script
+     * é executado e a saída do script (stdout e stderr combinados) é capturada
+     * e retornada. Se o Python não for encontrado, uma caixa de diálogo de erro
+     * é exibida ao usuário e {@code null} é retornado. Em caso de IOException
+     * ou InterruptedException durante a execução do script, uma caixa de
+     * diálogo de erro é exibida e {@code null} é retornado.
      *
-     * Este método primeiro tenta determinar o nome do executável Python
-     * disponível no sistema chamando o método {@code isPythonInstalled()}. Se
-     * um interpretador Python for encontrado (seja "python3" ou "python"), ele
-     * prossegue com a execução do script.
-     *
-     * O script Python é executado como um processo separado usando
-     * {@code ProcessBuilder}. A saída padrão (stdout) e o fluxo de erros padrão
-     * (stderr) do processo Python são redirecionados para o mesmo fluxo, que é
-     * então lido linha por linha.
-     *
-     * O método aguarda a conclusão do processo Python antes de retornar a saída
-     * coletada em um objeto {@code StringBuilder}.
-     *
-     * Se nenhum interpretador Python for encontrado no sistema, uma mensagem de
-     * erro é exibida ao usuário através de um {@code JOptionPane}, e o método
-     * retorna {@code null}.
-     *
-     * @param absolutePath O caminho absoluto para o arquivo de script Python a
-     * ser executado. Não pode ser {@code null} ou vazio.
-     * @return Um {@code StringBuilder} contendo toda a saída gerada pelo script
-     * Python, ou {@code null} se nenhum interpretador Python for encontrado ou
-     * se o {@code absolutePath} for inválido.
-     * @throws IOException Se ocorrer um erro de E/S ao iniciar o processo
-     * Python.
-     * @throws InterruptedException Se o thread atual for interrompido enquanto
-     * espera a conclusão do processo Python.
-     * @throws NullPointerException Se {@code absolutePath} for {@code null}.
-     * @throws IllegalArgumentException Se {@code absolutePath} for uma string
-     * vazia.
+     * @param absolutePath O caminho absoluto para o arquivo Python a ser
+     * executado.
+     * @return Um {@code StringBuilder} contendo a saída do script Python, com
+     * cada linha terminada por uma quebra de linha. Retorna {@code null} se o
+     * Python não estiver instalado ou se ocorrer um erro durante a execução do
+     * script.
      */
-    public static StringBuilder runPython(String absolutePath) throws IOException, InterruptedException {
-
+    public static StringBuilder runPython(String absolutePath) {
         String pythonName = isPythonInstalled();
-
         if (pythonName != null) {
-            File file = new File(absolutePath);
-
-            // 1. Executar o arquivo Python
-            ProcessBuilder pb = new ProcessBuilder(pythonName, file.getAbsolutePath());
-            pb.redirectErrorStream(true); // junta stdout e stderr
-            Process process = pb.start();
-
-            // 2. Ler a saída do Python
-            BufferedReader leitor = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String linha;
-            while ((linha = leitor.readLine()) != null) {
-                sb.append(linha);
-                sb.append('\n');
+            try {
+                File file = new File(absolutePath);
+                ProcessBuilder pb = new ProcessBuilder(pythonName, file.getAbsolutePath());
+                pb.redirectErrorStream(true);
+                Process process = pb.start();
+                StringBuilder sb = new StringBuilder();
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String linha;
+                    while ((linha = reader.readLine()) != null) {
+                        sb.append(linha).append('\n');
+                    }
+                }
+                process.waitFor();
+                return sb;
+            } catch (IOException | InterruptedException e) {
+                JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                return null;
             }
-
-            // 3. Esperar o processo terminar
-            process.waitFor();
-            return sb;
         } else {
-            JOptionPane.showMessageDialog(null,
-                    "Python não foi encontrado no sistema.\nPor favor, instale Python e tente novamente.",
-                    "Python não encontrado",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Python não foi encontrado no sistema.\nPor favor, instale Python e tente novamente.", "Python não encontrado", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
