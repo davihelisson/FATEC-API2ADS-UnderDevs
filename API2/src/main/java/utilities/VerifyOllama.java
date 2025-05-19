@@ -32,6 +32,18 @@ public class VerifyOllama {
                         return true;
                     }
                 }
+                int result = JOptionPane.showConfirmDialog(
+                        null,
+                        "Modelo não encontrado, deseja tentar o Download?",
+                        "Confirmação",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if(result == JOptionPane.YES_OPTION){
+                    ollamaAPI.pullModel("codestral:latest");
+                }
+                else{
+                    return false;
+                }
 
             }
         } catch (RuntimeException e) {

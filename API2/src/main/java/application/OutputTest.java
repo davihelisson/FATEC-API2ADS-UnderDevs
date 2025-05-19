@@ -26,7 +26,7 @@ public class OutputTest extends javax.swing.JFrame {
         this.currentFile = currentFile;
         this.options = options;
         this.setVisible(true);
-        this.lblWindowTitle.setText(title);
+        this.setTitle(title);
     }
 
     public void setContent(String content) {
@@ -42,7 +42,6 @@ public class OutputTest extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        lblWindowTitle = new javax.swing.JLabel();
         btnRun = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -51,10 +50,6 @@ public class OutputTest extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Teste");
         getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        lblWindowTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblWindowTitle.setText("Teste Unitário");
-        jPanel1.add(lblWindowTitle);
 
         btnRun.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRun.setText("Executar");
@@ -130,6 +125,5 @@ public class OutputTest extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextPane jTextPane1;
-    private javax.swing.JLabel lblWindowTitle;
     // End of variables declaration//GEN-END:variables
 }
