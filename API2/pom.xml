@@ -28,6 +28,11 @@
             <artifactId>logback-classic</artifactId>
             <version>1.4.11</version> <!-- ou versão mais recente -->
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE240</version>
+        </dependency>
     </dependencies>
 
     <build>

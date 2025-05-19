@@ -81,11 +81,13 @@ public class MainInterface extends javax.swing.JFrame {
         jMenuSave = new javax.swing.JMenuItem();
         jMenuExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuRun = new javax.swing.JMenuItem();
+        jMenuCreateTest = new javax.swing.JMenuItem();
+        jMenuImproveCode = new javax.swing.JMenuItem();
+        jMenuAutoDoc = new javax.swing.JMenuItem();
+        jMenuExplanation = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuPromptManager = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenuItem();
 
@@ -207,45 +209,54 @@ public class MainInterface extends javax.swing.JFrame {
 
         jMenu2.setText("Ações");
 
-        jMenuItem1.setText("Executar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuRun.setText("Executar");
+        jMenuRun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuRunActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(jMenuRun);
 
-        jMenuItem2.setText("Criar teste ...");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuCreateTest.setText("Criar teste ...");
+        jMenuCreateTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuCreateTestActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(jMenuCreateTest);
 
-        jMenuItem3.setText("Melhorar ...");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuImproveCode.setText("Melhorar ...");
+        jMenuImproveCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuImproveCodeActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(jMenuImproveCode);
 
-        jMenuItem4.setText("Documentar");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuAutoDoc.setText("Documentar");
+        jMenuAutoDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMenuAutoDocActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(jMenuAutoDoc);
 
-        jMenuItem5.setText("Explique-me ...");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMenuExplanation.setText("Explique-me ...");
+        jMenuExplanation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jMenuExplanationActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        jMenu2.add(jMenuExplanation);
+        jMenu2.add(jSeparator1);
+
+        jMenuPromptManager.setText("Gerenciar Prompts");
+        jMenuPromptManager.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuPromptManagerActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuPromptManager);
 
         jMenuBar1.add(jMenu2);
 
@@ -289,29 +300,34 @@ public class MainInterface extends javax.swing.JFrame {
         runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
     }//GEN-LAST:event_btnImproveActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRunActionPerformed
         runCode();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuRunActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuCreateTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCreateTestActionPerformed
         btnImprove.setEnabled(false);
         btnCreateTest.setEnabled(false);
         runOllama(PromptType.UNITTEST, TxtPrompt.getText());
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuCreateTestActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuImproveCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuImproveCodeActionPerformed
         btnImprove.setEnabled(false);
         btnCreateTest.setEnabled(false);
         runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuImproveCodeActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuAutoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAutoDocActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jMenuAutoDocActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuExplanationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuExplanationActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jMenuExplanationActionPerformed
+
+    private void jMenuPromptManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPromptManagerActionPerformed
+        PromptManager pm = new PromptManager();
+        pm.setVisible(true);
+    }//GEN-LAST:event_jMenuPromptManagerActionPerformed
 
     private void newFile() {
         currentFile = new CurrentFile();
@@ -514,18 +530,20 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuAbout;
+    private javax.swing.JMenuItem jMenuAutoDoc;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuCreateTest;
     private javax.swing.JMenuItem jMenuExit;
+    private javax.swing.JMenuItem jMenuExplanation;
     private javax.swing.JMenu jMenuHelp;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuImproveCode;
     private javax.swing.JMenuItem jMenuNew;
     private javax.swing.JMenuItem jMenuOpen;
+    private javax.swing.JMenuItem jMenuPromptManager;
+    private javax.swing.JMenuItem jMenuRun;
     private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
