@@ -125,9 +125,19 @@ public class MainInterface extends javax.swing.JFrame {
         jPanel1.add(btnImprove);
 
         btnDocumentation.setText("Documentar");
+        btnDocumentation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocumentationActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDocumentation);
 
         btnExplanation.setText("Explique-me");
+        btnExplanation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExplanationActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnExplanation);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -317,17 +327,25 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuImproveCodeActionPerformed
 
     private void jMenuAutoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAutoDocActionPerformed
-        // TODO add your handling code here:
+        runOllama(PromptType.DOCUMENTATION, TxtPrompt.getText());
     }//GEN-LAST:event_jMenuAutoDocActionPerformed
 
     private void jMenuExplanationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuExplanationActionPerformed
-        // TODO add your handling code here:
+        runOllama(PromptType.EXPLANATION, TxtPrompt.getText());
     }//GEN-LAST:event_jMenuExplanationActionPerformed
 
     private void jMenuPromptManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPromptManagerActionPerformed
         PromptManager pm = new PromptManager();
         pm.setVisible(true);
     }//GEN-LAST:event_jMenuPromptManagerActionPerformed
+
+    private void btnExplanationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExplanationActionPerformed
+        runOllama(PromptType.EXPLANATION, TxtPrompt.getText());
+    }//GEN-LAST:event_btnExplanationActionPerformed
+
+    private void btnDocumentationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocumentationActionPerformed
+        runOllama(PromptType.DOCUMENTATION, TxtPrompt.getText());
+    }//GEN-LAST:event_btnDocumentationActionPerformed
 
     private void newFile() {
         currentFile = new CurrentFile();
@@ -372,16 +390,31 @@ public class MainInterface extends javax.swing.JFrame {
         try {
             String promptWithCode = null;
             String title = "";
-            if (promptType == PromptType.UNITTEST) {
-                promptWithCode = prompt.generateCode();
-                if (!"".equals(currentFile.getFileName())) {
-                    promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName().replace(".py", ""));
-                    title = "Teste Unitário";
+            if (null != promptType) switch (promptType) {
+                case UNITTEST -> {
+                    promptWithCode = prompt.generateCode();
+                    if (!"".equals(currentFile.getFileName())) {
+                        promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName().replace(".py", ""));
+                        title = "Teste Unitário";
+                    }
                 }
-            } else if (promptType == PromptType.IMPROVEMENT) {
-                promptWithCode = prompt.improveCode();
-                title = "Sugestão de melhoria";
+                case IMPROVEMENT -> {
+                    promptWithCode = prompt.improveCode();
+                    title = "Sugestão de melhoria";
+                }
+                case EXPLANATION -> {
+                    promptWithCode = prompt.explanationCode();
+                    title = "Explicação do código";
+                }
+                case DOCUMENTATION -> {
+                    promptWithCode = prompt.documentCode();
+                    title = "Documentação do código";
+                }
+                default -> {
+                    // TODO: Implement alternative here.
+                }
             }
+
             Objects.requireNonNull(promptWithCode, "O código fonte não pode ser nulo");
             String result = ollamaInterface.GenerateTest(promptWithCode);
 
