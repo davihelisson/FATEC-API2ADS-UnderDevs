@@ -5,7 +5,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +12,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import utilities.DatabaseConnection;
+
 /**
  *
  * @author Fatec
@@ -22,14 +24,14 @@ public class SugestaoDAO {
     public void inserirSugestao(String codigoOriginal, String melhoriaSugerida) {
         String sql = "INSERT INTO melhorias (codigo_original, melhoria_sugerida, data_sugestao, utilizada) VALUES (?, ?, ?, ?)";
         
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root","fatec");
+        try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
              
             ps.setString(1, codigoOriginal);
             ps.setString(2, melhoriaSugerida);
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             
-            ps.setBoolean(5, false);
+            ps.setBoolean(4, false);
             
             ps.executeUpdate();
             // Essa linha pode ser substituida por uma JPanel padrão.
@@ -42,7 +44,7 @@ public class SugestaoDAO {
     
     public void marcarSugestaoComoUtilizada(int id) {
         String sql = "UPDATE melhorias SET utilizada = ? WHERE id = ?";
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root","fatec");
+        try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setBoolean(1, true);
             ps.setInt(2, id);
@@ -56,7 +58,7 @@ public class SugestaoDAO {
         String sql = "SELECT id, codigo_original, melhoria_sugerida, data_sugestao, autor_sugestao "
                    + "FROM sugestoes WHERE utilizada = ? ORDER BY data_sugestao DESC";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root","fatec");
+        try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setBoolean(1, false);
