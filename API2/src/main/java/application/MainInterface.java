@@ -390,28 +390,30 @@ public class MainInterface extends javax.swing.JFrame {
         try {
             String promptWithCode = null;
             String title = "";
-            if (null != promptType) switch (promptType) {
-                case UNITTEST -> {
-                    promptWithCode = prompt.generateCode();
-                    if (!"".equals(currentFile.getFileName())) {
-                        promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName().replace(".py", ""));
-                        title = "Teste Unitário";
+            if (null != promptType) {
+                switch (promptType) {
+                    case UNITTEST -> {
+                        promptWithCode = prompt.generateCode();
+                        if (!"".equals(currentFile.getFileName())) {
+                            promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName().replace(".py", ""));
+                            title = "Teste Unitário";
+                        }
                     }
-                }
-                case IMPROVEMENT -> {
-                    promptWithCode = prompt.improveCode();
-                    title = "Sugestão de melhoria";
-                }
-                case EXPLANATION -> {
-                    promptWithCode = prompt.explanationCode();
-                    title = "Explicação do código";
-                }
-                case DOCUMENTATION -> {
-                    promptWithCode = prompt.documentCode();
-                    title = "Documentação do código";
-                }
-                default -> {
-                    // TODO: Implement alternative here.
+                    case IMPROVEMENT -> {
+                        promptWithCode = prompt.improveCode();
+                        title = "Sugestão de melhoria";
+                    }
+                    case EXPLANATION -> {
+                        promptWithCode = prompt.explanationCode();
+                        title = "Explicação do código";
+                    }
+                    case DOCUMENTATION -> {
+                        promptWithCode = prompt.documentCode();
+                        title = "Documentação do código";
+                    }
+                    default -> {
+                        // TODO: Implement alternative here.
+                    }
                 }
             }
 
@@ -419,23 +421,29 @@ public class MainInterface extends javax.swing.JFrame {
             String result = ollamaInterface.GenerateTest(promptWithCode);
 
             if (!result.isEmpty()) {
-                OutputTest telaSaida = new OutputTest(new CurrentFile(), FileOptions.SOURCE, title);
-                telaSaida.setContent(result);
-                telaSaida.setTitle("Output " + currentFile.getFileName());
-                telaSaida.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosed(java.awt.event.WindowEvent e) {
-                        btnCreateTest.setEnabled(true);
-                        btnImprove.setEnabled(true);
-                    }
+                if (promptType == promptType.EXPLANATION) {
+                    OutputUI ou = new OutputUI(title, result);
+                    ou.setVisible(true);
+                } else {
+                    OutputTest telaSaida = new OutputTest(new CurrentFile(), FileOptions.SOURCE, title);
+                    telaSaida.setContent(result);
+                    telaSaida.setTitle("Output " + currentFile.getFileName());
+                    telaSaida.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(java.awt.event.WindowEvent e) {
+                            btnCreateTest.setEnabled(true);
+                            btnImprove.setEnabled(true);
+                        }
 
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        telaSaida.dispose();
-                    }
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            telaSaida.dispose();
+                        }
 
-                });
-                telaSaida.setVisible(true);
+                    });
+                    telaSaida.setVisible(true);
+                }
+
             }
 
         } catch (NullPointerException ex) {

@@ -39,7 +39,7 @@ public class VerifyOllama {
                         JOptionPane.YES_NO_OPTION
                 );
                 if(result == JOptionPane.YES_OPTION){
-                    ollamaAPI.pullModel("codestral:latest");
+                    ollamaAPI.pullModel(model);
                 }
                 else{
                     return false;
