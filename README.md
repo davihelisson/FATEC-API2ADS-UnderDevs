@@ -31,7 +31,7 @@ Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para 
 
 -   [x] Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para geração de Testes Unitários.
 -   [x] Sprint 2 - Fazer recomendações personalizadas de código (melhorias do código: eficiência, segurança, legibilidade).
--   [ ] Sprint 2 - Gerar documentação do código (docstrings, explicações do que o código faz).  
+-   [ ] Sprint 3 - Gerar documentação do código (docstrings, explicações do que o código faz).  
 
 ## Cronograma
 
@@ -98,6 +98,50 @@ Sprint | Previsão | Status
 | USxx | Criar DocStrings (Documentação do Código)                                                                 | xx     |
 | USxx | Fazer integração do GitHub                                                                                | xx     |
 | USxx | Armazenar códigos gerados pelo Ollama em novos prompts para melhoria                                      | xx     |
+
+
+## Diagrama de Classes
+```mermaid
+classDiagram
+    class UnderDevsIDE {
+        - versao: String
+        - linguagemSuportada: Python
+        - iaLocal: QwenCoder
+        - usuarioAtual: Usuario
+        - historicoInteracoes: List~Interacao~
+    }
+
+    class CriarTeste {
+        - promptCriacaoTeste: String
+        - resultadoGerado: String
+        - caminhoArquivo: String
+        - dataHoraExecucao: DateTime
+    }
+
+    class MelhoriaDeCodigo {
+        - promptMelhoriaCodigo: String
+        - sugestoesMelhoria: String
+        - codigoOriginal: String
+        - codigoMelhorado: String
+    }
+
+    class Documentacao {
+        - promptDocumentacao: String
+        - documentacaoGerada: String
+        - codigoFonte: String
+    }
+
+    class Explicacao {
+        - promptExplicacaoCodigo: String
+        - explicacaoGerada: String
+        - trechoCodigo: String
+    }
+
+    UnderDevsIDE <|-- CriarTeste
+    UnderDevsIDE <|-- MelhoriaDeCodigo
+    UnderDevsIDE <|-- Documentacao
+    UnderDevsIDE <|-- Explicacao
+```
 
 
 ## Tecnologias Empregadas
