@@ -94,10 +94,10 @@ Sprint | Previsão | Status
 ##### Sprint 3 (EM ANDAMENTO)
 | id   | Tasks                                                                                                     | points |  
 | :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
-| USxx | Criar explicação do que o código faz                                                                      | xx     |
-| USxx | Criar DocStrings (Documentação do Código)                                                                 | xx     |
-| USxx | Fazer integração do GitHub                                                                                | xx     |
-| USxx | Armazenar códigos gerados pelo Ollama em novos prompts para melhoria                                      | xx     |
+| US11 | Criar explicação do que o código faz                                                                      | 5     |
+| US10 | Criar DocStrings (Documentação do Código)                                                                 | 8     |
+| US13 | Fazer integração do GitHub                                                                                | 8     |
+| US12 | Armazenar códigos gerados pelo Ollama em novos prompts para melhoria                                      | 13     |
 
 
 ## Diagrama de Classes
