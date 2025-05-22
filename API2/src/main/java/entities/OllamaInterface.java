@@ -1,6 +1,7 @@
 package entities;
 
 import io.github.ollama4j.OllamaAPI;
+import io.github.ollama4j.models.response.OllamaAsyncResultStreamer;
 import io.github.ollama4j.models.response.OllamaResult;
 import io.github.ollama4j.utils.OptionsBuilder;
 import java.io.IOException;
