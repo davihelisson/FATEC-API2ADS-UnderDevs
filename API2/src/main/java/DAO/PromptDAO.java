@@ -12,6 +12,14 @@ public class PromptDAO {
     
     public PromptDAO(){
         this.connection = new ConnectionFactory().getConnection();
+        
+        try {
+        Statement stmt = connection.createStatement();
+        stmt.execute("USE api"); // Seleciona o banco manualmente
+        stmt.close();
+    } catch (SQLException e) {
+        throw new RuntimeException("Erro ao selecionar o banco de dados", e);
+    }
     }
     
     public void salvaPrompt(PromptForm prompt){

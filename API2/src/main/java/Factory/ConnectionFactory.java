@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {
     public Connection getConnection(){
         try{
-            return DriverManager.getConnection("jdbc:mysql://localhost/api","root","SQL12345");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/","root","fatec");
         }
         catch(SQLException excecao){
             throw new RuntimeException(excecao);
