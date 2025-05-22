@@ -1,4 +1,4 @@
-package PromptForm;
+package entities;
 
 public class PromptForm {
     private int id;

@@ -1,7 +1,7 @@
 package application;
 
 import DaoManager.PromptDAO;
-import PromptForm.PromptForm;
+import entities.PromptForm;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

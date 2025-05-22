@@ -1,7 +1,7 @@
 package DaoManager;
 
 import Factory.ConnectionFactory;
-import PromptForm.PromptForm;
+import entities.PromptForm;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
