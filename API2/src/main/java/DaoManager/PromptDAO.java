@@ -2,15 +2,17 @@ package DaoManager;
 
 import Factory.ConnectionFactory;
 import entities.PromptForm;
+import enums.PromptType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-public class PromptDAO {
+public class PromptDao {
 
     private Connection connection;
 
-    public PromptDAO() {
+    public PromptDao() {
         this.connection = new ConnectionFactory().getConnection();
 
         try {
@@ -82,5 +84,37 @@ public class PromptDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getPrompt(int type) {
+        String sql = "SELECT code FROM prompt WHERE description = ?";
+        StringBuilder allPromptCodes = new StringBuilder();
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            String description = PromptType.getByCodigo(type).toString();
+            stmt.setString(1, description);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String currentCode = rs.getString("code");
+                    if (currentCode != null) {
+                        allPromptCodes.append(currentCode);
+                        if (!rs.isLast()) {
+                            allPromptCodes.append("\n");
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PromptDao.class.getName()).log(java.util.logging.Level.SEVERE, "Erro ao obter prompts: " + ex.getMessage(), ex);
+        } catch (IllegalArgumentException e) {
+            Logger.getLogger(PromptDao.class.getName()).log(java.util.logging.Level.WARNING, () -> "Tipo de prompt inválido: " + type + ". " + e.getMessage());
+        }
+        return allPromptCodes.toString();
+    }
+
+    public static void main(String[] args) {
+        PromptDao pd = new PromptDao();
+        System.out.println(pd.getPrompt(0));
     }
 }

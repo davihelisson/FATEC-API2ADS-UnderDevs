@@ -393,7 +393,8 @@ public class MainInterface extends javax.swing.JFrame {
             if (null != promptType) {
                 switch (promptType) {
                     case UNITTEST -> {
-                        promptWithCode = prompt.generateCode();
+                        promptWithCode = prompt.getPromptFromDb(0);
+                        System.out.println(promptWithCode);
                         if (!"".equals(currentFile.getFileName())) {
                             promptWithCode = promptWithCode.replace("my_module", currentFile.getFileName().replace(".py", ""));
                             title = "Teste Unitário";
@@ -507,21 +508,21 @@ public class MainInterface extends javax.swing.JFrame {
         btnImprove.setEnabled(false);
         btnCreateTest.setEnabled(false);
         runOllama(PromptType.UNITTEST, TxtPrompt.getText());
-    }// GEN-LAST:event_btnSalvar2ActionPerformed
+    }
 
     // Main menu options
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel1MouseClicked
         About about = new About();
         about.setVisible(true);
-    }// GEN-LAST:event_jLabel1MouseClicked
+    }
 
     private void jMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuOpenActionPerformed
         openFile();
-    }// GEN-LAST:event_jMenuOpenActionPerformed
+    }
 
     private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuSaveActionPerformed
         saveFile();
-    }// GEN-LAST:event_jMenuSaveActionPerformed
+    }
 
     private void jMenuExitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuExitActionPerformed
         System.exit(0);

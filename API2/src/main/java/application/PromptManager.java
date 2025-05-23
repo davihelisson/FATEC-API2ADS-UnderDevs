@@ -1,7 +1,8 @@
 package application;
 
-import DaoManager.PromptDAO;
+import DaoManager.PromptDao;
 import entities.PromptForm;
+import enums.PromptType;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -10,18 +11,19 @@ public class PromptManager extends javax.swing.JFrame {
 
     public PromptManager() {
         initComponents();
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        updateTable();
+        promptTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int row = jTable1.getSelectedRow();
+                int row = promptTable.getSelectedRow();
                 if (row != -1) {
-                    String id = jTable1.getValueAt(row, 0).toString();
-                    String description = jTable1.getValueAt(row, 1).toString();
-                    String code = jTable1.getValueAt(row, 2).toString();
+                    String id = promptTable.getValueAt(row, 0).toString();
+                    String description = promptTable.getValueAt(row, 1).toString();
+                    String code = promptTable.getValueAt(row, 2).toString();
 
                     txtIdPrompt.setText(id);
                     txtNewPrompt.setText(code);
-                    txtDescriptionPrompt.setText(description);
+                    cbxDescription.setActionCommand(description);
                 }
             }
 
@@ -32,25 +34,25 @@ public class PromptManager extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        promptScrollTable = new javax.swing.JScrollPane();
+        promptTable = new javax.swing.JTable();
+        btnNew = new javax.swing.JButton();
         btnSavePrompt = new javax.swing.JButton();
         btnDeletePrompt = new javax.swing.JButton();
         bntUpdatePrompt = new javax.swing.JButton();
-        btnUpdateTable = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
         txtIdPrompt = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtDescriptionPrompt = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        lblDescription = new javax.swing.JLabel();
+        promptScroll = new javax.swing.JScrollPane();
         txtNewPrompt = new javax.swing.JTextPane();
+        cbxDescription = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Prompts Manager");
         setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(420, 300));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        promptTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -61,7 +63,14 @@ public class PromptManager extends javax.swing.JFrame {
                 "Descrição", "Código"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        promptScrollTable.setViewportView(promptTable);
+
+        btnNew.setText("Novo Prompt");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         btnSavePrompt.setText("Salvar Prompt");
         btnSavePrompt.addActionListener(new java.awt.event.ActionListener() {
@@ -84,18 +93,13 @@ public class PromptManager extends javax.swing.JFrame {
             }
         });
 
-        btnUpdateTable.setText("Atualizar Tabela");
-        btnUpdateTable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateTableActionPerformed(evt);
-            }
-        });
+        lblId.setText("ID:");
 
-        jLabel1.setText("ID:");
+        lblDescription.setText("Categoria:");
 
-        jLabel2.setText("Descrição:");
+        promptScroll.setViewportView(txtNewPrompt);
 
-        jScrollPane3.setViewportView(txtNewPrompt);
+        cbxDescription.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Teste unitário", "Melhoria de código", "Documentação de código", "Explicação de código" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,25 +109,26 @@ public class PromptManager extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(promptScrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3))
+                        .addComponent(promptScroll))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNew)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSavePrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDeletePrompt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bntUpdatePrompt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdateTable)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
+                        .addComponent(lblId)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtIdPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDescriptionPrompt, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+                        .addComponent(lblDescription)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -134,15 +139,15 @@ public class PromptManager extends javax.swing.JFrame {
                     .addComponent(btnSavePrompt)
                     .addComponent(btnDeletePrompt)
                     .addComponent(bntUpdatePrompt)
-                    .addComponent(btnUpdateTable)
-                    .addComponent(jLabel1)
+                    .addComponent(lblId)
                     .addComponent(txtIdPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtDescriptionPrompt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDescription)
+                    .addComponent(btnNew)
+                    .addComponent(cbxDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
+                    .addComponent(promptScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                    .addComponent(promptScroll))
                 .addContainerGap())
         );
 
@@ -152,23 +157,18 @@ public class PromptManager extends javax.swing.JFrame {
 
     //Botão Salvar
     private void btnSavePromptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavePromptActionPerformed
-        String description = txtDescriptionPrompt.getText();
+        String description = PromptType.getByCodigo(cbxDescription.getSelectedIndex()).toString();
         String code = txtNewPrompt.getText();
-        if ((txtDescriptionPrompt.getText().isEmpty() || txtNewPrompt.getText().isEmpty())) {
+        if ((txtNewPrompt.getText().isEmpty())) {
             JOptionPane.showMessageDialog(this, "Nenhum campo pode estar vazio.");
         } else {
             PromptForm prompt = new PromptForm(description, code);
-            DaoManager.PromptDAO dao = new DaoManager.PromptDAO();
+            DaoManager.PromptDao dao = new DaoManager.PromptDao();
             dao.salvaPrompt(prompt);
             JOptionPane.showMessageDialog(this, "Prompt Salvo.");
             updateTable();
         }
     }//GEN-LAST:event_btnSavePromptActionPerformed
-
-    //Atualizar Tabel
-    private void btnUpdateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTableActionPerformed
-        updateTable();
-    }//GEN-LAST:event_btnUpdateTableActionPerformed
 
     //Botão Deletar
     private void btnDeletePromptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePromptActionPerformed
@@ -186,7 +186,7 @@ public class PromptManager extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 int id = Integer.parseInt(idText);
-                PromptDAO dao = new PromptDAO();
+                PromptDao dao = new PromptDao();
                 dao.deletaPrompt(id);
                 JOptionPane.showMessageDialog(this, "Prompt deletado com sucesso.");
                 updateTable();
@@ -194,7 +194,7 @@ public class PromptManager extends javax.swing.JFrame {
                 // Limpa os campos após deletar
                 txtIdPrompt.setText("");
                 txtNewPrompt.setText("");
-                txtDescriptionPrompt.setText("");
+                cbxDescription.setActionCommand("");
 
                 // Atualiza a tabela
 //                jButton2ActionPerformed(null);
@@ -206,9 +206,9 @@ public class PromptManager extends javax.swing.JFrame {
 
     //Botão Atualizar Prompt
     private void bntUpdatePromptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntUpdatePromptActionPerformed
-        String idText = txtIdPrompt.getText();           // Pegando o ID
-        String description = txtDescriptionPrompt.getText();         // Descrição
-        String codigo = txtNewPrompt.getText();             // Código
+        String idText = txtIdPrompt.getText();
+        String description = PromptType.getByCodigo(cbxDescription.getSelectedIndex()).toString();
+        String codigo = txtNewPrompt.getText();
 
         if (idText.isEmpty() || description.isEmpty() || codigo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nenhum campo pode estar vazio.");
@@ -218,7 +218,7 @@ public class PromptManager extends javax.swing.JFrame {
         try {
             int id = Integer.parseInt(idText);
             PromptForm prompt = new PromptForm(id, description, codigo);
-            PromptDAO dao = new PromptDAO();
+            PromptDao dao = new PromptDao();
             dao.atualizaPrompt(prompt);
 
             JOptionPane.showMessageDialog(this, "Prompt atualizado com sucesso.");
@@ -228,14 +228,19 @@ public class PromptManager extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bntUpdatePromptActionPerformed
 
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        txtIdPrompt.setText("");
+        txtNewPrompt.setText("");
+    }//GEN-LAST:event_btnNewActionPerformed
+
     private void updateTable() {
-        PromptDAO dao = new PromptDAO();
+        PromptDao dao = new PromptDao();
         List<PromptForm> prompts = dao.listarPrompts();
         DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Descrição", "Código"}, 0);
         for (PromptForm p : prompts) {
             model.addRow(new Object[]{p.getId(), p.getDescricao(), p.getCodigo()});
         }
-        jTable1.setModel(model);
+        promptTable.setModel(model);
     }
 
     public static void main(String args[]) {
@@ -248,14 +253,14 @@ public class PromptManager extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntUpdatePrompt;
     private javax.swing.JButton btnDeletePrompt;
+    private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSavePrompt;
-    private javax.swing.JButton btnUpdateTable;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtDescriptionPrompt;
+    private javax.swing.JComboBox<String> cbxDescription;
+    private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JScrollPane promptScroll;
+    private javax.swing.JScrollPane promptScrollTable;
+    private javax.swing.JTable promptTable;
     private javax.swing.JTextField txtIdPrompt;
     private javax.swing.JTextPane txtNewPrompt;
     // End of variables declaration//GEN-END:variables
