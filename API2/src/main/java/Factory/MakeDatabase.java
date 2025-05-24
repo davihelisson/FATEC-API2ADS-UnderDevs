@@ -2,7 +2,6 @@ package Factory;
 
 import entities.LoadPrompts;
 import entities.PromptForm;
-import enums.PromptType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -52,9 +51,15 @@ public class MakeDatabase {
 
     public static void main(String[] args) {
         try {
+            DaoManager.PromptDao dao = new DaoManager.PromptDao();
             MakeDatabase makeDatabase = new MakeDatabase();
             PromptForm prompt = new PromptForm("IMPROVEMENT", LoadPrompts.loadPrompt("PromptImprovement.txt", ""));
-            DaoManager.PromptDao dao = new DaoManager.PromptDao();
+            dao.salvaPrompt(prompt);
+            prompt = new PromptForm("UNITTEST", LoadPrompts.loadPrompt("PromptUnitTest.txt", ""));
+            dao.salvaPrompt(prompt);
+            prompt = new PromptForm("EXPLANATION", LoadPrompts.loadPrompt("PromptExplanation.txt", ""));
+            dao.salvaPrompt(prompt);
+            prompt = new PromptForm("DOCUMENTATION", LoadPrompts.loadPrompt("PromptDocumentation.txt", ""));
             dao.salvaPrompt(prompt);
         } catch (SQLException e) {
             System.err.println("Erro ao inicializar o banco de dados: " + e.getMessage());

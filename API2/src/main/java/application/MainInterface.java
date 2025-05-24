@@ -401,16 +401,19 @@ public class MainInterface extends javax.swing.JFrame {
                         }
                     }
                     case IMPROVEMENT -> {
-                        promptWithCode = prompt.improveCode();
+                        promptWithCode = prompt.getPromptFromDb(1);
+                        System.out.println(promptWithCode);
                         title = "Sugestão de melhoria";
                     }
-                    case EXPLANATION -> {
-                        promptWithCode = prompt.explanationCode();
-                        title = "Explicação do código";
-                    }
                     case DOCUMENTATION -> {
-                        promptWithCode = prompt.documentCode();
+                        promptWithCode = prompt.getPromptFromDb(2);
+                        System.out.println(promptWithCode);
                         title = "Documentação do código";
+                    }
+                    case EXPLANATION -> {
+                        promptWithCode = prompt.getPromptFromDb(3);
+                        System.out.println(promptWithCode);
+                        title = "Explicação do código";
                     }
                     default -> {
                         // TODO: Implement alternative here.
