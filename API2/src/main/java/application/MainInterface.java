@@ -10,7 +10,11 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.Objects;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import utilities.FileUtils;
+import com.formdev.flatlaf.FlatDarkLaf;
+
 
 public class MainInterface extends javax.swing.JFrame {
 
@@ -559,21 +563,9 @@ public class MainInterface extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         try {
-            boolean windowsFound = false;
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    windowsFound = true;
-                    break;
-                }
-            }
-            if (!windowsFound) {
-                javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainInterface.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
         }
 
         /* Create and display the form */
