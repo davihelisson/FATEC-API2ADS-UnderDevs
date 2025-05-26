@@ -21,7 +21,7 @@ Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para 
 ## Demonstração do Projeto
 
 >Vídeo demonstrando as principais funcionalidades da IDE.  
-[![Vídeo de demonstração do funcionamento do projeto.](https://img.youtube.com/vi/eVcpcdifMBw/0.jpg)](https://www.youtube.com/watch?v=eVcpcdifMBw)
+[![Vídeo de demonstração do funcionamento do projeto.](https://img.youtube.com/vi/aAc457nVHqI/0.jpg)](https://www.youtube.com/watch?v=aAc457nVHqI)
 
 #### MVP
 >Definição do MVP para cada sprint
