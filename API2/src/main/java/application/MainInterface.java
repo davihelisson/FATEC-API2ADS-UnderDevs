@@ -14,7 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import utilities.FileUtils;
 import com.formdev.flatlaf.FlatDarkLaf;
-
+import java.io.IOException;
 
 public class MainInterface extends javax.swing.JFrame {
 
@@ -73,6 +73,7 @@ public class MainInterface extends javax.swing.JFrame {
         btnDocumentation = new javax.swing.JButton();
         btnExplanation = new javax.swing.JButton();
         btnPrompts = new javax.swing.JButton();
+        btnOpenCMD = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtPrompt = new javax.swing.JTextPane();
@@ -150,8 +151,22 @@ public class MainInterface extends javax.swing.JFrame {
         });
         jPanel1.add(btnPrompts);
 
+        btnOpenCMD.setText("CMD");
+        btnOpenCMD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenCMDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnOpenCMD);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         getContentPane().add(jPanel1, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
@@ -160,6 +175,7 @@ public class MainInterface extends javax.swing.JFrame {
         jLabel1.setText("UNDERDEVS IDE");
         jLabel1.setToolTipText("About UnderDevs IDE.");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel1.setIconTextGap(1);
         jLabel1.setName(""); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,8 +184,12 @@ public class MainInterface extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 26;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 6, 0, 0);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         TxtPrompt.setBorder(null);
@@ -178,13 +198,15 @@ public class MainInterface extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 744;
+        gridBagConstraints.ipadx = 826;
         gridBagConstraints.ipady = 424;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 6);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jMenu1.setText("Arquivo");
@@ -361,6 +383,24 @@ public class MainInterface extends javax.swing.JFrame {
         PromptManager pm = new PromptManager();
         pm.setVisible(true);
     }//GEN-LAST:event_btnPromptsActionPerformed
+
+    private void btnOpenCMDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenCMDActionPerformed
+         try {
+            String path = currentFile.getFilePath();
+            File file = new File(path);
+            File directory = file.isDirectory() ? file : file.getParentFile();
+            if (directory != null) {
+                new ProcessBuilder("cmd.exe", "/c", "start", "cmd", "/K", "cd \"" + directory.getAbsolutePath() + "\"").start();
+            } else {
+                new ProcessBuilder("cmd.exe", "/c", "start", "cmd", "/K").start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao abrir o CMD: " + e.getMessage());
+        }      
+    }//GEN-LAST:event_btnOpenCMDActionPerformed
+
+       
 
     /**
      * Cria um novo arquivo em branco no editor. Limpa o conteúdo do editor e
@@ -580,6 +620,7 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnDocumentation;
     private javax.swing.JButton btnExplanation;
     private javax.swing.JButton btnImprove;
+    private javax.swing.JButton btnOpenCMD;
     private javax.swing.JButton btnPrompts;
     private javax.swing.JButton btnRun;
     private javax.swing.JLabel jLabel1;
