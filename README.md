@@ -40,7 +40,7 @@ Sprint | Previsão | Status
 | Kick Off | 24/02 - 28/02 | Concluído |
 | Sprint 1 | 10/03 - 30/03 | Concluído |
 | Sprint 2 | 07/04 - 27/04 | Concluído |
-| Sprint 3 | 05/05 - 25/05 | Em andamento |
+| Sprint 3 | 05/05 - 25/05 | Concluído |
 | Feira de Soluções | 17/06 | Não iniciada |  
 
 ## Product Backlog
@@ -66,9 +66,9 @@ Sprint | Previsão | Status
 | US12 | Alta       | Como desenvolvedor (Tarefa Técnica), quero que os Prompts enviados à IA e exemplos de código associados sejam armazenados em banco de dados simples. | 13     | 3      |  
 | US13 | Alta       | Como desenvolvedor quero que os códigos gerados sejam armazenados e comitados no GitHub, de maneira fácil e prática                                  | 8      | 3       | 
 
-## Sprint Backlog
+## Sprint Backlog  
 
-##### Sprint 1
+##### Sprint 1  
 | id   | Tasks                                                                                                     | points |
 | :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
 | US04 | Implementar funcionalidade de gerar testes                                                                | 8      |
@@ -91,64 +91,19 @@ Sprint | Previsão | Status
 | US09 | Cirar método para envio do código para o Ollama                                                           | 3      |
 
 
-##### Sprint 3 (EM ANDAMENTO)
+##### Sprint 3  
 | id   | Tasks                                                                                                     | points |  
 | :--- | :-------------------------------------------------------------------------------------------------------- | :----- |
 | US11 | Criar explicação do que o código faz                                                                      | 5     |
 | US10 | Criar DocStrings (Documentação do Código)                                                                 | 8     |
-| US13 | Fazer integração do GitHub                                                                                | 8     |
 | US12 | Armazenar códigos gerados pelo Ollama em novos prompts para melhoria                                      | 13     |
-
-
-## Diagrama de Classes
-```mermaid
-classDiagram
-    class UnderDevsIDE {
-        - versao: String
-        - linguagemSuportada: Python
-        - iaLocal: QwenCoder
-        - usuarioAtual: Usuario
-        - historicoInteracoes: List~Interacao~
-    }
-
-    class CriarTeste {
-        - promptCriacaoTeste: String
-        - resultadoGerado: String
-        - caminhoArquivo: String
-        - dataHoraExecucao: DateTime
-    }
-
-    class MelhoriaDeCodigo {
-        - promptMelhoriaCodigo: String
-        - sugestoesMelhoria: String
-        - codigoOriginal: String
-        - codigoMelhorado: String
-    }
-
-    class Documentacao {
-        - promptDocumentacao: String
-        - documentacaoGerada: String
-        - codigoFonte: String
-    }
-
-    class Explicacao {
-        - promptExplicacaoCodigo: String
-        - explicacaoGerada: String
-        - trechoCodigo: String
-    }
-
-    UnderDevsIDE <|-- CriarTeste
-    UnderDevsIDE <|-- MelhoriaDeCodigo
-    UnderDevsIDE <|-- Documentacao
-    UnderDevsIDE <|-- Explicacao
-```
 
 
 ## Tecnologias Empregadas
 
  ![Java](https://img.shields.io/badge/Java-fdfefe?style=for-the-badge&logo=openjdk&logoColor=000000)
  ![Ollama](https://img.shields.io/badge/Ollama-fdfefe?style=for-the-badge&logo=Ollama&logoColor=000000)
- ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=000000)
+ ![MySQL](https://img.shields.io/badge/MySQL-fdfefe?style=for-the-badge&logo=mysql&logoColor=000000)
  ![Git](https://img.shields.io/badge/Git-fdfefe?style=for-the-badge&logo=git&logoColor=000000)
  ![Github](https://img.shields.io/badge/Github-fdfefe?style=for-the-badge&logo=github&logoColor=000000)
  ![Jira Software](https://img.shields.io/badge/Jira-fdfefe?style=for-the-badge&logo=Jira&logoColor=0064c8)
