@@ -2,18 +2,21 @@ package application;
 
 import entities.CurrentFile;
 import enums.FileOptions;
+import javax.swing.JFrame;
 import utilities.FileUtils;
 
-public class OutputUI extends javax.swing.JFrame {
+public class OutputUI extends javax.swing.JDialog {
     
     private final CurrentFile outFile = new CurrentFile();
 
     /**
      * Creates new form OutputUI
+     * @param owner
      * @param title
      * @param content
      */
-    public OutputUI(String title, String content) {
+    public OutputUI(JFrame owner, String title, String content) {
+        super(owner, title, true);
         initComponents();
         this.setTitle(title);
         txtOutput.setText(content);

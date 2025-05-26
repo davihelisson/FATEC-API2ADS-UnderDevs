@@ -3,30 +3,35 @@ package application;
 import entities.CurrentFile;
 import java.io.File;
 import enums.FileOptions;
+import javax.swing.JFrame;
 import utilities.FileUtils;
 
 /**
  *
  * @author UnderDevs Team
  */
-public class OutputTest extends javax.swing.JFrame {
+public class OutputTest extends javax.swing.JDialog {
 
     private final CurrentFile currentFile;
     private final FileOptions options;
+    private final JFrame owner;
 
     /**
      * Creates new form TelaSaidaTeste
      *
+     * @param owner
      * @param currentFile
      * @param options
      * @param title
      */
-    public OutputTest(CurrentFile currentFile, FileOptions options, String title) {
+    public OutputTest(JFrame owner, CurrentFile currentFile, FileOptions options, String title) {
+        super(owner, title, true);
         initComponents();
         this.currentFile = currentFile;
         this.options = options;
-        this.setVisible(true);
+//        this.setVisible(true);
         this.setTitle(title);
+        this.owner = owner;
     }
 
     public void setContent(String content) {
@@ -105,7 +110,7 @@ public class OutputTest extends javax.swing.JFrame {
             if (FileUtils.saveFile(currentFile, jTextPane1.getText(), options)) {
                 File fileToRun = new File(currentFile.getFilePath(), currentFile.getFileName());
                 String runOut = FileUtils.runPython(fileToRun.getAbsolutePath()).toString();
-                OutputUI out = new OutputUI("Resultados", runOut);
+                OutputUI out = new OutputUI(owner, "Resultados", runOut);
                 out.setVisible(true);
             }
         } else {

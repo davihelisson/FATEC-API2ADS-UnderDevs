@@ -73,7 +73,6 @@ public class MainInterface extends javax.swing.JFrame {
         btnDocumentation = new javax.swing.JButton();
         btnExplanation = new javax.swing.JButton();
         btnPrompts = new javax.swing.JButton();
-        btnOpenCMD = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtPrompt = new javax.swing.JTextPane();
@@ -150,14 +149,6 @@ public class MainInterface extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnPrompts);
-
-        btnOpenCMD.setText("CMD");
-        btnOpenCMD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOpenCMDActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnOpenCMD);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -384,24 +375,6 @@ public class MainInterface extends javax.swing.JFrame {
         pm.setVisible(true);
     }//GEN-LAST:event_btnPromptsActionPerformed
 
-    private void btnOpenCMDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenCMDActionPerformed
-         try {
-            String path = currentFile.getFilePath();
-            File file = new File(path);
-            File directory = file.isDirectory() ? file : file.getParentFile();
-            if (directory != null) {
-                new ProcessBuilder("cmd.exe", "/c", "start", "cmd", "/K", "cd \"" + directory.getAbsolutePath() + "\"").start();
-            } else {
-                new ProcessBuilder("cmd.exe", "/c", "start", "cmd", "/K").start();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao abrir o CMD: " + e.getMessage());
-        }      
-    }//GEN-LAST:event_btnOpenCMDActionPerformed
-
-       
-
     /**
      * Cria um novo arquivo em branco no editor. Limpa o conteúdo do editor e
      * redefine o título da janela.
@@ -491,10 +464,10 @@ public class MainInterface extends javax.swing.JFrame {
 
             if (!result.isEmpty()) {
                 if (promptType == promptType.EXPLANATION) {
-                    OutputUI ou = new OutputUI(title, result);
+                    OutputUI ou = new OutputUI(this, title, result);
                     ou.setVisible(true);
                 } else {
-                    OutputTest telaSaida = new OutputTest(new CurrentFile(), FileOptions.SOURCE, title);
+                    OutputTest telaSaida = new OutputTest(this, new CurrentFile(), FileOptions.SOURCE, title);
                     telaSaida.setContent(result);
                     telaSaida.setTitle("Output " + currentFile.getFileName());
                     telaSaida.addWindowListener(new WindowAdapter() {
@@ -537,7 +510,7 @@ public class MainInterface extends javax.swing.JFrame {
                 && !"".equals(currentFile.getFileName())
                 && !"".equals(currentFile.getFilePath())) {
             String pythonOutput = FileUtils.runPython(new File(currentFile.getFilePath(), currentFile.getFileName()).toString()).toString();
-            OutputUI outUI = new OutputUI("Resultados", pythonOutput);
+            OutputUI outUI = new OutputUI(this, "Resultados", pythonOutput);
             outUI.setVisible(true);
         } else if (!TxtPrompt.getText().equals("")) {
             int aswer = JOptionPane.showConfirmDialog(
@@ -605,7 +578,6 @@ public class MainInterface extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
         }
 
         /* Create and display the form */
@@ -620,7 +592,6 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnDocumentation;
     private javax.swing.JButton btnExplanation;
     private javax.swing.JButton btnImprove;
-    private javax.swing.JButton btnOpenCMD;
     private javax.swing.JButton btnPrompts;
     private javax.swing.JButton btnRun;
     private javax.swing.JLabel jLabel1;

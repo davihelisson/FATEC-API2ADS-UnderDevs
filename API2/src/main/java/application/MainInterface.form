@@ -225,14 +225,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPromptsActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnOpenCMD">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="CMD"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenCMDActionPerformed"/>
-          </Events>
-        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
