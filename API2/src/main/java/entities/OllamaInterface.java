@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import utilities.VerifyOllama;
 
 /**
- * Responsável pela conexão com Ollama.
+ * Conecta e interage com a API do Ollama para geração de texto.
  */
 public class OllamaInterface {
 
@@ -16,13 +16,16 @@ public class OllamaInterface {
     private int requestTimeOut = 240;
     private final OllamaAPI ollamaAPI = new OllamaAPI(host);
 
+    /**
+     * Construtor padrão da OllamaInterface.
+     */
     public OllamaInterface() {
     }
 
     /**
      * Construtor com host personalizado.
      *
-     * @param host
+     * @param host O endereço do host da API Ollama.
      */
     public OllamaInterface(String host) {
         this.host = host;
@@ -31,8 +34,8 @@ public class OllamaInterface {
     /**
      * Construtor com host e timeout de requisição personalizados.
      *
-     * @param host
-     * @param requestTimeOut
+     * @param host O endereço do host da API Ollama.
+     * @param requestTimeOut O tempo limite da requisição em segundos.
      */
     public OllamaInterface(String host, int requestTimeOut) {
         this.host = host;
@@ -40,13 +43,12 @@ public class OllamaInterface {
     }
 
     /**
-     * Gera um caso de teste usando a API Ollama.Envia um prompt com código para
-     * o modelo "qwen2.5-coder" e retorna a resposta gerada, removendo a
-     * formatação de bloco de código Markdown.
+     * Gera uma resposta usando o modelo "qwen2.5-coder" do Ollama. Envia um
+     * prompt completo e retorna a resposta gerada, removendo a formatação
+     * Markdown.
      *
-     *
-     * @param completePrompt
-     * @return O caso de teste gerado, sem a formatação Markdown.
+     * @param completePrompt O prompt completo a ser enviado ao modelo.
+     * @return A resposta gerada pelo Ollama, sem formatação Markdown.
      */
     public String GenerateTest(String completePrompt) {
         try {

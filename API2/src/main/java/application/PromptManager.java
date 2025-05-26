@@ -1,6 +1,6 @@
 package application;
 
-import DaoManager.PromptDao;
+import daoManager.PromptDao;
 import entities.PromptForm;
 import enums.PromptType;
 import java.util.List;
@@ -163,7 +163,7 @@ public class PromptManager extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Nenhum campo pode estar vazio.");
         } else {
             PromptForm prompt = new PromptForm(description, code);
-            DaoManager.PromptDao dao = new DaoManager.PromptDao();
+            daoManager.PromptDao dao = new daoManager.PromptDao();
             dao.salvaPrompt(prompt);
             JOptionPane.showMessageDialog(this, "Prompt Salvo.");
             updateTable();

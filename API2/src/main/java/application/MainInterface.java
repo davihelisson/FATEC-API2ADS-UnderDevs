@@ -12,9 +12,6 @@ import java.util.Objects;
 import javax.swing.JOptionPane;
 import utilities.FileUtils;
 
-/**
- * @author UnderDevs DevTeam
- */
 public class MainInterface extends javax.swing.JFrame {
 
     private CurrentFile currentFile = new CurrentFile();
@@ -71,6 +68,7 @@ public class MainInterface extends javax.swing.JFrame {
         btnImprove = new javax.swing.JButton();
         btnDocumentation = new javax.swing.JButton();
         btnExplanation = new javax.swing.JButton();
+        btnPrompts = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtPrompt = new javax.swing.JTextPane();
@@ -139,6 +137,14 @@ public class MainInterface extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnExplanation);
+
+        btnPrompts.setText("Prompts [...]");
+        btnPrompts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromptsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPrompts);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -347,6 +353,15 @@ public class MainInterface extends javax.swing.JFrame {
         runOllama(PromptType.DOCUMENTATION, TxtPrompt.getText());
     }//GEN-LAST:event_btnDocumentationActionPerformed
 
+    private void btnPromptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromptsActionPerformed
+        PromptManager pm = new PromptManager();
+        pm.setVisible(true);
+    }//GEN-LAST:event_btnPromptsActionPerformed
+
+    /**
+     * Cria um novo arquivo em branco no editor. Limpa o conteúdo do editor e
+     * redefine o título da janela.
+     */
     private void newFile() {
         currentFile = new CurrentFile();
         this.setTitle("UnderDevs IDE");
@@ -354,10 +369,10 @@ public class MainInterface extends javax.swing.JFrame {
     }
 
     /**
-     * Método privado para abertura de arquivos Python
+     * Abre um arquivo selecionado pelo usuário. Atualiza o arquivo atualmente
+     * carregado e exibe seu conteúdo no editor.
      */
     private void openFile() {
-
         CurrentFile fileToOpen = FileUtils.openFile();
         if (fileToOpen != null) {
             currentFile = fileToOpen;
@@ -367,7 +382,9 @@ public class MainInterface extends javax.swing.JFrame {
     }
 
     /**
-     * Método privado para salvamento dos arquivos Python
+     * Salva o conteúdo atual do editor no arquivo associado. Atualiza o título
+     * da janela se o salvamento for bem-sucedido e exibe uma mensagem de
+     * confirmação.
      */
     private void saveFile() {
         boolean saveFile = FileUtils.saveFile(currentFile, TxtPrompt.getText(), FileOptions.SOURCE);
@@ -379,9 +396,16 @@ public class MainInterface extends javax.swing.JFrame {
     }
 
     /**
-     * Método privado para enviar os dados para Ollama
+     * Envia o código fonte para o modelo Ollama com base no tipo de prompt
+     * especificado. Recupera o prompt apropriado do banco de dados, substitui
+     * placeholders (se aplicável) e exibe o resultado em uma interface de
+     * usuário. Lida com diferentes tipos de prompt (UNITTEST, IMPROVEMENT,
+     * DOCUMENTATION, EXPLANATION) e gerencia a exibição da saída e o tratamento
+     * de erros.
      *
-     * @return reponse
+     * @param promptType O tipo de prompt a ser executado (ex: UNITTEST,
+     * IMPROVEMENT).
+     * @param sourceCode O código fonte a ser processado pelo modelo Ollama.
      */
     private void runOllama(PromptType promptType, String sourceCode) {
         Prompts prompt = new Prompts(sourceCode);
@@ -415,9 +439,6 @@ public class MainInterface extends javax.swing.JFrame {
                         System.out.println(promptWithCode);
                         title = "Explicação do código";
                     }
-                    default -> {
-                        // TODO: Implement alternative here.
-                    }
                 }
             }
 
@@ -443,13 +464,10 @@ public class MainInterface extends javax.swing.JFrame {
                         public void windowClosing(java.awt.event.WindowEvent e) {
                             telaSaida.dispose();
                         }
-
                     });
                     telaSaida.setVisible(true);
                 }
-
             }
-
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null,
                     "Erro: " + ex.getMessage(),
@@ -467,7 +485,8 @@ public class MainInterface extends javax.swing.JFrame {
     }
 
     /**
-     * Método privado para executar o código escrito em Python
+     * Executa o código Python do arquivo atual. Se houver modificações,
+     * pergunta ao usuário se deseja salvar antes de executar.
      */
     private void runCode() {
         if (!currentFile.hasModifications(TxtPrompt.getText())
@@ -491,7 +510,6 @@ public class MainInterface extends javax.swing.JFrame {
                 }
             }
         }
-
     }
 
     // Eventos dos botões da interface do usuário.    
@@ -570,6 +588,7 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnDocumentation;
     private javax.swing.JButton btnExplanation;
     private javax.swing.JButton btnImprove;
+    private javax.swing.JButton btnPrompts;
     private javax.swing.JButton btnRun;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

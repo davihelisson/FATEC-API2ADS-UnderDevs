@@ -217,6 +217,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExplanationActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="btnPrompts">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Prompts [...]"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPromptsActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">

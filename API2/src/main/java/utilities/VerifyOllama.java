@@ -22,8 +22,7 @@ public class VerifyOllama {
      */
     public static boolean isOllamaRunning(String model) {
         try {
-//            String host = "http://localhost:11434/";
-            String host = "http://192.168.15.13:11434/";
+            String host = "http://localhost:11434/";;
             OllamaAPI ollamaAPI = new OllamaAPI(host);
             if (!ollamaAPI.ping()) {
                 return false;

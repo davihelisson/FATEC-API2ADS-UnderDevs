@@ -8,4 +8,3 @@ description varchar(100),
 code varchar(3000));
 
 select * from prompt;
-

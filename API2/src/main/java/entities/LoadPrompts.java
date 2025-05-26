@@ -7,16 +7,16 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
- * Carrega um prompt de um arquivo e o combina com código de usuário.
+ * Carrega prompts de arquivos e os combina com código do usuário.
  */
 public class LoadPrompts {
 
     /**
-     * Carrega um prompt de um arquivo, concatena com o código do usuário e retorna o resultado.
+     * Carrega um prompt de um arquivo e o anexa ao código do usuário.
      *
-     * @param fileName Nome do arquivo contendo o prompt.
-     * @param userCode Código do usuário a ser adicionado ao prompt.
-     * @return O prompt combinado como uma String. Retorna "" em caso de erro.
+     * @param fileName O nome do arquivo do prompt.
+     * @param userCode O código do usuário a ser anexado.
+     * @return O prompt completo. Retorna uma string vazia em caso de erro.
      */
     public static String loadPrompt(String fileName, String userCode) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -31,9 +31,5 @@ public class LoadPrompts {
             JOptionPane.showMessageDialog(null, "Erro de E/S: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return "";
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(loadPrompt("PromptUnitTest.txt", "def soma(a, b): return a + b"));
     }
 }
