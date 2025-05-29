@@ -31,7 +31,7 @@ Desenvolver um ambiente integrado de desenvolvimento (IDE) utilizando Java para 
 
 -   [x] Sprint 1 - Estrutura Básica da IDE e Integração com o Ollama para geração de Testes Unitários.
 -   [x] Sprint 2 - Fazer recomendações personalizadas de código (melhorias do código: eficiência, segurança, legibilidade).
--   [ ] Sprint 3 - Gerar documentação do código (docstrings, explicações do que o código faz).  
+-   [x] Sprint 3 - Gerar documentação do código (docstrings, explicações do que o código faz).  
 
 ## Cronograma
 
