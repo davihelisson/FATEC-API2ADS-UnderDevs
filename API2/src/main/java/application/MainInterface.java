@@ -330,6 +330,8 @@ public class MainInterface extends javax.swing.JFrame {
     private void btnImproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImproveActionPerformed
         btnImprove.setEnabled(false);
         btnCreateTest.setEnabled(false);
+        btnExplanation.setEnabled(false);
+        btnDocumentation.setEnabled(false);
         runOllama(PromptType.IMPROVEMENT, TxtPrompt.getText());
     }//GEN-LAST:event_btnImproveActionPerformed
 
@@ -363,10 +365,18 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuPromptManagerActionPerformed
 
     private void btnExplanationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExplanationActionPerformed
+        btnImprove.setEnabled(false);
+        btnCreateTest.setEnabled(false);
+        btnExplanation.setEnabled(false);
+        btnDocumentation.setEnabled(false);
         runOllama(PromptType.EXPLANATION, TxtPrompt.getText());
     }//GEN-LAST:event_btnExplanationActionPerformed
 
     private void btnDocumentationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocumentationActionPerformed
+        btnImprove.setEnabled(false);
+        btnCreateTest.setEnabled(false);
+        btnExplanation.setEnabled(false);
+        btnDocumentation.setEnabled(false);
         runOllama(PromptType.DOCUMENTATION, TxtPrompt.getText());
     }//GEN-LAST:event_btnDocumentationActionPerformed
 
@@ -463,25 +473,13 @@ public class MainInterface extends javax.swing.JFrame {
             String result = ollamaInterface.GenerateTest(promptWithCode);
 
             if (!result.isEmpty()) {
-                if (promptType == promptType.EXPLANATION) {
+                if (promptType == PromptType.EXPLANATION) {
                     OutputUI ou = new OutputUI(this, title, result);
                     ou.setVisible(true);
                 } else {
                     OutputTest telaSaida = new OutputTest(this, new CurrentFile(), FileOptions.SOURCE, title);
                     telaSaida.setContent(result);
                     telaSaida.setTitle("Output " + currentFile.getFileName());
-                    telaSaida.addWindowListener(new WindowAdapter() {
-                        @Override
-                        public void windowClosed(java.awt.event.WindowEvent e) {
-                            btnCreateTest.setEnabled(true);
-                            btnImprove.setEnabled(true);
-                        }
-
-                        @Override
-                        public void windowClosing(java.awt.event.WindowEvent e) {
-                            telaSaida.dispose();
-                        }
-                    });
                     telaSaida.setVisible(true);
                 }
             }
@@ -498,6 +496,8 @@ public class MainInterface extends javax.swing.JFrame {
         } finally {
             btnImprove.setEnabled(true);
             btnCreateTest.setEnabled(true);
+            btnExplanation.setEnabled(true);
+            btnDocumentation.setEnabled(true);
         }
     }
 
@@ -545,6 +545,8 @@ public class MainInterface extends javax.swing.JFrame {
     private void btnCreateTestActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSalvar2ActionPerformed
         btnImprove.setEnabled(false);
         btnCreateTest.setEnabled(false);
+        btnExplanation.setEnabled(false);
+        btnDocumentation.setEnabled(false);
         runOllama(PromptType.UNITTEST, TxtPrompt.getText());
     }
 
